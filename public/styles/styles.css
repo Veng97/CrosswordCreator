@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.controls {
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    min-width: 100px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    height: 40px; /* Set a consistent height for input, select, and button */
+    margin: 5px; /* Add some margin for spacing */
+}
+
+button {
+    background-color: #90EE90; /* Light green background color */
+    border: 1px solid #76C76B; /* Slightly darker green border */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+button:hover {
+    background-color: #76C76B; /* Darker green on hover */
+}
+
+.grid {
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90vw;
+    height: 70vh;
+    gap: 2px;
+    aspect-ratio: 1 / 1;
+}
+
+.cell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    background-color: white;
+    aspect-ratio: 1 / 1;
+}
+
+.cell input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: max(0.1em, 1.5vw);
+}
+
+.cell input:focus {
+    outline: none;
+}
+
+.cell.empty {
+    background-color: black;
+}
+
+.cell.highlight {
+    background-color: greenyellow;
+}

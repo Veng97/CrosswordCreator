@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crossword Puzzle Maker</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+  <h1>Crossword Puzzle Maker</h1>
+
+  <div id="file-controls" class="controls">
+    <select id="json-file-select">
+      <!-- Options will be populated dynamically -->
+    </select>
+    <button id="load-json-file">Load</button>
+    <button id="save-json-file">Save</button>
+  </div>
+
+  <div id="grid-controls" class="controls">
+    <button id="add-row">Add Row</button>
+    <button id="add-column">Add Column</button>
+    <button id="remove-row">Remove Row</button>
+    <button id="remove-column">Remove Column</button>
+  </div>
+
+  <div id="word-controls" class="controls">
+    <input id="word-search" type="text" placeholder="Word to search"/>
+    <button id="word-search-btn">Search</button>
+  </div>
+
+  <div id="grid-container" class="grid"></div>
+
+  <script type="module" src="/scripts/main.js"></script>
+</body>
+
+</html>
