@@ -1,6 +1,5 @@
 import { loadGridData, saveGridData, generateEmptyGrid, addToGrid, removeFromGrid, selectGridData } from './grid.js';
-import { highlightWordLocations, countWordLocations, clearHighlights } from './highlight.js';
-
+import { highlightWordLocations, clearHighlights } from './highlight.js';
 import { loadDictionary, addDictionaryEntry, refreshDictionaryLocations } from './dictionary.js';
 
 const gridContainer = document.getElementById('grid-container');
