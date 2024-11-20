@@ -5,14 +5,14 @@ export let dictionaryData = [];
 const DICTIONARY_LOAD_URL = '/dictionary/load';
 const DICTIONARY_SAVE_URL = '/dictionary/save';
 
-export async function loadDictionary(dictionaryEntries) {
+export async function loadDictionary(gridContainer, dictionaryEntries) {
     try {
         const response = await fetch(DICTIONARY_LOAD_URL);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         dictionaryData = await response.json();
-        drawDictionary(dictionaryEntries);
+        drawDictionary(gridContainer, dictionaryEntries);
     } catch (error) {
         console.error('Error loading dictionary:', error);
     }
@@ -37,11 +37,11 @@ export async function saveDictionary() {
     }
 }
 
-export async function addDictionaryEntry(dictionaryEntries, word) {
+export async function addDictionaryEntry(gridContainer, dictionaryEntries, word) {
     if (!word) return; // Don't add empty strings
     if (dictionaryData.includes(word)) return; // Don't add duplicates
     dictionaryData.push(word);
-    drawDictionaryEntry(dictionaryEntries, word); // Draw only the new entry
+    drawDictionaryEntry(gridContainer, dictionaryEntries, word); // Draw only the new entry
     saveDictionary();
 }
 
@@ -51,9 +51,9 @@ export async function deleteDictionaryEntry(dictionaryEntries, word) {
     saveDictionary();
 }
 
-export async function drawDictionary(dictionaryEntries) {
+export async function drawDictionary(gridContainer, dictionaryEntries) {
     dictionaryEntries.innerHTML = '';
-    dictionaryData.forEach(word => drawDictionaryEntry(dictionaryEntries, word));
+    dictionaryData.forEach(word => drawDictionaryEntry(gridContainer, dictionaryEntries, word));
 }
 
 export async function refreshDictionaryLocations(gridContainer, dictionaryEntries) {    
@@ -65,14 +65,17 @@ export async function refreshDictionaryLocations(gridContainer, dictionaryEntrie
     });
 }
 
-function drawDictionaryEntry(dictionaryEntries, word) {
+function drawDictionaryEntry(gridContainer, dictionaryEntries, word) {
     const li = document.createElement('li');
 
     // Create the remove button and position it to the left
     const removeButton = document.createElement('button');
     removeButton.textContent = 'X';
-    removeButton.addEventListener('click', () => deleteDictionaryEntry(dictionaryEntries, word));
-    
+    removeButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the parent click event from being triggered
+        deleteDictionaryEntry(dictionaryEntries, word);
+    });
+
     // Create the span to display the location count
     const locationCount = document.createElement('span');
     locationCount.className = 'count';
@@ -83,6 +86,9 @@ function drawDictionaryEntry(dictionaryEntries, word) {
     wordText.className = 'word';
     wordText.textContent = word;
 
+    // Add click event listener to the li element
+    li.addEventListener('click', () => highlightWordLocations(gridContainer, word));
+    
     li.appendChild(removeButton);
     li.appendChild(wordText);
     li.appendChild(locationCount);

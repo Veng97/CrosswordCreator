@@ -1,7 +1,10 @@
 // Clear all highlights from the grid container
 export function clearHighlights(gridContainer) {
-    const highlightedCells = gridContainer.querySelectorAll('.cell.highlight');
-    highlightedCells.forEach(cell => cell.classList.remove('highlight-horizontal highlight-vertical'));
+    const highlightedCells = gridContainer.querySelectorAll('.cell');
+    highlightedCells.forEach(cell => {
+        cell.classList.remove('highlight-horizontal');
+        cell.classList.remove('highlight-vertical');
+    });
 }
 
 // Find all possible locations for a word in the grid

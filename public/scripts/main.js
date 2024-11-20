@@ -30,7 +30,7 @@ wordSearch.addEventListener('input', () => clearHighlights(gridContainer));
 // Dictionary controls
 const dictionaryEntry = document.getElementById('dictionary-entry');
 const dictionaryEntries = document.getElementById('dictionary-entries');
-document.getElementById('dictionary-entry-btn').addEventListener('click', () => addDictionaryEntry(dictionaryEntries, dictionaryEntry.value));
-loadDictionary(dictionaryEntries); // Load dictionary entries (on page load)
+document.getElementById('dictionary-entry-btn').addEventListener('click', () => addDictionaryEntry(gridContainer, dictionaryEntries, dictionaryEntry.value));
+loadDictionary(gridContainer, dictionaryEntries); // Load dictionary entries (on page load)
 
 const intervalId = setInterval(() => refreshDictionaryLocations(gridContainer, dictionaryEntries), 1000);
