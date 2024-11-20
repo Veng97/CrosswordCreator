@@ -10,39 +10,37 @@
 
 <body>
   <div class="container">
+    <div id="dictionary-tab">
+      <div id="dictionary-controls" class="controls">
+        <input id="dictionary-entry" type="text" placeholder="Add word" />
+        <button id="dictionary-entry-btn">Add</button>
+      </div>
+      <ul id="dictionary-entries"></ul>
+    </div>
 
-  <div id="dictionary-tab">
-    <div id="dictionary-controls" class="controls">
-      <input id="dictionary-entry" type="text" placeholder="Add word"/>
-      <button id="dictionary-entry-btn">Add</button>
-    </div>
-    <ul id="dictionary-entries"></ul>
-  </div>
+    <div id="puzzle-tab">
+      <div id="file-controls" class="controls">
+        <select id="select-grid-file">
+          <!-- Options will be populated dynamically -->
+        </select>
+        <button id="load-grid-file">Load</button>
+        <button id="save-grid-file">Save</button>
+      </div>
 
-  <div id="puzzle-tab">  
-    <div id="file-controls" class="controls">
-      <select id="select-grid-file">
-        <!-- Options will be populated dynamically -->
-      </select>
-      <button id="load-grid-file">Load</button>
-      <button id="save-grid-file">Save</button>
-    </div>
-  
-    <div id="grid-controls" class="controls">
-      <button id="add-row">Add Row</button>
-      <button id="add-column">Add Column</button>
-      <button id="remove-row">Remove Row</button>
-      <button id="remove-column">Remove Column</button>
-    </div>
-  
-    <div id="word-controls" class="controls">
-      <input id="word-search" type="text" placeholder="Word to search"/>
-      <button id="word-search-btn">Search</button>
-    </div>
-  
-    <div id="grid-container" class="grid"></div>
-  </div>
+      <div id="grid-controls" class="controls">
+        <button id="add-row">Add Row</button>
+        <button id="add-column">Add Column</button>
+        <button id="remove-row">Remove Row</button>
+        <button id="remove-column">Remove Column</button>
+      </div>
 
+      <div id="word-controls" class="controls">
+        <input id="word-search" type="text" placeholder="Word to search" />
+        <button id="word-search-btn">Search</button>
+      </div>
+
+      <div id="grid-container" class="grid"></div>
+    </div>
   </div>
 
   <script type="module" src="/scripts/main.js"></script>

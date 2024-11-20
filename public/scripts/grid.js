@@ -4,10 +4,15 @@ export function drawGrid(gridContainer) {
     const gridWidth = gridData[0].length;
     const gridHeight = gridData.length;
 
-    gridContainer.innerHTML = '';
+    // Set styling to wrap table
     gridContainer.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
     gridContainer.style.gridTemplateRows = `repeat(${gridHeight}, 1fr)`;
-
+    
+    // Set width and height attributes on the grid container
+    gridContainer.setAttribute('width', gridWidth);
+    gridContainer.setAttribute('height', gridHeight);
+    
+    gridContainer.innerHTML = '';
     gridData.forEach((row, rowIndex) => {
         row.forEach((cellValue, colIndex) => {
             const cell = document.createElement('div');
@@ -23,7 +28,6 @@ export function drawGrid(gridContainer) {
 
             // Format input on change 
             input.addEventListener('input', () => {
-                console.log('input.value:', input.value);
                 input.value = input.value.toUpperCase();
                 gridData[rowIndex][colIndex] = input.value;
                 if (input.value === '#') {
@@ -75,7 +79,7 @@ export function drawGrid(gridContainer) {
     });
 }
 
-export function generateGrid(gridContainer, width, height) {
+export function generateEmptyGrid(gridContainer, width, height) {
     gridData = Array.from({ length: height }, () => Array(width).fill(''));
     drawGrid(gridContainer);
 }

@@ -8,16 +8,16 @@
 /* Page layout */
 body {
     height: 100%;
+    width: 100%;
     font-family: Arial, sans-serif;
     text-align: center;
-    display: flex;
-    flex-direction: column;
 }
 
 .container {
     display: flex;
     height: 100%;
     width: 100%;
+    max-height: 100vh; 
 }
 
 #dictionary-tab {
@@ -33,7 +33,6 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    max-height: 100vh;
 }
 
 /* General styles for controls */
@@ -67,7 +66,7 @@ button:hover {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 50px;
-    max-width: 90vw;
+    max-width: 95%;
     overflow: auto;
     aspect-ratio: 1 / 1;
 }
@@ -79,6 +78,7 @@ button:hover {
     border: 1px solid #ccc;
     background-color: white;
     aspect-ratio: 1 / 1;
+    position: relative; /* Required for pseudo-elements (highlights) */
 }
 
 .cell input {
@@ -98,8 +98,26 @@ button:hover {
     background-color: black;
 }
 
-.cell.highlight {
-    background-color: greenyellow;
+.cell.highlight-vertical::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background-color: rgba(218, 165, 32, 0.3);
+    transform: translateX(-50%);
+}
+
+.cell.highlight-horizontal::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 4px;
+    background-color: rgba(138, 43, 226, 0.3);
+    transform: translateY(-50%);
 }
 
 /* Styles for dictionary controls */

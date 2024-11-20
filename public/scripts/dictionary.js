@@ -35,32 +35,32 @@ export async function saveDictionary() {
     }
 }
 
-export async function addDictionaryEntry(dictionaryEntries, value) {
-    if (!value) return; // Don't add empty strings
-    if (dictionaryData.includes(value)) return; // Don't add duplicates
-    dictionaryData.push(value);
-    drawDictionaryEntry(dictionaryEntries, value); // Draw only the new entry
+export async function addDictionaryEntry(dictionaryEntries, word) {
+    if (!word) return; // Don't add empty strings
+    if (dictionaryData.includes(word)) return; // Don't add duplicates
+    dictionaryData.push(word);
+    drawDictionaryEntry(dictionaryEntries, word); // Draw only the new entry
     saveDictionary();
 }
 
-export async function deleteDictionaryEntry(dictionaryEntries, value) {
-    dictionaryData = dictionaryData.filter(word => word !== value);
+export async function deleteDictionaryEntry(dictionaryEntries, word) {
+    dictionaryData = dictionaryData.filter(data => data !== word);
     drawDictionary(dictionaryEntries);
     saveDictionary();
 }
 
 export async function drawDictionary(dictionaryEntries) {
     dictionaryEntries.innerHTML = '';
-    dictionaryData.forEach(value => drawDictionaryEntry(dictionaryEntries, value));
+    dictionaryData.forEach(word => drawDictionaryEntry(dictionaryEntries, word));
 }
 
-function drawDictionaryEntry(dictionaryEntries, value) {
+function drawDictionaryEntry(dictionaryEntries, word) {
     const li = document.createElement('li');
-    li.textContent = value;
+    li.textContent = word;
 
     const removeButton = document.createElement('button');
     removeButton.textContent = 'X';
-    removeButton.addEventListener('click', () => deleteDictionaryEntry(dictionaryEntries, value));
+    removeButton.addEventListener('click', () => deleteDictionaryEntry(dictionaryEntries, word));
     li.appendChild(removeButton);
 
     dictionaryEntries.appendChild(li);

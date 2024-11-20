@@ -1,4 +1,4 @@
-import { generateGrid, addToGrid, removeFromGrid, selectGridData, loadGridData, saveGridData } from './grid.js';
+import { loadGridData, saveGridData, generateEmptyGrid, addToGrid, removeFromGrid, selectGridData } from './grid.js';
 import { highlightWords, clearHighlights } from './highlight.js';
 
 import { loadDictionary, addDictionaryEntry } from './dictionary.js';
@@ -6,16 +6,13 @@ import { loadDictionary, addDictionaryEntry } from './dictionary.js';
 const gridContainer = document.getElementById('grid-container');
 
 // Load empty grid
-generateGrid(gridContainer, 10, 10);
+generateEmptyGrid(gridContainer, 10, 10);
 
 // Grid controls
 document.getElementById('add-row').addEventListener('click', () => addToGrid(gridContainer, 'row'));
 document.getElementById('add-column').addEventListener('click', () => addToGrid(gridContainer, 'column'));
 document.getElementById('remove-row').addEventListener('click', () => removeFromGrid(gridContainer, 'row'));
 document.getElementById('remove-column').addEventListener('click', () => removeFromGrid(gridContainer, 'column'));
-
-// Function to populate the dropdown with JSON files
-
 
 // File controls
 const gridSelector = document.getElementById('select-grid-file');
