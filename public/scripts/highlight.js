@@ -36,7 +36,7 @@ export function findPossibleLocations(cellArray, word) {
 }
 
 // Highlight all possible locations of a word in the grid
-export function highlightWords(gridContainer, word) {
+export function highlightWordLocations(gridContainer, word) {
     clearHighlights(gridContainer);
 
     if (!word) return
@@ -46,8 +46,18 @@ export function highlightWords(gridContainer, word) {
     possibleLocations.forEach(location => highlightWord(cellArray, word, location));
 }
 
+// Count all possible locations of a word in the grid
+export function countWordLocations(gridContainer, word) {
+    if (!word) return 0
+    
+    const cellArray = toCellArray(gridContainer);
+    const possibleLocations = findPossibleLocations(cellArray, word)
+    
+    return possibleLocations.length;
+}
+
 // Helper to check if a word can be placed at a specific location
-function canPlaceWord(cellArray, word, location) {
+export function canPlaceWord(cellArray, word, location) {
     const { row, col, dir } = location;
     for (let i = 0; i < word.length; i++) {
         const cell = dir === 'horizontal' ? cellArray[row][col + i] : cellArray[row + i][col];
@@ -59,7 +69,7 @@ function canPlaceWord(cellArray, word, location) {
 }
 
 // Helper to highlight a word at a specific location
-function highlightWord(cellArray, word, location) {
+export function highlightWord(cellArray, word, location) {
     const { row, col, dir } = location;
     for (let i = 0; i < word.length; i++) {
         const cell = dir === 'horizontal' ? cellArray[row][col + i] : cellArray[row + i][col];
@@ -68,7 +78,7 @@ function highlightWord(cellArray, word, location) {
 }
 
 // Convert the grid container into a 2D array of cells
-function toCellArray(gridContainer) {
+export function toCellArray(gridContainer) {
     const rows = parseInt(gridContainer.getAttribute('width'));
     const cols = parseInt(gridContainer.getAttribute('height'));
     const grid = Array.from(gridContainer.querySelectorAll('.cell input'));

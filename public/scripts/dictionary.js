@@ -1,3 +1,5 @@
+import { highlightWordLocations, countWordLocations } from './highlight.js';
+
 export let dictionaryData = [];
 
 const DICTIONARY_LOAD_URL = '/dictionary/load';
@@ -54,14 +56,36 @@ export async function drawDictionary(dictionaryEntries) {
     dictionaryData.forEach(word => drawDictionaryEntry(dictionaryEntries, word));
 }
 
+export async function refreshDictionaryLocations(gridContainer, dictionaryEntries) {    
+    dictionaryEntries.querySelectorAll('li').forEach((element) => {
+        // Update the location count
+        const wordElement = element.querySelector('.word');
+        const countElement = element.querySelector('.count');
+        countElement.textContent = countWordLocations(gridContainer, wordElement.textContent);
+    });
+}
+
 function drawDictionaryEntry(dictionaryEntries, word) {
     const li = document.createElement('li');
-    li.textContent = word;
 
+    // Create the remove button and position it to the left
     const removeButton = document.createElement('button');
     removeButton.textContent = 'X';
     removeButton.addEventListener('click', () => deleteDictionaryEntry(dictionaryEntries, word));
+    
+    // Create the span to display the location count
+    const locationCount = document.createElement('span');
+    locationCount.className = 'count';
+    locationCount.textContent = '0';
+
+    // Add the word as the text content of the li
+    const wordText = document.createElement('span');
+    wordText.className = 'word';
+    wordText.textContent = word;
+
     li.appendChild(removeButton);
+    li.appendChild(wordText);
+    li.appendChild(locationCount);
 
     dictionaryEntries.appendChild(li);
 }
