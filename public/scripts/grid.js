@@ -128,11 +128,29 @@ export async function saveGridData(gridContainer, url) {
             body: JSON.stringify(gridData)
         });
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP Error! Status: ${response.status}`);
         }
         const result = await response.text();
         alert(result);
     } catch (error) {
-        console.error('Error saving grid data:', error);
+        console.error('Error saving grid:', error);
+    }
+}
+
+export async function selectGridData(gridSelector) {
+    try {
+        const response = await fetch('/puzzle-options');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const files = await response.json();
+        files.forEach(file => {
+            const option = document.createElement('option');
+            option.value = file;
+            option.textContent = file;
+            gridSelector.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading JSON file list:', error);
     }
 }

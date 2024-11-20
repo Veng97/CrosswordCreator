@@ -1,11 +1,9 @@
-import { generateGrid, addToGrid, removeFromGrid, loadGridData, saveGridData } from './grid.js';
+import { generateGrid, addToGrid, removeFromGrid, selectGridData, loadGridData, saveGridData } from './grid.js';
 import { highlightWords, clearHighlights } from './highlight.js';
 
+import { loadDictionary, addToDictionary } from './dictionary.js';
+
 const gridContainer = document.getElementById('grid-container');
-const jsonFileSelect = document.getElementById('json-file-select');
-const loadJsonFileButton = document.getElementById('load-json-file');
-const saveJsonFileButton = document.getElementById('save-json-file');
-const wordSearch = document.getElementById('word-search');
 
 // Load empty grid
 generateGrid(gridContainer, 10, 10);
@@ -17,29 +15,24 @@ document.getElementById('remove-row').addEventListener('click', () => removeFrom
 document.getElementById('remove-column').addEventListener('click', () => removeFromGrid(gridContainer, 'column'));
 
 // Function to populate the dropdown with JSON files
-async function populateJsonFileSelect() {
-    try {
-        const response = await fetch('/puzzle-options');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const files = await response.json();
-        files.forEach(file => {
-            const option = document.createElement('option');
-            option.value = file;
-            option.textContent = file;
-            jsonFileSelect.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Error loading JSON file list:', error);
-    }
-}
-populateJsonFileSelect();
+
 
 // File controls
-loadJsonFileButton.addEventListener('click', () => loadGridData(gridContainer, `/puzzles/load/${jsonFileSelect.value}`));
-saveJsonFileButton.addEventListener('click', async () => saveGridData(gridContainer, `/puzzles/save/${jsonFileSelect.value}`)); 
+const gridSelector = document.getElementById('select-grid-file');
+const loadGridBtn = document.getElementById('load-grid-file');
+const saveGridBtn = document.getElementById('save-grid-file');
+loadGridBtn.addEventListener('click', () => loadGridData(gridContainer, `/puzzles/load/${gridSelector.value}`));
+saveGridBtn.addEventListener('click', async () => saveGridData(gridContainer, `/puzzles/save/${gridSelector.value}`)); 
+selectGridData(gridSelector); // Populates dropdown with JSON files (on page load)
 
 // Word controls
+const wordSearch = document.getElementById('word-search');
 document.getElementById('word-search-btn').addEventListener('click', () => highlightWords(gridContainer, wordSearch));
 wordSearch.addEventListener('input', () => clearHighlights(gridContainer));
+
+// Dictionary controls
+const dictionaryEntry = document.getElementById('dictionary-entry');
+const dictionaryEntries = document.getElementById('dictionary-entries');
+document.getElementById('dictionary-entry-btn').addEventListener('click', () => addToDictionary(dictionaryEntries, dictionaryEntry));
+loadDictionary(dictionaryEntries); // Load dictionary entries (on page load)
+

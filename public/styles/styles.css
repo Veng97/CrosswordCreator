@@ -5,6 +5,7 @@
     user-select: none;
 }
 
+/* Page layout */
 body {
     height: 100%;
     font-family: Arial, sans-serif;
@@ -35,12 +36,13 @@ body {
     max-height: 100vh;
 }
 
+/* General styles for controls */
 .controls {
     margin-bottom: 20px;
 }
 
 .controls input, .controls select, .controls button {
-    min-width: 100px;
+    min-width: 50px;
     padding: 8px 15px;
     font-size: 14px;
     cursor: pointer;
@@ -59,6 +61,7 @@ button:hover {
     background-color: #76C76B; /* Darker green on hover */
 }
 
+/* Styles for grid and cells */
 .grid {
     display: grid;
     margin-left: auto;
@@ -97,4 +100,39 @@ button:hover {
 
 .cell.highlight {
     background-color: greenyellow;
+}
+
+/* Styles for dictionary controls */
+#dictionary-controls {
+    display: flex;
+    gap: 10px;
+}
+
+#dictionary-controls input {
+    flex: 1; /* Allow the input to grow and fill the available space */
+}
+
+#dictionary-controls button {
+    flex-shrink: 0; /* Prevent the button from shrinking */
+}
+
+/* Styles for dictionary entries */
+#dictionary-entries {
+    flex: 1;
+    overflow-y: auto;
+}
+
+#dictionary-entries li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+#dictionary-entries li button {
+    background: none;
+    border: none;
+    cursor: pointer;
 }

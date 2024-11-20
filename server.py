@@ -2,6 +2,8 @@ from flask import Flask, request, send_file, send_from_directory, jsonify
 import os
 import json
 import requests
+from bs4 import BeautifulSoup
+import regex
 
 app = Flask(__name__)
 
@@ -39,13 +41,13 @@ def puzzle_save(filename):
     try:
         with open(os.path.join(PUZZLES_DIR, filename), 'w') as f:
             json.dump(request.json, f, indent=2)
-        return f'Puzzle saved to {filename}', 200
+        return f'Puzzle saved to {filename}!', 200
     except Exception as e:
         print(f'Error saving puzzle file: {e}')
         return 'Error saving puzzle file', 500
 
 @app.route('/dictionary/load')
-def dictionary_load(filename):
+def dictionary_load():
     try:
         return send_file(DICTIONARY_PATH, mimetype='application/json')
     except Exception as e:
@@ -53,25 +55,49 @@ def dictionary_load(filename):
         return 'Error loading dictionary file', 500
 
 @app.route('/dictionary/save', methods=['POST'])
-def dictionary_save(filename):
+def dictionary_save():
     try:
         with open(DICTIONARY_PATH, 'w') as f:
             json.dump(request.json, f, indent=2)
-        return f'Dictionary saved to {filename}', 200
+        return f'Dictionary saved!', 200
     except Exception as e:
         print(f'Error saving dictionary file: {e}')
         return 'Error saving dictionary file', 500
-    
 
-# @app.route('suggestion/help/<word>')
-# def suggestion_help(word):
+@app.route('/suggestion/<word>/<pattern>')
+def suggestion(word, pattern):
     # Make a request to the krydsordexperten.dk website
     # https://krydsordexperten.dk/krydsord/<word>
-    # try:
-    #     response = requests.get(f"https://krydsordexperten.dk/krydsord/{word}")
-    #     return response.text, response.status_code
-    # except Exception as e:
-    #     return jsonify({"error": str(e)}), 500
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Referer': 'http://google.com',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'DNT': '1',
+    }
+
+    words: list[str] = []
+
+    try:
+        response = requests.get(f"https://krydsordexperten.dk/krydsord/{word}/{pattern}?", headers=headers)
+        # print(response.text)
+
+        # Parse the HTML
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        # Find specific divs by class name or ID
+        solution_items = soup.find_all("div", class_="solution-item")
+        for item in solution_items:
+            characters = item.find_all("div", class_="character")
+            word_with_numbers = ''.join([character.text for character in characters])
+            words.append(regex.sub(r'\d+', '', word_with_numbers))
+
+        return words, 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
     
 if __name__ == '__main__':
