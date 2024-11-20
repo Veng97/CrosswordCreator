@@ -1,7 +1,7 @@
 import { generateGrid, addToGrid, removeFromGrid, selectGridData, loadGridData, saveGridData } from './grid.js';
 import { highlightWords, clearHighlights } from './highlight.js';
 
-import { loadDictionary, addToDictionary } from './dictionary.js';
+import { loadDictionary, addDictionaryEntry } from './dictionary.js';
 
 const gridContainer = document.getElementById('grid-container');
 
@@ -27,12 +27,12 @@ selectGridData(gridSelector); // Populates dropdown with JSON files (on page loa
 
 // Word controls
 const wordSearch = document.getElementById('word-search');
-document.getElementById('word-search-btn').addEventListener('click', () => highlightWords(gridContainer, wordSearch));
+document.getElementById('word-search-btn').addEventListener('click', () => highlightWords(gridContainer, wordSearch.value));
 wordSearch.addEventListener('input', () => clearHighlights(gridContainer));
 
 // Dictionary controls
 const dictionaryEntry = document.getElementById('dictionary-entry');
 const dictionaryEntries = document.getElementById('dictionary-entries');
-document.getElementById('dictionary-entry-btn').addEventListener('click', () => addToDictionary(dictionaryEntries, dictionaryEntry));
+document.getElementById('dictionary-entry-btn').addEventListener('click', () => addDictionaryEntry(dictionaryEntries, dictionaryEntry.value));
 loadDictionary(dictionaryEntries); // Load dictionary entries (on page load)
 

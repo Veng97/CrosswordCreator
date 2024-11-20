@@ -3,10 +3,10 @@ export function clearHighlights(gridContainer) {
     highlightedCells.forEach(cell => cell.classList.remove('highlight'));
 }
 
-export function highlightWords(gridContainer, wordSearch) {
+export function highlightWords(gridContainer, value) {
     clearHighlights(gridContainer);
 
-    const word = wordSearch.value.toUpperCase();
+    const word = value.toUpperCase();
     const rows = Math.sqrt(gridContainer.children.length);
     const cols = rows;
     const grid = Array.from(gridContainer.querySelectorAll('.cell input'));
