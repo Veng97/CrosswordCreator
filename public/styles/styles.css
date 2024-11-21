@@ -46,7 +46,6 @@ body {
     font-size: 14px;
     cursor: pointer;
     height: 40px; /* Set a consistent height for input, select, and button */
-    margin: 5px; /* Add some margin for spacing */
 }
 
 button {
@@ -118,6 +117,11 @@ button:hover {
     height: 4px;
     background-color: rgba(138, 43, 226, 0.3);
     transform: translateY(-50%);
+}
+
+/* Styles for dictionary word add */
+#word-add {
+    width: 100%;
 }
 
 /* Styles for dictionary list */
