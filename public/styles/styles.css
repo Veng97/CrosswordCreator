@@ -120,27 +120,13 @@ button:hover {
     transform: translateY(-50%);
 }
 
-/* Styles for dictionary controls */
-#dictionary-controls {
-    display: flex;
-    gap: 10px;
-}
-
-#dictionary-controls input {
-    flex: 1; /* Allow the input to grow and fill the available space */
-}
-
-#dictionary-controls button {
-    flex-shrink: 0; /* Prevent the button from shrinking */
-}
-
-/* Styles for dictionary entries */
-#dictionary-entries {
+/* Styles for dictionary list */
+#dictionary-list {
     flex: 1;
     overflow-y: auto;
 }
 
-#dictionary-entries li {
+#dictionary-list li {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -149,18 +135,18 @@ button:hover {
     position: relative;
 }
 
-#dictionary-entries li button {
+#dictionary-list li button {
     background: none;
     border: none;
     cursor: pointer;
 }
 
-#dictionary-entries li .count::before {
+#dictionary-list li .count::before {
     content: '[ ';
     position: relative;
 }
 
-#dictionary-entries li .count::after {
+#dictionary-list li .count::after {
     content: ' ]';
     position: relative;
 }

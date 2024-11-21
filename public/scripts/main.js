@@ -1,12 +1,16 @@
 // import { loadGridData, saveGridData, generateEmptyGrid, addToGrid, removeFromGrid, selectGridData } from './grid.js';
 import { Grid } from './grid.js';
-import { Highlight } from './highlight.js';
-// import { highlightWordLocations, clearHighlights } from './highlight.js';
-// import { loadDictionary, addDictionaryEntry, refreshDictionaryLocations } from './dictionary.js';
+import { Search } from './search.js';
+import { Dictionary } from './dictionary.js';
 
 // Initialize objects
 const grid = new Grid('grid-container');
-const highlight = new Highlight(grid);
+const search = new Search(grid);
+const dictionary = new Dictionary('dictionary-list', grid, search);
+
+// Register callbacks
+grid.onChanges(() => search.clearHighlights());
+grid.onChanges(() => dictionary.updateWordCounts());
 
 // Grid controls
 document.getElementById('add-row').addEventListener('click', () => grid.addRow());
@@ -24,17 +28,19 @@ grid.populateFileSelector(fileSelector); // Populates dropdown with JSON files (
 
 // Word controls
 const wordSearch = document.getElementById('word-search');
-wordSearch.addEventListener('input', () => highlight.clearHighlights());
+wordSearch.addEventListener('input', () => search.clearHighlights());
 wordSearch.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
-        highlight.highlightWordLocations(wordSearch.value);
+        search.highlightWordLocations(wordSearch.value);
     }
 });
 
-// // Dictionary controls
-// const dictionaryEntry = document.getElementById('dictionary-entry');
-// const dictionaryEntries = document.getElementById('dictionary-entries');
-// document.getElementById('dictionary-entry-btn').addEventListener('click', () => addDictionaryEntry(gridContainer, dictionaryEntries, dictionaryEntry.value));
-// loadDictionary(gridContainer, dictionaryEntries); // Load dictionary entries (on page load)
-
-// const intervalId = setInterval(() => refreshDictionaryLocations(gridContainer, dictionaryEntries), 1000);
+// Dictionary controls
+const wordAdd = document.getElementById('word-add');
+wordAdd.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        dictionary.addWord(wordAdd.value)
+        wordAdd.value = ''; // Clear input field
+    }
+});
+dictionary.loadFile(); // Load dictionary entries (on page load)

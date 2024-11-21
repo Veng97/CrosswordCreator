@@ -1,5 +1,5 @@
 
-export class Highlight {
+export class Search {
     constructor(grid) {
         this.grid = grid;
     }
@@ -45,12 +45,6 @@ export class Highlight {
         return possibleLocations;
     }
 
-    clearHighlights() {
-        this.grid.cells().forEach(cell => {
-            cell.classList.remove('highlight-horizontal', 'highlight-vertical');
-        });
-    }
-
     checkWord(word, location) {
         const { row, col, dir } = location;
         if (dir === 'horizontal') {
@@ -75,6 +69,13 @@ export class Highlight {
             }
         }
         return true;
+    }
+
+    clearHighlights() {
+        console.log('Clearing highlights');
+        this.grid.cells().forEach(cell => {
+            cell.classList.remove('highlight-horizontal', 'highlight-vertical');
+        });
     }
 
     highlightWord(word, location) {
