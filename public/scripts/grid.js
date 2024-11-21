@@ -8,16 +8,9 @@ export class Grid {
 
     width = () => this.data[0].length;
     height = () => this.data.length;
-    cells = () => this.container.querySelectorAll('.cell');
-    // cells2D() {
-    //     const cells = Array.from(this.cells());
-        
-    //     let cellArray = [];
-    //     for (let r = 0; r < rows; r++) {
-    //         const row = cells.slice(r * cols, r * cols + cols);
-    //         cellArray.push(row);
-    //     }
-    // }
+
+    cells = () => this.container.querySelectorAll('.cell'); //this.container.children
+    cellAt = (row, col) => this.container.children[row * this.width() + col];
 
     draw() {
         // TODO: Remove this code
@@ -93,6 +86,8 @@ export class Grid {
                 this.container.appendChild(cell);
             });
         });
+
+
     }
 
     addRow() {
