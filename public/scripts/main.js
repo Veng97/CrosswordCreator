@@ -23,8 +23,12 @@ selectGridData(gridSelector); // Populates dropdown with JSON files (on page loa
 
 // Word controls
 const wordSearch = document.getElementById('word-search');
-document.getElementById('word-search-btn').addEventListener('click', () => highlightWordLocations(gridContainer, wordSearch.value));
 wordSearch.addEventListener('input', () => clearHighlights(gridContainer));
+wordSearch.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        highlightWordLocations(gridContainer, wordSearch.value);
+    }
+});
 
 // Dictionary controls
 const dictionaryEntry = document.getElementById('dictionary-entry');
