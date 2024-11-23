@@ -64,10 +64,10 @@ def dictionary_save():
         print(f'Error saving dictionary file: {e}')
         return 'Error saving dictionary file', 500
 
-@app.route('/suggestion/<word>/<pattern>')
-def suggestion(word, pattern):
-    # Make a request to the krydsordexperten.dk website
-    # https://krydsordexperten.dk/krydsord/<word>
+
+@app.route('/help/pattern/<pattern>')
+def helpPattern(pattern):
+    # Make a request to the krydsordexperten.dk website: https://krydsordexperten.dk/krydsord/<synonym>
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -82,8 +82,41 @@ def suggestion(word, pattern):
     words: list[str] = []
 
     try:
-        response = requests.get(f"https://krydsordexperten.dk/krydsord/{word}/{pattern}?", headers=headers)
-        # print(response.text)
+        response = requests.get(f"https://krydsordexperten.dk/krydsord/{pattern}", headers=headers)
+
+        # Parse the HTML
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        # Find specific divs by class name or ID
+        solution_items = soup.find_all("div", class_="solution-item")
+        for item in solution_items:
+            characters = item.find_all("div", class_="character")
+            word_with_numbers = ''.join([character.text for character in characters])
+            words.append(regex.sub(r'\d+', '', word_with_numbers))
+
+        return words, 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/help/synonym/<synonym>')
+def helpSynonym(synonym):
+    # Make a request to the krydsordexperten.dk website: https://krydsordexperten.dk/krydsord/<synonym>
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Referer': 'http://google.com',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'DNT': '1',
+    }
+
+    words: list[str] = []
+
+    try:
+        response = requests.get(f"https://krydsordexperten.dk/ord/{synonym}", headers=headers)
 
         # Parse the HTML
         soup = BeautifulSoup(response.text, "html.parser")

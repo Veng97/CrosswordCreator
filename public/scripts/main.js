@@ -8,12 +8,12 @@ import { Helper } from './helper.js';
 const grid = new Grid('grid-container');
 const search = new Search(grid);
 const dictionary = new Dictionary('dictionary-list', grid, search);
-const helper = new Helper(grid);
+const helper = new Helper('helper-list', grid, search);
 
 // Register callbacks
 grid.onChanges(() => search.clearHighlights());
 grid.onChanges(() => dictionary.updateWordCounts());
-grid.onSelected((selectedWord) => helper.searchWordPattern(selectedWord));
+grid.onSelected((selectedWord) => helper.askWord(selectedWord));
 
 // Grid controls
 document.getElementById('add-row').addEventListener('click', () => grid.addRow());
@@ -35,6 +35,14 @@ wordSearch.addEventListener('input', () => search.clearHighlights());
 wordSearch.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         search.highlightWordLocations(wordSearch.value);
+    }
+});
+
+// Helper controls
+const wordAsk = document.getElementById('word-ask');
+wordAsk.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        helper.askWord(wordAsk.value);
     }
 });
 
