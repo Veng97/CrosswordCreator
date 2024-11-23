@@ -8,7 +8,7 @@ export class Search {
         this.clearHighlights();
 
         if (!word) return
-        
+
         const possibleLocations = this.findPossibleLocations(word);
         possibleLocations.forEach(location => this.highlightWord(word, location));
     }
@@ -21,7 +21,7 @@ export class Search {
         const cols = this.grid.width();
         const rows = this.grid.height();
         const wordLength = word.length;
-        
+
         // Check for horizontal placements
         for (let r = 0; r < rows; r++) {
             for (let c = 0; c <= cols - wordLength; c++) {

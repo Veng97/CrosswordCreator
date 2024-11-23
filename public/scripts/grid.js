@@ -1,4 +1,12 @@
-// grid.js
+function debounce(callback, delay) {
+    // Debounce function to limit the rate at which a function is called. Delay is in milliseconds.
+    let timeoutId;
+    return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => callback.apply(this, args), delay);
+    };
+}
+
 export class Grid {
     constructor(id, width = 10, height = 10) {
         this.container = document.getElementById(id);
@@ -12,7 +20,7 @@ export class Grid {
     cells = () => this.container.querySelectorAll('.cell');
     cellAt = (row, col) => this.container.children[row * this.width() + col];
 
-    symbolAt(row, col) { 
+    symbolAt(row, col) {
         const entry = this.data[row][col];
         if (entry.length !== 1 | entry === '#') {
             return "_";
@@ -104,14 +112,15 @@ export class Grid {
                 this.isDragging = true;
                 this.dragStartCell = { row, col };
                 this.dragStopCell = { row, col };
+                this.selectedCells = [];
             }
         });
 
-        cell.addEventListener('mousemove', (event) => {
+        cell.addEventListener('mousemove', debounce((event) => {
             if (!this.isDragging) {
                 return;
             }
-            
+
             // Get element that matches the current mouse position
             const draggedInput = document.elementFromPoint(event.clientX, event.clientY);
             if (!draggedInput || draggedInput.tagName !== 'INPUT') {
@@ -138,37 +147,35 @@ export class Grid {
             // Update the stop cell
             this.dragStopCell.row = Math.floor(draggedIndex / this.width());
             this.dragStopCell.col = draggedIndex % this.width();
+
+            // Update selected cells (either horizontally or vertically)
+            this.selectedCells = [];
             if (Math.abs(this.dragStartCell.row - this.dragStopCell.row) > Math.abs(this.dragStartCell.col - this.dragStopCell.col)) {
                 const fromRow = Math.min(this.dragStartCell.row, this.dragStopCell.row);
                 const toRow = Math.max(this.dragStartCell.row, this.dragStopCell.row);
                 for (let i = fromRow; i <= toRow; i++) {
-                    this.cellAt(i, this.dragStartCell.col).classList.add('highlight-selected');
+                    this.selectedCells.push({ row: i, col: this.dragStartCell.col });
                 }
             } else {
                 const fromCol = Math.min(this.dragStartCell.col, this.dragStopCell.col);
                 const toCol = Math.max(this.dragStartCell.col, this.dragStopCell.col);
                 for (let i = fromCol; i <= toCol; i++) {
-                    this.cellAt(this.dragStartCell.row, i).classList.add('highlight-selected');
+                    this.selectedCells.push({ row: this.dragStartCell.row, col: i });
                 }
             }
-        });
+
+            // Highlight selected cells
+            for (let i = 0; i < this.selectedCells.length; i++) {
+                this.cellAt(this.selectedCells[i].row, this.selectedCells[i].col).classList.add('highlight-selected');
+            }
+        }, 20)); // Debounce 20ms to limit the rate of mousemove events
 
         cell.addEventListener('mouseup', (event) => {
             if (event.button === 0) { // Left mouse button
                 // Notify selected cells
                 let selectedWord = "";
-                if (Math.abs(this.dragStartCell.row - this.dragStopCell.row) > Math.abs(this.dragStartCell.col - this.dragStopCell.col)) {
-                    const fromRow = Math.min(this.dragStartCell.row, this.dragStopCell.row);
-                    const toRow = Math.max(this.dragStartCell.row, this.dragStopCell.row);
-                    for (let i = fromRow; i <= toRow; i++) {
-                        selectedWord += this.symbolAt(i, this.dragStartCell.col);
-                    }
-                } else {
-                    const fromCol = Math.min(this.dragStartCell.col, this.dragStopCell.col);
-                    const toCol = Math.max(this.dragStartCell.col, this.dragStopCell.col);
-                    for (let i = fromCol; i <= toCol; i++) {
-                        selectedWord += this.symbolAt(this.dragStartCell.row, i);
-                    }
+                for (let i = 0; i < this.selectedCells.length; i++) {
+                    selectedWord += this.symbolAt(this.selectedCells[i].row, this.selectedCells[i].col);
                 }
                 this.notifySelected(selectedWord);
 
@@ -176,6 +183,7 @@ export class Grid {
                 this.isDragging = false;
                 this.dragStartCell = null;
                 this.dragStopCell = null;
+                this.selectedCells = [];
             }
         });
 

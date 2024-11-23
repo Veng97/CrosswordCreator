@@ -17,7 +17,7 @@ body {
     display: flex;
     height: 100%;
     width: 100%;
-    max-height: 100vh; 
+    max-height: 100vh;
 }
 
 #dictionary-tab {
@@ -48,23 +48,31 @@ body {
     margin-bottom: 20px;
 }
 
-.controls input, .controls select, .controls button {
+.controls input,
+.controls select,
+.controls button {
     min-width: 50px;
     padding: 8px 15px;
     font-size: 14px;
     cursor: pointer;
-    height: 40px; /* Set a consistent height for input, select, and button */
+    /* Set a consistent height for input, select, and button */
+    height: 40px;
 }
 
 button {
-    background-color: #90EE90; /* Light green background color */
-    border: 1px solid #76C76B; /* Slightly darker green border */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    /* Light green background color */
+    background-color: #90EE90;
+    /* Slightly darker green border */
+    border: 1px solid #76C76B;
+    /* Rounded corners */
+    border-radius: 5px;
+    /* Smooth transition for background color */
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #76C76B; /* Darker green on hover */
+    background-color: #76C76B;
+    /* Darker green on hover */
 }
 
 /* Styles for grid and cells */
@@ -85,7 +93,8 @@ button:hover {
     border: 1px solid #ccc;
     background-color: white;
     aspect-ratio: 1 / 1;
-    position: relative; /* Required for pseudo-elements (highlights) */
+    /* Required for pseudo-elements (highlights) */
+    position: relative; 
 }
 
 .cell input {
