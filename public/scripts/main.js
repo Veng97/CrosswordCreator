@@ -2,15 +2,18 @@
 import { Grid } from './grid.js';
 import { Search } from './search.js';
 import { Dictionary } from './dictionary.js';
+import { Helper } from './helper.js';
 
 // Initialize objects
 const grid = new Grid('grid-container');
 const search = new Search(grid);
 const dictionary = new Dictionary('dictionary-list', grid, search);
+const helper = new Helper(grid);
 
 // Register callbacks
 grid.onChanges(() => search.clearHighlights());
 grid.onChanges(() => dictionary.updateWordCounts());
+grid.onSelected((selectedWord) => helper.searchWordPattern(selectedWord));
 
 // Grid controls
 document.getElementById('add-row').addEventListener('click', () => grid.addRow());

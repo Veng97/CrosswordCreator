@@ -72,7 +72,7 @@ export class Search {
     }
 
     clearHighlights() {
-        console.log('Clearing highlights');
+        console.log('Clearing search highlights');
         this.grid.cells().forEach(cell => {
             cell.classList.remove('highlight-horizontal', 'highlight-vertical');
         });

@@ -28,6 +28,14 @@ body {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
+#helper-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 #puzzle-tab {
     flex: 4;
     display: flex;
@@ -97,6 +105,10 @@ button:hover {
     background-color: black;
 }
 
+.cell.highlight-selected {
+    background-color: rgba(188, 218, 228, 0.418);
+}
+
 .cell.highlight-vertical::before {
     content: '';
     position: absolute;
@@ -125,12 +137,12 @@ button:hover {
 }
 
 /* Styles for dictionary list */
-#dictionary-list {
+.word-list {
     flex: 1;
     overflow-y: auto;
 }
 
-#dictionary-list li {
+.word-list li {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -139,18 +151,18 @@ button:hover {
     position: relative;
 }
 
-#dictionary-list li button {
+.word-list li button {
     background: none;
     border: none;
     cursor: pointer;
 }
 
-#dictionary-list li .count::before {
+.word-list li .count::before {
     content: '[ ';
     position: relative;
 }
 
-#dictionary-list li .count::after {
+.word-list li .count::after {
     content: ' ]';
     position: relative;
 }
