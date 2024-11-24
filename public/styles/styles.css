@@ -71,8 +71,8 @@ button {
 }
 
 button:hover {
-    background-color: #76C76B;
     /* Darker green on hover */
+    background-color: #76C76B;
 }
 
 /* Styles for grid and cells */
@@ -81,34 +81,39 @@ button:hover {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 50px;
-    max-width: 95%;
     overflow: auto;
-    aspect-ratio: 1 / 1;
+    max-width: 60vw;
+    width: 90%;
+    /* Adds a little bit of spacing to avoid overlap with scrollbar and cell borders */
+    padding-right: 2px;
 }
 
 .cell {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc;
-    aspect-ratio: 1 / 1;
-    /* Required for pseudo-elements (highlights) */
-    position: relative;
-}
-
-.cell input {
+    font-size: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    /* Fill available space, but restrict to square cells */
     width: 100%;
     height: 100%;
-    font-size: 2rem;
-    border: none;
-    text-align: center;
-    background: transparent;
-    /* Show cursor instead of caret to indicate that the cells are selectable */
+    min-width: 100px;
+    min-height: 100px;
+    aspect-ratio: 1 / 1;
+    /* Highlight grid lines */
+    border: 1px solid #ccc;
+    /* Required for pseudo-elements (highlights) */
+    position: relative;
+    /* Indicate that the cells are selectable */
     cursor: pointer;
-    caret-color: transparent;
+    /* Break word */
+    overflow-wrap: break-word; 
+    word-wrap: break-word; 
+    white-space: pre-wrap;
 }
 
-.cell input::selection {
+.cell::selection {
     /* Disable default selection background */
     background: none;
 }
@@ -144,10 +149,11 @@ button:hover {
 }
 
 .cell.hint {
-    background-color: yellow;
+    background-color: rgba(236, 236, 236, 0.5);
     /* Shrink text to fit and allow breaking lines */
-    font-size: 1.5rem;
-    word-wrap: break-word;
+    font-size: 1rem;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 /* Styles for dictionary word add */

@@ -26,14 +26,13 @@ export class Grid {
         // Update 'empty' class based on the new value
         cell.classList.toggle('empty', value === '#');
 
-        // Format input to uppercase if it's a letter
-        if (value.length === 1) {
-            value = value.toUpperCase();
-            cell.firstChild.value = value;
-        }
-
         // Mark as hint
         cell.classList.toggle('hint', value.length > 1);
+
+        // Update the cell text content if it has changed (e.g. if loaded from a file)
+        if (cell.textContent !== value) {
+            cell.textContent = value;
+        }
 
         // Update the data array with the new value
         this.data[row][col] = value;
@@ -47,37 +46,38 @@ export class Grid {
 
         this.data.forEach((elements, row) => {
             elements.forEach((value, col) => {
-                this.container.appendChild(this.drawCell(row, col));
-                this.updateEntryAt(row, col, value);
+                this.drawCell(row, col, value);
             });
         });
 
         this.notifyChanges();
     }
 
-    drawCell(row, col) {
+    drawCell(row, col, value = '') {
         const cell = document.createElement('div');
         cell.classList.add('cell');
-
-        const input = document.createElement('input');
-        input.type = 'text';
+        cell.contentEditable = true;
+        cell.spellcheck = false;
+        cell.type = 'text';
 
         // Format input on change 
-        input.addEventListener('input', () => {
-            this.updateEntryAt(row, col, input.value);
-            this.clearHighlights();
-            this.notifyChanges();
-        });
-
-        // Double click to toggle empty cell
-        input.addEventListener('dblclick', () => {
-            this.updateEntryAt(row, col, '#');
+        cell.addEventListener('input', () => {
+            this.updateEntryAt(row, col, cell.textContent);
             this.clearHighlights();
             this.notifyChanges();
         });
 
         // Arrow key navigation
-        input.addEventListener('keydown', (event) => {
+        cell.addEventListener('keydown', (event) => {
+            // Enable deleting cell content with delete or backspace keys
+            if (event.key === 'Delete' || event.key === 'Backspace') {
+                if (cell.textContent.length === 1) {
+                    this.updateEntryAt(row, col, '');
+                    this.clearHighlights();
+                    this.notifyChanges();
+                }
+            }
+
             // Go to the next cell based on the arrow key pressed
             let nextIndex;
             switch (event.key) {
@@ -103,7 +103,7 @@ export class Grid {
             }
 
             // Focus on the next cell
-            this.container.children[nextIndex].firstChild.focus();
+            this.container.children[nextIndex].focus();
 
             // Check if shift key is pressed to start cell selection
             if (event.shiftKey) {
@@ -116,41 +116,41 @@ export class Grid {
             }
         });
 
-        input.addEventListener('keyup', (event) => {
+        cell.addEventListener('keyup', (event) => {
             if (event.key === 'Shift') {
                 this.selectionStop(row, col);
             }
         });
 
         // Start cell selection on left mouse down
-        input.addEventListener('mousedown', (event) => {
+        cell.addEventListener('mousedown', (event) => {
             if (event.button === 0) {
                 this.selectionStart(row, col);
             }
         });
 
         // End cell selection on left mouse up
-        input.addEventListener('mouseup', (event) => {
+        cell.addEventListener('mouseup', (event) => {
             if (event.button === 0) {
                 this.selectionStop(row, col);
             }
         });
 
         // Update cell selection on mouse enter
-        input.addEventListener('mouseenter', () => {
+        cell.addEventListener('mouseenter', () => {
             if (this.isSelecting) {
                 this.selectionUpdate(row, col);
             }
         });
 
         // Disable default selection behavior to allow cell selection
-        input.addEventListener('dragstart', (event) => {
+        cell.addEventListener('dragstart', (event) => {
             event.preventDefault();
         });
 
-        cell.appendChild(input);
-
-        return cell;
+        // Append the cell to the grid container and trigger an update
+        this.container.appendChild(cell);
+        this.updateEntryAt(row, col, value);
     }
 
     addRow() {
@@ -227,7 +227,7 @@ export class Grid {
         for (let i = 0; i < this.container.children.length; i++) {
             this.container.children[i].classList.remove('highlight-selected');
         }
-        
+
         // Return if not selecting
         if (!this.isSelecting) return;
 
