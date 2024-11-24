@@ -98,8 +98,6 @@ button:hover {
     /* Fill available space, but restrict to square cells */
     width: 100%;
     height: 100%;
-    min-width: 100px;
-    min-height: 100px;
     aspect-ratio: 1 / 1;
     /* Highlight grid lines */
     border: 1px solid #ccc;
