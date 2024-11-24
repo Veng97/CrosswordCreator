@@ -7,8 +7,8 @@ import { Helper } from './helper.js';
 // Initialize objects
 const grid = new Grid('grid-container');
 const search = new Search(grid);
-const dictionary = new Dictionary('dictionary-list', grid, search);
-const helper = new Helper('helper-list', grid, search);
+const dictionary = new Dictionary('dictionary-list', 'dictionary-msg', grid, search);
+const helper = new Helper('helper-list', 'helper-msg', grid, search);
 
 // Register callbacks
 grid.onChanges(() => search.clearHighlights());

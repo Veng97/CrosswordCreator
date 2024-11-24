@@ -82,7 +82,7 @@ def helpPattern(pattern):
     words: list[str] = []
 
     try:
-        response = requests.get(f"https://krydsordexperten.dk/krydsord/{pattern}", headers=headers)
+        response = requests.get(f"https://krydsordexperten.dk/ord/{pattern}", headers=headers)
 
         # Parse the HTML
         soup = BeautifulSoup(response.text, "html.parser")
@@ -116,7 +116,7 @@ def helpSynonym(synonym):
     words: list[str] = []
 
     try:
-        response = requests.get(f"https://krydsordexperten.dk/ord/{synonym}", headers=headers)
+        response = requests.get(f"https://krydsordexperten.dk/krydsord/{synonym}", headers=headers)
 
         # Parse the HTML
         soup = BeautifulSoup(response.text, "html.parser")

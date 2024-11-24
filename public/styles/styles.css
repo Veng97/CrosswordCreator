@@ -104,10 +104,14 @@ button:hover {
     border: none;
     text-align: center;
     background: transparent;
+    /* Show cursor instead of caret to indicate that the cells are selectable */
+    cursor: pointer;
+    caret-color: transparent;
 }
 
-.cell input:focus {
-    outline: none;
+.cell input::selection {
+    /* Disable default selection background */
+    background: none;
 }
 
 .cell.empty {
@@ -163,6 +167,10 @@ button:hover {
 .word-list li button {
     background: none;
     border: none;
+    cursor: pointer;
+}
+
+.word-list li .word {
     cursor: pointer;
 }
 

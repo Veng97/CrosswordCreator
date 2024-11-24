@@ -2,10 +2,10 @@
 const WORD_PATTERN_URL = '/help/pattern';
 const WORD_SYNONYM_URL = '/help/synonym';
 
-
 export class Helper {
-    constructor(id, grid, search) {
-        this.list = document.getElementById(id);
+    constructor(list_id, msg_id, grid, search) {
+        this.list = document.getElementById(list_id);
+        this.msg = document.getElementById(msg_id);
         this.grid = grid;
         this.search = search;
         this.data = [];
@@ -14,13 +14,15 @@ export class Helper {
     askWord(word) {
         // If pattern contains '_' search for synonyms
         if (word.includes('_')) {
-            this.searchSynonyms(word);
-        } else {
             this.searchPattern(word);
+        } else {
+            this.searchSynonyms(word);
         }
     }
 
     async searchPattern(word) {
+        this.msg.textContent = `Searching pattern: ${word}`;
+        console.log('Searching pattern:', word);
         try {
             const response = await fetch(WORD_PATTERN_URL + '/' + word);
             if (!response.ok) {
@@ -34,6 +36,8 @@ export class Helper {
     }
 
     async searchSynonyms(word) {
+        this.msg.textContent = `Searching synonyms: ${word}`;
+        console.log('Searching synonyms:', word);
         try {
             const response = await fetch(WORD_SYNONYM_URL + '/' + word);
             if (!response.ok) {
@@ -47,6 +51,7 @@ export class Helper {
     }
 
     draw() {
+        this.msg.textContent = `${this.data.length} words found`;
         this.list.innerHTML = '';
         this.data.forEach(word => this.drawEntry(word));
     }
@@ -66,7 +71,7 @@ export class Helper {
 
         // Add click event listener to the li element
         li.addEventListener('click', () => this.search.highlightWordLocations(word));
-        
+
         li.appendChild(wordText);
         li.appendChild(wordLength);
 

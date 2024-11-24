@@ -3,8 +3,9 @@ const DICTIONARY_LOAD_URL = '/dictionary/load';
 const DICTIONARY_SAVE_URL = '/dictionary/save';
 
 export class Dictionary {
-    constructor(id, grid, search) {
-        this.list = document.getElementById(id);
+    constructor(list_id, msg_id, grid, search) {
+        this.list = document.getElementById(list_id);
+        this.msg = document.getElementById(msg_id);
         this.grid = grid;
         this.search = search;
         this.data = []; 
@@ -57,6 +58,7 @@ export class Dictionary {
     }
 
     draw() {
+        this.msg.textContent = `${this.data.length} words stored`;
         this.list.innerHTML = '';
         this.data.forEach(word => this.drawEntry(word));
     }
