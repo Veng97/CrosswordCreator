@@ -91,10 +91,9 @@ button:hover {
     align-items: center;
     justify-content: center;
     border: 1px solid #ccc;
-    background-color: white;
     aspect-ratio: 1 / 1;
     /* Required for pseudo-elements (highlights) */
-    position: relative; 
+    position: relative;
 }
 
 .cell input {

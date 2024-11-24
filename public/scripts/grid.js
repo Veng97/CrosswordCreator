@@ -17,7 +17,6 @@ export class Grid {
     width = () => this.data[0].length;
     height = () => this.data.length;
 
-    cells = () => this.container.querySelectorAll('.cell');
     cellAt = (row, col) => this.container.children[row * this.width() + col];
 
     symbolAt(row, col) {
@@ -31,7 +30,7 @@ export class Grid {
 
     draw() {
         this.container.innerHTML = '';
-        
+
         this.container.style.gridTemplateColumns = `repeat(${this.width()}, 1fr)`;
         this.container.style.gridTemplateRows = `repeat(${this.height()}, 1fr)`;
 
@@ -81,8 +80,17 @@ export class Grid {
         // Arrow key navigation
         input.addEventListener('keydown', (event) => {
             // Prevent default behavior for arrow keys
-            event.preventDefault();
-            
+            switch (event.key) {
+                case 'ArrowUp':
+                case 'ArrowDown':
+                case 'ArrowLeft':
+                case 'ArrowRight':
+                    event.preventDefault();
+                    break;
+                default:
+                    return;
+            }
+
             // Go to the next cell based on the arrow key pressed
             let currentIndex = row * this.width() + col;
             let nextIndex;
@@ -131,20 +139,20 @@ export class Grid {
             }
 
             // Get element that matches the current mouse position
-            const draggedInput = document.elementFromPoint(event.clientX, event.clientY);
-            if (!draggedInput || draggedInput.tagName !== 'INPUT') {
+            const draggedToElement = document.elementFromPoint(event.clientX, event.clientY);
+            if (!draggedToElement || draggedToElement.tagName !== 'INPUT') {
                 return;
             }
 
             // Get the index of the dragged cell
-            let draggedIndex = -1;
+            let draggedToIndex = -1;
             for (let i = 0; i < this.container.children.length; i++) {
-                if (this.container.children[i].contains(draggedInput.parentElement)) {
-                    draggedIndex = i;
+                if (this.container.children[i].contains(draggedToElement.parentElement)) {
+                    draggedToIndex = i;
                     break;
                 }
             }
-            if (draggedIndex === -1) {
+            if (draggedToIndex === -1) {
                 return;
             }
 
@@ -154,8 +162,8 @@ export class Grid {
             }
 
             // Update the stop cell
-            this.dragStopCell.row = Math.floor(draggedIndex / this.width());
-            this.dragStopCell.col = draggedIndex % this.width();
+            this.dragStopCell.row = Math.floor(draggedToIndex / this.width());
+            this.dragStopCell.col = draggedToIndex % this.width();
 
             // Update selected cells (either horizontally or vertically)
             this.selectedCells = [];

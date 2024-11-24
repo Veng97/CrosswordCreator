@@ -73,9 +73,9 @@ export class Search {
 
     clearHighlights() {
         console.log('Clearing search highlights');
-        this.grid.cells().forEach(cell => {
-            cell.classList.remove('highlight-horizontal', 'highlight-vertical');
-        });
+        for (let i = 0; i < this.grid.container.children.length; i++) {
+            this.grid.container.children[i].classList.remove('highlight-horizontal', 'highlight-vertical');
+        }
     }
 
     highlightWord(word, location) {
