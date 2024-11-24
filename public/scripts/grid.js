@@ -1,11 +1,3 @@
-function debounce(callback, delay) {
-    // Debounce function to limit the rate at which a function is called. Delay is in milliseconds.
-    let timeoutId;
-    return function (...args) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => callback.apply(this, args), delay);
-    };
-}
 
 export class Grid {
     constructor(id, width = 10, height = 10) {
@@ -19,13 +11,32 @@ export class Grid {
 
     cellAt = (row, col) => this.container.children[row * this.width() + col];
 
-    symbolAt(row, col) {
+    entryAt(row, col) {
         const entry = this.data[row][col];
-        if (entry.length !== 1 | entry === '#') {
+        if (entry.length !== 1 || entry === '#') {
             return "_";
         } else {
             return entry;
         }
+    }
+
+    updateEntryAt(row, col, value) {
+        const cell = this.cellAt(row, col);
+
+        // Update 'empty' class based on the new value
+        cell.classList.toggle('empty', value === '#');
+
+        // Format input to uppercase if it's a letter
+        if (value.length === 1) {
+            value = value.toUpperCase();
+            cell.firstChild.value = value;
+        }
+
+        // Mark as hint
+        cell.classList.toggle('hint', value.length > 1);
+
+        // Update the data array with the new value
+        this.data[row][col] = value;
     }
 
     draw() {
@@ -36,43 +47,31 @@ export class Grid {
 
         this.data.forEach((elements, row) => {
             elements.forEach((value, col) => {
-                this.container.appendChild(this.drawCell(value, row, col));
+                this.container.appendChild(this.drawCell(row, col));
+                this.updateEntryAt(row, col, value);
             });
         });
 
         this.notifyChanges();
     }
 
-    drawCell(value, row, col) {
+    drawCell(row, col) {
         const cell = document.createElement('div');
         cell.classList.add('cell');
 
         const input = document.createElement('input');
         input.type = 'text';
-        input.maxLength = 1;
-        input.value = value;
-        if (input.value === '#') {
-            cell.classList.add('empty');
-        }
 
         // Format input on change 
         input.addEventListener('input', () => {
-            input.value = input.value.toUpperCase();
-            this.data[row][col] = input.value;
-            if (input.value === '#') {
-                cell.classList.add('empty');
-            } else if (input.value !== '#') {
-                cell.classList.remove('empty');
-            }
+            this.updateEntryAt(row, col, input.value);
             this.clearHighlights();
             this.notifyChanges();
         });
 
         // Double click to toggle empty cell
         input.addEventListener('dblclick', () => {
-            cell.classList.toggle('empty');
-            input.value = cell.classList.contains('empty') ? '#' : '';
-            this.data[row][col] = input.value;
+            this.updateEntryAt(row, col, '#');
             this.clearHighlights();
             this.notifyChanges();
         });
@@ -224,12 +223,15 @@ export class Grid {
     }
 
     selectionUpdate(row, col) {
-        this.selectingToCell = { row, col };
-
         // Remove previous selection highlights
         for (let i = 0; i < this.container.children.length; i++) {
             this.container.children[i].classList.remove('highlight-selected');
         }
+        
+        // Return if not selecting
+        if (!this.isSelecting) return;
+
+        this.selectingToCell = { row, col };
 
         // Update selected cells (either horizontally or vertically)
         this.selectedCells = [];
@@ -265,7 +267,7 @@ export class Grid {
         if (this.selectedCells.length > 1) {
             let selectedWord = "";
             for (let i = 0; i < this.selectedCells.length; i++) {
-                selectedWord += this.symbolAt(this.selectedCells[i].row, this.selectedCells[i].col);
+                selectedWord += this.entryAt(this.selectedCells[i].row, this.selectedCells[i].col);
             }
             this.notifySelected(selectedWord);
         }
