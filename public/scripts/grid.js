@@ -79,33 +79,20 @@ export class Grid {
 
         // Arrow key navigation
         input.addEventListener('keydown', (event) => {
-            // Prevent default behavior for arrow keys
-            switch (event.key) {
-                case 'ArrowUp':
-                case 'ArrowDown':
-                case 'ArrowLeft':
-                case 'ArrowRight':
-                    event.preventDefault();
-                    break;
-                default:
-                    return;
-            }
-
             // Go to the next cell based on the arrow key pressed
-            let currentIndex = row * this.width() + col;
             let nextIndex;
             switch (event.key) {
                 case 'ArrowUp':
-                    nextIndex = currentIndex - this.width();
+                    nextIndex = (row - 1) * this.width() + col;
                     break;
                 case 'ArrowDown':
-                    nextIndex = currentIndex + this.width();
+                    nextIndex = (row + 1) * this.width() + col;
                     break;
                 case 'ArrowLeft':
-                    nextIndex = currentIndex - 1;
+                    nextIndex = row * this.width() + col - 1;
                     break;
                 case 'ArrowRight':
-                    nextIndex = currentIndex + 1;
+                    nextIndex = row * this.width() + col + 1;
                     break;
                 default:
                     return;
@@ -118,99 +105,43 @@ export class Grid {
 
             // Focus on the next cell
             this.container.children[nextIndex].firstChild.focus();
+
+            // Check if shift key is pressed to start cell selection
+            if (event.shiftKey) {
+                if (!this.isSelecting) {
+                    this.selectionStart(row, col);
+                }
+                const nextRow = Math.floor(nextIndex / this.width());
+                const nextCol = nextIndex % this.width();
+                this.selectionUpdate(nextRow, nextCol);
+            }
         });
 
-        // Mouse events for dragging
+        input.addEventListener('keyup', (event) => {
+            if (event.key === 'Shift') {
+                this.selectionStop(row, col);
+            }
+        });
+
+        // Start cell selection on left mouse down
         input.addEventListener('mousedown', (event) => {
-            // Return if it's not a left mouse button event
-            if (event.button !== 0) {
-                return;
+            if (event.button === 0) {
+                this.selectionStart(row, col);
             }
-
-            this.isDragging = true;
-            this.dragStartCell = { row, col };
-            this.dragStopCell = { row, col };
-            this.selectedCells = [];
         });
 
-        input.addEventListener('mousemove', debounce((event) => {
-            if (!this.isDragging) {
-                return;
-            }
-
-            // Get element that matches the current mouse position
-            const draggedToElement = document.elementFromPoint(event.clientX, event.clientY);
-            if (!draggedToElement || draggedToElement.tagName !== 'INPUT') {
-                return;
-            }
-
-            // Get the index of the dragged cell
-            let draggedToIndex = -1;
-            for (let i = 0; i < this.container.children.length; i++) {
-                if (this.container.children[i].contains(draggedToElement.parentElement)) {
-                    draggedToIndex = i;
-                    break;
-                }
-            }
-            if (draggedToIndex === -1) {
-                return;
-            }
-
-            // Remove previous highlights
-            for (let i = 0; i < this.container.children.length; i++) {
-                this.container.children[i].classList.remove('highlight-selected');
-            }
-
-            // Update the stop cell
-            this.dragStopCell.row = Math.floor(draggedToIndex / this.width());
-            this.dragStopCell.col = draggedToIndex % this.width();
-
-            // Update selected cells (either horizontally or vertically)
-            this.selectedCells = [];
-            if (Math.abs(this.dragStartCell.row - this.dragStopCell.row) > Math.abs(this.dragStartCell.col - this.dragStopCell.col)) {
-                const fromRow = Math.min(this.dragStartCell.row, this.dragStopCell.row);
-                const toRow = Math.max(this.dragStartCell.row, this.dragStopCell.row);
-                for (let i = fromRow; i <= toRow; i++) {
-                    this.selectedCells.push({ row: i, col: this.dragStartCell.col });
-                }
-            } else {
-                const fromCol = Math.min(this.dragStartCell.col, this.dragStopCell.col);
-                const toCol = Math.max(this.dragStartCell.col, this.dragStopCell.col);
-                for (let i = fromCol; i <= toCol; i++) {
-                    this.selectedCells.push({ row: this.dragStartCell.row, col: i });
-                }
-            }
-
-            if (this.selectedCells.length > 1) {
-                // Highlight selected cells
-                for (let i = 0; i < this.selectedCells.length; i++) {
-                    this.cellAt(this.selectedCells[i].row, this.selectedCells[i].col).classList.add('highlight-selected');
-                }
-            }
-
-        }, 20)); // Debounce 20ms to limit the rate of mousemove events
-
+        // End cell selection on left mouse up
         input.addEventListener('mouseup', (event) => {
-            // Return if it's not a left mouse button event
-            if (event.button !== 0) {
-                return;
+            if (event.button === 0) {
+                this.selectionStop(row, col);
             }
+        });
 
-            // Notify selected cells
-            if (this.selectedCells.length > 1) {
-                let selectedWord = "";
-                for (let i = 0; i < this.selectedCells.length; i++) {
-                    selectedWord += this.symbolAt(this.selectedCells[i].row, this.selectedCells[i].col);
-                }
-                this.notifySelected(selectedWord);
+        // Update cell selection on mouse enter
+        input.addEventListener('mouseenter', () => {
+            if (this.isSelecting) {
+                this.selectionUpdate(row, col);
             }
-
-            // Reset dragging state
-            this.isDragging = false;
-            this.dragStartCell = null;
-            this.dragStopCell = null;
-            this.selectedCells = [];
-
         });
 
         // Disable default selection behavior to allow cell selection
@@ -282,6 +213,68 @@ export class Grid {
         for (let i = 0; i < this.selectedCallbacks.length; i++) {
             this.selectedCallbacks[i](selectedWord);
         }
+    }
+
+    selectionStart(row, col) {
+        console.log('Starting cell selection (row:', row, 'col:', col, ')');
+        this.isSelecting = true;
+        this.selectingFromCell = { row, col };
+        this.selectingToCell = { row, col };
+        this.selectedCells = [];
+    }
+
+    selectionUpdate(row, col) {
+        this.selectingToCell = { row, col };
+
+        // Remove previous selection highlights
+        for (let i = 0; i < this.container.children.length; i++) {
+            this.container.children[i].classList.remove('highlight-selected');
+        }
+
+        // Update selected cells (either horizontally or vertically)
+        this.selectedCells = [];
+        if (Math.abs(this.selectingFromCell.row - this.selectingToCell.row) > Math.abs(this.selectingFromCell.col - this.selectingToCell.col)) {
+            const fromRow = Math.min(this.selectingFromCell.row, this.selectingToCell.row);
+            const toRow = Math.max(this.selectingFromCell.row, this.selectingToCell.row);
+            for (let i = fromRow; i <= toRow; i++) {
+                this.selectedCells.push({ row: i, col: this.selectingFromCell.col });
+            }
+        } else {
+            const fromCol = Math.min(this.selectingFromCell.col, this.selectingToCell.col);
+            const toCol = Math.max(this.selectingFromCell.col, this.selectingToCell.col);
+            for (let i = fromCol; i <= toCol; i++) {
+                this.selectedCells.push({ row: this.selectingFromCell.row, col: i });
+            }
+        }
+
+        if (this.selectedCells.length > 1) {
+            // Highlight selected cells
+            for (let i = 0; i < this.selectedCells.length; i++) {
+                this.cellAt(this.selectedCells[i].row, this.selectedCells[i].col).classList.add('highlight-selected');
+            }
+        }
+    }
+
+    selectionStop(row, col) {
+        console.log('Stopping cell selection (row:', row, 'col:', col, ')');
+
+        // Update selected cells
+        this.selectionUpdate(row, col);
+
+        // Notify selected cells
+        if (this.selectedCells.length > 1) {
+            let selectedWord = "";
+            for (let i = 0; i < this.selectedCells.length; i++) {
+                selectedWord += this.symbolAt(this.selectedCells[i].row, this.selectedCells[i].col);
+            }
+            this.notifySelected(selectedWord);
+        }
+
+        // Reset dragging state
+        this.isSelecting = false;
+        this.selectingFromCell = null;
+        this.selectingToCell = null;
+        this.selectedCells = [];
     }
 
     async loadFile(url) {

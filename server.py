@@ -5,11 +5,16 @@ import requests
 from bs4 import BeautifulSoup
 import regex
 
-app = Flask(__name__)
-
-# Define the path to the puzzles directory
 PUZZLES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'puzzles')
 DICTIONARY_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dict.json')
+
+# In-memory cache for help requests
+cache = {
+    "patterns": {},  # For pattern-based results
+    "synonyms": {},  # For synonym-based results
+}
+
+app = Flask(__name__)
 
 @app.route('/')
 def serve_index():
@@ -65,8 +70,28 @@ def dictionary_save():
         return 'Error saving dictionary file', 500
 
 
+# Helper function to grab words from the HTML from krydsordexperten.dk
+def grabWords(html) -> list[str]:
+    if not html:
+        return []
+    
+    words: list[str] = []
+
+    soup = BeautifulSoup(html, "html.parser")
+    solution_items = soup.find_all("div", class_="solution-item")
+    for item in solution_items:
+        characters = item.find_all("div", class_="character")
+        word_with_numbers = ''.join([character.text for character in characters])
+        words.append(regex.sub(r'\d+', '', word_with_numbers))
+
+    return words
+
 @app.route('/help/pattern/<pattern>')
 def helpPattern(pattern):
+    # Check if the result is cached
+    if pattern in cache["patterns"]:
+        return cache["patterns"][pattern], 200
+    
     # Make a request to the krydsordexperten.dk website: https://krydsordexperten.dk/krydsord/<synonym>
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
@@ -79,28 +104,20 @@ def helpPattern(pattern):
         'DNT': '1',
     }
 
-    words: list[str] = []
-
     try:
         response = requests.get(f"https://krydsordexperten.dk/ord/{pattern}", headers=headers)
-
-        # Parse the HTML
-        soup = BeautifulSoup(response.text, "html.parser")
-
-        # Find specific divs by class name or ID
-        solution_items = soup.find_all("div", class_="solution-item")
-        for item in solution_items:
-            characters = item.find_all("div", class_="character")
-            word_with_numbers = ''.join([character.text for character in characters])
-            words.append(regex.sub(r'\d+', '', word_with_numbers))
-
-        return words, 200
+        cache["patterns"][pattern] = grabWords(response.text)
+        return cache["patterns"][pattern], 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 
 @app.route('/help/synonym/<synonym>')
 def helpSynonym(synonym):
+    # Check if the result is cached
+    if synonym in cache["synonyms"]:
+        return cache["synonyms"][synonym], 200
+    
     # Make a request to the krydsordexperten.dk website: https://krydsordexperten.dk/krydsord/<synonym>
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
@@ -113,22 +130,10 @@ def helpSynonym(synonym):
         'DNT': '1',
     }
 
-    words: list[str] = []
-
     try:
         response = requests.get(f"https://krydsordexperten.dk/krydsord/{synonym}", headers=headers)
-
-        # Parse the HTML
-        soup = BeautifulSoup(response.text, "html.parser")
-
-        # Find specific divs by class name or ID
-        solution_items = soup.find_all("div", class_="solution-item")
-        for item in solution_items:
-            characters = item.find_all("div", class_="character")
-            word_with_numbers = ''.join([character.text for character in characters])
-            words.append(regex.sub(r'\d+', '', word_with_numbers))
-
-        return words, 200
+        cache["synonyms"][synonym] = grabWords(response.text)
+        return cache["synonyms"][synonym], 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

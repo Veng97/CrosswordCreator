@@ -11,7 +11,7 @@ export class Helper {
         this.data = [];
     }
 
-    askWord(word) {
+    async askWord(word) {
         // If pattern contains '_' search for synonyms
         if (word.includes('_')) {
             this.searchPattern(word);
