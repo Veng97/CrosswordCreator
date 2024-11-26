@@ -92,9 +92,16 @@ export class Grid {
         cell.classList.add('cell');
         cell.contentEditable = true;
 
-        // Format input on change 
+        // Update entry on change 
         cell.addEventListener('input', () => {
             this.updateEntryAt(row, col, cell.textContent);
+            this.clearHighlights();
+            this.notifyChanges();
+        });
+
+        // Mark as empty on double click
+        cell.addEventListener('dblclick', () => {
+            this.updateEntryAt(row, col, '#');
             this.clearHighlights();
             this.notifyChanges();
         });
