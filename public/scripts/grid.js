@@ -115,6 +115,27 @@ export class Grid {
                 event.preventDefault();
             }
 
+            // Navigate through the upper/lower cells
+            if (cell.children.length > 0) {
+                const activeChild = document.activeElement;
+                if (event.key === 'ArrowUp') {
+                    for (let i = 1; i < cell.children.length; i++) {
+                        if (activeChild === cell.children[i]) {
+                            cell.children[i-1].focus();
+                            return;
+                        }
+                    }
+                }
+                if (event.key === 'ArrowDown') {
+                    for (let i = 0; i < cell.children.length - 1; i++) {
+                        if (activeChild === cell.children[i]) {
+                            cell.children[i+1].focus();
+                            return;
+                        }
+                    }
+                }
+            }
+
             // Go to the next cell based on the arrow key pressed
             let nextIndex;
             switch (event.key) {
@@ -140,7 +161,20 @@ export class Grid {
             }
 
             // Focus on the next cell
-            this.container.children[nextIndex].focus();
+            const nextCell = this.container.children[nextIndex];
+            if (nextCell.children.length > 0) {
+                if (event.key === 'ArrowUp') {
+                    // Focus on the last child
+                    nextCell.children[nextCell.children.length - 1].focus();
+                    return;
+                } else {
+                    // Focus on the first child (for any other direction: ArrowDown, ArrowLeft, ArrowRight)
+                    nextCell.children[0].focus(); 
+                    return;
+                }
+            } else {
+                nextCell.focus();
+            }
 
             // Check if shift key is pressed to start cell selection
             if (event.shiftKey) {

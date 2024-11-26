@@ -134,7 +134,8 @@ button:hover {
 }
 
 .cell.empty {
-    background-color: black;
+    background-color: rgb(13, 27, 58);
+    color: rgb(13, 27, 58);
 }
 
 .cell.highlight-selected {
