@@ -97,13 +97,18 @@ export class Dictionary {
     updateWordCounts() {
         console.log('Updating word counts');
         this.list.querySelectorAll('li').forEach((element) => {
-            const wordElement = element.querySelector('.word');
-            const countElement = element.querySelector('.count');
-            countElement.textContent = this.search.findPossibleLocations(wordElement.textContent).length;
-
             // Draw line through the word if it exists in the grid
+            const wordElement = element.querySelector('.word');
             const wordExists = this.search.findExistingLocation(wordElement.textContent);
             wordElement.classList.toggle('exists', wordExists !== null);
+            
+            // Update the word count
+            const countElement = element.querySelector('.count');
+            if (wordExists) {
+                countElement.textContent = '-';
+            } else {
+                countElement.textContent = this.search.findPossibleLocations(wordElement.textContent).length;
+            }
         });
     }
 };
