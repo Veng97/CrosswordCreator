@@ -100,6 +100,10 @@ export class Dictionary {
             const wordElement = element.querySelector('.word');
             const countElement = element.querySelector('.count');
             countElement.textContent = this.search.findPossibleLocations(wordElement.textContent).length;
+
+            // Draw line through the word if it exists in the grid
+            const wordExists = this.search.findExistingLocation(wordElement.textContent);
+            wordElement.classList.toggle('exists', wordExists !== null);
         });
     }
 };

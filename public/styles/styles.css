@@ -203,6 +203,11 @@ button:hover {
     cursor: pointer;
 }
 
+.word-list li .word.exists {
+    color: gray;
+    text-decoration: line-through;
+}
+
 .word-list li .count::before {
     content: '[ ';
     position: relative;

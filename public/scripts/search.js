@@ -45,7 +45,7 @@ export class Search {
         return possibleLocations;
     }
 
-    checkWord(word, location) {
+    checkWord(word, location, force = false) {
         const { row, col, dir } = location;
         if (dir === 'horizontal') {
             if (col + word.length > this.grid.width()) {
@@ -53,7 +53,7 @@ export class Search {
             }
             for (let i = 0; i < word.length; i++) {
                 const value = this.grid.data[row][col + i];
-                if (value.length === 1 && value.toUpperCase() !== word[i].toUpperCase()) {
+                if ((force || value.length === 1) && value.toUpperCase() !== word[i].toUpperCase()) {
                     return false;
                 }
             }
@@ -63,7 +63,7 @@ export class Search {
             }
             for (let i = 0; i < word.length; i++) {
                 const value = this.grid.data[row + i][col];
-                if (value.length === 1 && value.toUpperCase() !== word[i].toUpperCase()) {
+                if ((force || value.length === 1) && value.toUpperCase() !== word[i].toUpperCase()) {
                     return false;
                 }
             }
@@ -89,5 +89,35 @@ export class Search {
                 this.grid.cellAt(row + i, col).classList.add('highlight-vertical');
             }
         }
+    }
+
+    findExistingLocation(word) {
+        if (!word) return null;
+
+        const cols = this.grid.width();
+        const rows = this.grid.height();
+        const wordLength = word.length;
+
+        // Check for horizontal placements
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c <= cols - wordLength; c++) {
+                const location = { row: r, col: c, dir: 'horizontal' };
+                if (this.checkWord(word, location, true)) {
+                    return location;
+                }
+            }
+        }
+
+        // Check for vertical placements
+        for (let r = 0; r <= rows - wordLength; r++) {
+            for (let c = 0; c < cols; c++) {
+                const location = { row: r, col: c, dir: 'vertical' };
+                if (this.checkWord(word, location, true)) {
+                    return location;
+                }
+            }
+        }
+
+        return null;
     }
 };
