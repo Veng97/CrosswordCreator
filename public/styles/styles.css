@@ -91,6 +91,7 @@ button:hover {
 
 .cell {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
@@ -107,9 +108,24 @@ button:hover {
     /* Indicate that the cells are selectable */
     cursor: pointer;
     /* Break word */
-    overflow-wrap: break-word; 
     word-wrap: break-word; 
     white-space: pre-wrap;
+}
+
+.cell-upper,
+.cell-lower {
+    display: flex; /* Enables centering text inside each half */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    flex: 1; /* Each half takes space as needed */
+    width: 100%;
+    /* Break word */
+    word-wrap: break-word; 
+    white-space: pre-wrap;
+}
+
+.cell-upper {
+    border-bottom: 1px solid #ccc; /* Add a border to separate the two halves */
 }
 
 .cell::selection {
@@ -148,11 +164,12 @@ button:hover {
 }
 
 .cell.hint {
-    background-color: rgba(236, 236, 236, 0.5);
     /* Shrink text to fit and allow breaking lines */
     font-size: 1rem;
     padding-left: 2px;
     padding-right: 2px;
+    /* Make hints italic */
+    font-style: italic;
 }
 
 /* Styles for dictionary word add */

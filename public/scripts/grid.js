@@ -23,7 +23,7 @@ export class Grid {
     updateEntryAt(row, col, value) {
         const cell = this.cellAt(row, col);
 
-        // Update 'empty' class based on the new value
+        // Mark as empty
         cell.classList.toggle('empty', value === '#');
 
         // Mark as hint
@@ -32,6 +32,40 @@ export class Grid {
         // Update the cell text content if it has changed (e.g. if loaded from a file)
         if (cell.textContent !== value) {
             cell.textContent = value;
+        } 
+
+        // Format value with the text from the upper/lower cells
+        if (cell.children.length === 2) {
+            if (cell.children[0].textContent !== '' && cell.children[1].textContent !== '') {
+                value = '[' + cell.children[0].textContent + ',' + cell.children[1].textContent + ']';
+            } else {
+                // Replace upper/lower cells with a single cell
+                cell.innerHTML = value;
+                cell.contentEditable = true;
+            }
+        } else if (value[0] === '[' && value[value.length - 1] === ']' && value.includes(',')) {            
+            // Extract the text for the first and second elements
+            const index_of_comma = value.indexOf(',');
+            const upperText = value.substring(1, index_of_comma);
+            const lowerText = value.substring(index_of_comma + 1, value.length - 1);
+
+            // Create the upper cell
+            const upperDiv = document.createElement('div');
+            upperDiv.className = 'cell-upper';
+            upperDiv.textContent = upperText.trim();
+            upperDiv.contentEditable = true;
+
+            // Create the lower cell
+            const lowerDiv = document.createElement('div');
+            lowerDiv.className = 'cell-lower';
+            lowerDiv.textContent = lowerText.trim();
+            lowerDiv.contentEditable = true;
+
+            // Replace the cell with the upper/lower cells
+            cell.innerHTML = '';
+            cell.contentEditable = false;
+            cell.appendChild(upperDiv);
+            cell.appendChild(lowerDiv);
         }
 
         // Update the data array with the new value
@@ -57,8 +91,6 @@ export class Grid {
         const cell = document.createElement('div');
         cell.classList.add('cell');
         cell.contentEditable = true;
-        cell.spellcheck = false;
-        cell.type = 'text';
 
         // Format input on change 
         cell.addEventListener('input', () => {
@@ -76,6 +108,11 @@ export class Grid {
                     this.clearHighlights();
                     this.notifyChanges();
                 }
+            }
+
+            // Prevents the default behavior of the Enter key. In some cases this would otherwise create nested <div> elements
+            if (event.key === 'Enter') {
+                event.preventDefault();
             }
 
             // Go to the next cell based on the arrow key pressed
@@ -215,7 +252,7 @@ export class Grid {
     }
 
     selectionStart(row, col) {
-        console.log('Starting cell selection (row:', row, 'col:', col, ')');
+        // console.log('Starting cell selection (row:', row, 'col:', col, ')');
         this.isSelecting = true;
         this.selectingFromCell = { row, col };
         this.selectingToCell = { row, col };
@@ -258,7 +295,7 @@ export class Grid {
     }
 
     selectionStop(row, col) {
-        console.log('Stopping cell selection (row:', row, 'col:', col, ')');
+        // console.log('Stopping cell selection (row:', row, 'col:', col, ')');
 
         // Update selected cells
         this.selectionUpdate(row, col);
