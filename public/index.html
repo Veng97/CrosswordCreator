@@ -12,7 +12,7 @@
   <div class="container">
     <div id="dictionary-tab">
       <div id="dictionary-controls" class="controls">
-        <input id="word-add" type="text" placeholder="Add word"/>
+        <input id="word-add" type="text" placeholder="Add word" />
       </div>
       <span id="dictionary-msg"></span>
       <ul id="dictionary-list" class="word-list"></ul>
@@ -20,24 +20,36 @@
 
     <div id="grid-tab">
       <div id="grid-controls" class="controls">
-        <select id="select-grid-file">
-          <!-- Options will be populated dynamically -->
-        </select>
-        <button id="load-grid-file">Load</button>
-        <button id="save-grid-file">Save</button>
-        <button id="add-row">Add Row</button>
-        <button id="add-column">Add Column</button>
-        <button id="remove-row">Remove Row</button>
-        <button id="remove-column">Remove Column</button>
-        <input id="word-search" type="text" placeholder="Search word"/>
+        <div>
+          <input id="word-search" type="text" placeholder="Search word" />
+          <select id="select-grid-file">
+            <!-- Options will be populated dynamically -->
+          </select>
+          <button id="load-grid-file">Load</button>
+          <button id="save-grid-file">Save</button>
+        </div>
+        <div>
+          Rows:
+          <button id="add-row"><i class="icon">+</i></button>
+          <button id="remove-row"><i class="icon">-</i></button>
+          <button id="shift-up"><i class="icon">&#8593;</i></button>
+          <button id="shift-down"><i class="icon">&#8595;</i></button>
+        </div>
+        <div>
+          Columns:
+          <button id="add-col"><i class="icon">+</i></button>
+          <button id="remove-col"><i class="icon">-</i></button>
+          <button id="shift-left"><i class="icon">&#8592;</i></button>
+          <button id="shift-right"><i class="icon">&#8594;</i></button>
+        </div>
       </div>
 
       <div id="grid-container" class="grid" spellcheck="false"></div>
     </div>
-  
+
     <div id="helper-tab">
       <div id="helper-controls" class="controls">
-        <input id="word-ask" type="text" placeholder="Ask word"/>
+        <input id="word-ask" type="text" placeholder="Ask word" />
       </div>
       <span id="helper-msg"></span>
       <ul id="helper-list" class="word-list"></ul>

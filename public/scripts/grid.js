@@ -248,6 +248,26 @@ export class Grid {
         }
     }
 
+    shiftLeft() {
+        this.data.forEach(row => row.push(row.shift()));
+        this.draw();
+    }
+
+    shiftRight() {
+        this.data.forEach(row => row.unshift(row.pop()));
+        this.draw();
+    }
+
+    shiftUp() {
+        this.data.push(this.data.shift());
+        this.draw();
+    }
+
+    shiftDown() {
+        this.data.unshift(this.data.pop());
+        this.draw();
+    }
+
     clearHighlights() {
         console.log('Clearing grid highlights');
         for (let i = 0; i < this.container.children.length; i++) {

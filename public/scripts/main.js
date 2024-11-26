@@ -17,9 +17,15 @@ grid.onSelected((selectedWord) => helper.askWord(selectedWord));
 
 // Grid controls
 document.getElementById('add-row').addEventListener('click', () => grid.addRow());
-document.getElementById('add-column').addEventListener('click', () => grid.addColumn());
+document.getElementById('add-col').addEventListener('click', () => grid.addColumn());
 document.getElementById('remove-row').addEventListener('click', () => grid.removeRow());
-document.getElementById('remove-column').addEventListener('click', () => grid.removeColumn());
+document.getElementById('remove-col').addEventListener('click', () => grid.removeColumn());
+document.getElementById('shift-up').addEventListener('click', () => grid.shiftUp());
+document.getElementById('shift-down').addEventListener('click', () => grid.shiftDown());
+document.getElementById('shift-left').addEventListener('click', () => grid.shiftLeft());
+document.getElementById('shift-right').addEventListener('click', () => grid.shiftRight());
+
+
 
 // File controls
 const fileSelector = document.getElementById('select-grid-file');
