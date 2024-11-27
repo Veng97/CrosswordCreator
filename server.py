@@ -87,7 +87,8 @@ def grabWords(html) -> list[str]:
     return words
 
 @app.route('/help/pattern/<pattern>')
-def helpPattern(pattern):
+def helpPattern(pattern: str):
+
     # Check if the result is cached
     if pattern in cache["patterns"]:
         return cache["patterns"][pattern], 200
@@ -113,7 +114,10 @@ def helpPattern(pattern):
 
 
 @app.route('/help/synonym/<synonym>')
-def helpSynonym(synonym):
+def helpSynonym(synonym: str):
+    # Replace Danish characters (only necessary for synonyms)
+    synonym = synonym.replace("æ", "ae").replace("ø", "oe").replace("å", "aa")
+
     # Check if the result is cached
     if synonym in cache["synonyms"]:
         return cache["synonyms"][synonym], 200

@@ -99,13 +99,6 @@ export class Grid {
             this.notifyChanges();
         });
 
-        // Mark as empty on double click
-        cell.addEventListener('dblclick', () => {
-            this.updateEntryAt(row, col, '#');
-            this.clearHighlights();
-            this.notifyChanges();
-        });
-
         // Arrow key navigation
         cell.addEventListener('keydown', (event) => {
             // Enable deleting cell content with delete or backspace keys
