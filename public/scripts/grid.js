@@ -183,7 +183,6 @@ export class Grid {
             if (nextCell.children.length > 0) {
                 if (event.key === 'ArrowUp') {
                     // Focus on the last child
-                    console.log(nextCell.children);
                     nextCell.children[nextCell.children.length - 1].focus();
                     return;
                 } else {
@@ -439,7 +438,53 @@ export class Grid {
         }
     }
 
-    async exportGrid() {
+    async exportGridContainer() {
 
+        this.clearHighlights();
+
+        // Clone the grid-container, preserving attributes
+        let clonedContainer = this.container.cloneNode(true);
+
+        clonedContainer.style.gridTemplateColumns = `repeat(${this.width()}, 0fr)`;
+        clonedContainer.style.gridTemplateRows = `repeat(${this.height()}, 0fr)`;
+        clonedContainer.style.width = 'auto';
+        clonedContainer.style.height = 'auto';
+        clonedContainer.style.maxWidth = 'none';
+        clonedContainer.style.maxHeight = 'none';
+
+        // Iterate over cells and keep only the text content
+        for (let i = 0; i < clonedContainer.children.length; i++) {
+            if (!(clonedContainer.children[i].classList.contains('hint') || clonedContainer.children[i].classList.contains('empty'))) {
+                clonedContainer.children[i].textContent = '';
+            }
+        }
+                
+        // Serialize the cloned element including its attributes
+        const tempDiv = document.createElement('div');
+        tempDiv.appendChild(clonedContainer);
+        
+        // Create a new HTML document
+        const newTabContent = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Exported Puzzle</title>
+                <link rel="stylesheet" href="styles/styles.css">
+            </head>
+            <body>
+                ${tempDiv.innerHTML}
+            </body>
+            </html>
+        `;
+    
+        // Open a new tab
+        const newTab = window.open();
+    
+        // Write the new HTML content
+        newTab.document.open();
+        newTab.document.write(newTabContent);
+        newTab.document.close();
     }
 }
