@@ -101,6 +101,8 @@ button:hover {
     width: 100%;
     height: 100%;
     aspect-ratio: 1 / 1;
+    padding-left: 2px;
+    padding-right: 2px;
     /* Highlight grid lines */
     border: 1px solid #ccc;
     /* Required for pseudo-elements (highlights) */
@@ -108,28 +110,45 @@ button:hover {
     /* Indicate that the cells are selectable */
     cursor: pointer;
     /* Break word */
-    word-wrap: break-word; 
+    word-wrap: break-word;
     white-space: pre-wrap;
 }
 
-.cell > div {
-    display: flex; /* Enables centering text inside each half */
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
-    flex: 1; /* Each half takes space as needed */
+.cell>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Each sub-cell takes space as needed */
+    flex: 1;
     width: 100%;
+    padding-left: 2px;
+    padding-right: 2px;
     /* Break word */
-    word-wrap: break-word; 
+    word-wrap: break-word;
     white-space: pre-wrap;
 }
 
-.cell > div:nth-child(2) {
-    border-top: 1px solid #ccc; /* Add a border to separate the two halves */
+.cell>div:nth-child(2) {
+    /* Add a border to separate the two halves */
+    margin-top: 1px;
+    border-top: 1px solid #ccc;
+}
+
+.cell:has(> div) {
+    /* Remove padding for cells with sub-cells */
+    padding: 0;
 }
 
 .cell::selection {
     /* Disable default selection background */
     background: none;
+}
+
+.cell.hint {
+    /* Shrink text to fit and allow breaking lines */
+    font-size: 1rem;
+    /* Make hints italic */
+    font-style: italic;
 }
 
 .cell.empty {
@@ -161,15 +180,6 @@ button:hover {
     height: 4px;
     background-color: rgba(138, 43, 226, 0.3);
     transform: translateY(-50%);
-}
-
-.cell.hint {
-    /* Shrink text to fit and allow breaking lines */
-    font-size: 1rem;
-    padding-left: 2px;
-    padding-right: 2px;
-    /* Make hints italic */
-    font-style: italic;
 }
 
 /* Styles for dictionary word add */

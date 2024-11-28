@@ -108,20 +108,23 @@ export class Grid {
         cell.addEventListener('keydown', (event) => {
             // Enable deleting cell content with delete or backspace keys
             if (event.key === 'Delete' || event.key === 'Backspace') {
-                // If the cell contains upper/lower cells; delete the selected cell and focus on the remaining one
-                if (cell.children.length > 1) {
+                if (cell.children.length === 0) {
+                    if (cell.textContent.length === 1) {
+                        event.preventDefault();
+                        this.updateEntryAt(row, col, '');
+                        this.clearHighlights();
+                        this.notifyChanges();
+                    }
+                } 
+                else if (cell.children.length > 1) {
+                    // If the cell contains upper/lower cells; delete the selected cell and focus on the remaining one
                     const activeChild = document.activeElement;
                     if (activeChild.textContent === '') {
                         event.preventDefault();
                         activeChild.remove();
-                        cell.children[0].focus();
+                        this.updateEntryAt(row, col, cell.textContent);
                         return;
                     }
-                }
-                else if (cell.textContent.length === 1) {
-                    this.updateEntryAt(row, col, '');
-                    this.clearHighlights();
-                    this.notifyChanges();
                 }
             }
 
@@ -177,7 +180,6 @@ export class Grid {
 
             // Focus on the next cell
             const nextCell = this.container.children[nextIndex];
-            console.log(nextCell);
             if (nextCell.children.length > 0) {
                 if (event.key === 'ArrowUp') {
                     // Focus on the last child
