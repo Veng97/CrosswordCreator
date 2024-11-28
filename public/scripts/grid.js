@@ -27,45 +27,50 @@ export class Grid {
         cell.classList.toggle('empty', value === '#');
 
         // Mark as hint
-        cell.classList.toggle('hint', value.length > 1);
+        cell.classList.toggle('hint', value.length > 1 || cell.children.length !== 0);
 
         // Update the cell text content if it has changed (e.g. if loaded from a file)
         if (cell.textContent !== value) {
             cell.textContent = value;
-        } 
+        }
 
-        // Format value with the text from the upper/lower cells
-        if (cell.children.length === 2) {
-            if (cell.children[0].textContent !== '' && cell.children[1].textContent !== '') {
-                value = '[' + cell.children[0].textContent + ',' + cell.children[1].textContent + ']';
-            } else {
-                // Replace upper/lower cells with a single cell
-                cell.innerHTML = value;
-                cell.contentEditable = true;
+        // Handle cell splitting
+        if (cell.children.length === 0) {
+            // Check if the cell contains a pipe character; if so, split the cell into upper/lower cells
+            if (value.includes('|')) {
+                
+                // Replace the cell with the upper/lower cells
+                cell.innerHTML = '';
+                cell.contentEditable = false;
+                cell.appendChild(document.createElement('div'));
+                cell.appendChild(document.createElement('div'));
+                
+                // Extract the text for the first and second elements
+                const index_of_split = value.indexOf('|');
+                const upperText = value.substring(0, index_of_split);
+                const lowerText = value.substring(index_of_split + 1, value.length);
+
+                // Fill the upper and lower cells with the extracted text
+                if (upperText) {
+                    cell.children[0].textContent = upperText;
+                }
+                if (lowerText) {
+                    cell.children[1].textContent = lowerText;
+                }
+                cell.children[0].contentEditable = true;
+                cell.children[1].contentEditable = true;
+                cell.children[1].focus();
             }
-        } else if (value[0] === '[' && value[value.length - 1] === ']' && value.includes(',')) {            
-            // Extract the text for the first and second elements
-            const index_of_comma = value.indexOf(',');
-            const upperText = value.substring(1, index_of_comma);
-            const lowerText = value.substring(index_of_comma + 1, value.length - 1);
-
-            // Create the upper cell
-            const upperDiv = document.createElement('div');
-            upperDiv.className = 'cell-upper';
-            upperDiv.textContent = upperText.trim();
-            upperDiv.contentEditable = true;
-
-            // Create the lower cell
-            const lowerDiv = document.createElement('div');
-            lowerDiv.className = 'cell-lower';
-            lowerDiv.textContent = lowerText.trim();
-            lowerDiv.contentEditable = true;
-
-            // Replace the cell with the upper/lower cells
-            cell.innerHTML = '';
-            cell.contentEditable = false;
-            cell.appendChild(upperDiv);
-            cell.appendChild(lowerDiv);
+        } 
+        else if (cell.children.length === 1) {
+            // Convert cell to a single cell again
+            cell.innerHTML = value;
+            cell.contentEditable = true;
+            cell.focus();
+        } 
+        else if (cell.children.length === 2) {
+            // Format value as upper/lower cells
+            value = cell.children[0].textContent + '|' + cell.children[1].textContent;
         }
 
         // Update the data array with the new value
@@ -103,7 +108,17 @@ export class Grid {
         cell.addEventListener('keydown', (event) => {
             // Enable deleting cell content with delete or backspace keys
             if (event.key === 'Delete' || event.key === 'Backspace') {
-                if (cell.textContent.length === 1) {
+                // If the cell contains upper/lower cells; delete the selected cell and focus on the remaining one
+                if (cell.children.length > 1) {
+                    const activeChild = document.activeElement;
+                    if (activeChild.textContent === '') {
+                        event.preventDefault();
+                        activeChild.remove();
+                        cell.children[0].focus();
+                        return;
+                    }
+                }
+                else if (cell.textContent.length === 1) {
                     this.updateEntryAt(row, col, '');
                     this.clearHighlights();
                     this.notifyChanges();
@@ -162,9 +177,11 @@ export class Grid {
 
             // Focus on the next cell
             const nextCell = this.container.children[nextIndex];
+            console.log(nextCell);
             if (nextCell.children.length > 0) {
                 if (event.key === 'ArrowUp') {
                     // Focus on the last child
+                    console.log(nextCell.children);
                     nextCell.children[nextCell.children.length - 1].focus();
                     return;
                 } else {
@@ -418,5 +435,9 @@ export class Grid {
         } catch (error) {
             console.error('Error loading JSON file list:', error);
         }
+    }
+
+    async exportGrid() {
+
     }
 }

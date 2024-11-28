@@ -112,8 +112,7 @@ button:hover {
     white-space: pre-wrap;
 }
 
-.cell-upper,
-.cell-lower {
+.cell > div {
     display: flex; /* Enables centering text inside each half */
     justify-content: center; /* Centers horizontally */
     align-items: center; /* Centers vertically */
@@ -124,8 +123,8 @@ button:hover {
     white-space: pre-wrap;
 }
 
-.cell-upper {
-    border-bottom: 1px solid #ccc; /* Add a border to separate the two halves */
+.cell > div:nth-child(2) {
+    border-top: 1px solid #ccc; /* Add a border to separate the two halves */
 }
 
 .cell::selection {

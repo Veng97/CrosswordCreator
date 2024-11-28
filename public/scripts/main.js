@@ -25,8 +25,6 @@ document.getElementById('shift-down').addEventListener('click', () => grid.shift
 document.getElementById('shift-left').addEventListener('click', () => grid.shiftLeft());
 document.getElementById('shift-right').addEventListener('click', () => grid.shiftRight());
 
-
-
 // File controls
 const fileSelector = document.getElementById('select-grid-file');
 const loadFileBtn = document.getElementById('load-grid-file');
