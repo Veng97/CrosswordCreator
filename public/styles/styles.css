@@ -139,6 +139,11 @@ button:hover {
     padding: 0;
 }
 
+.cell:empty {
+    /* Hide the caret/cursor for empty cells. Otherwise it displays in the top of the div */
+    caret-color: transparent;
+}
+
 .cell::selection {
     /* Disable default selection background */
     background: none;
