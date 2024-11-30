@@ -41,13 +41,13 @@ export class Grid {
         if (cell.children.length === 0) {
             // Check if the cell contains a pipe character; if so, split the cell into upper/lower cells
             if (value.includes('|')) {
-                
+
                 // Replace the cell with the upper/lower cells
                 cell.innerHTML = '';
                 cell.contentEditable = false;
                 cell.appendChild(document.createElement('div'));
                 cell.appendChild(document.createElement('div'));
-                
+
                 // Extract the text for the first and second elements
                 const index_of_split = value.indexOf('|');
                 const upperText = value.substring(0, index_of_split);
@@ -64,13 +64,13 @@ export class Grid {
                 cell.children[1].contentEditable = true;
                 cell.children[1].focus();
             }
-        } 
+        }
         else if (cell.children.length === 1) {
             // Convert cell to a single cell again
             cell.innerHTML = value;
             cell.contentEditable = true;
             cell.focus();
-        } 
+        }
         else if (cell.children.length === 2) {
             // Format value as upper/lower cells
             value = cell.children[0].textContent + '|' + cell.children[1].textContent;
@@ -109,16 +109,16 @@ export class Grid {
 
         // Arrow key navigation
         cell.addEventListener('keydown', (event) => {
+            this.clearHighlights();
+
             // Enable deleting cell content with delete or backspace keys
             if (event.key === 'Delete' || event.key === 'Backspace') {
                 if (cell.children.length === 0) {
                     if (cell.textContent.length === 1) {
-                        event.preventDefault();
                         this.updateEntryAt(row, col, '');
-                        this.clearHighlights();
                         this.notifyChanges();
                     }
-                } 
+                }
                 else if (cell.children.length > 1) {
                     // If the cell contains upper/lower cells; delete the selected cell and focus on the remaining one
                     const activeChild = document.activeElement;
@@ -134,6 +134,7 @@ export class Grid {
             // Prevents the default behavior of the Enter key. In some cases this would otherwise create nested <div> elements
             if (event.key === 'Enter') {
                 event.preventDefault();
+                return;
             }
 
             // Navigate through the upper/lower cells
@@ -142,7 +143,8 @@ export class Grid {
                 if (event.key === 'ArrowUp') {
                     for (let i = 1; i < cell.children.length; i++) {
                         if (activeChild === cell.children[i]) {
-                            cell.children[i-1].focus();
+                            cell.children[i - 1].focus();
+                            event.preventDefault();
                             return;
                         }
                     }
@@ -150,7 +152,8 @@ export class Grid {
                 if (event.key === 'ArrowDown') {
                     for (let i = 0; i < cell.children.length - 1; i++) {
                         if (activeChild === cell.children[i]) {
-                            cell.children[i+1].focus();
+                            cell.children[i + 1].focus();
+                            event.preventDefault();
                             return;
                         }
                     }
@@ -176,28 +179,27 @@ export class Grid {
                     return;
             }
 
-            // Limit the next index to the grid boundaries
+            // This prevents the cursor from moving around ilogically when using arrow keys
+            event.preventDefault();
+
+            // Check if the next cell is within the grid bounds
             if (nextIndex < 0 || nextIndex >= this.container.children.length) {
                 return;
             }
 
-            // Focus on the next cell
             const nextCell = this.container.children[nextIndex];
-            if (nextCell.children.length > 0) {
-                if (event.key === 'ArrowUp') {
-                    // Focus on the last child
-                    nextCell.children[nextCell.children.length - 1].focus();
-                    return;
-                } else {
-                    // Focus on the first child (for any other direction: ArrowDown, ArrowLeft, ArrowRight)
-                    nextCell.children[0].focus(); 
-                    return;
-                }
-            } else {
+            if (nextCell.children.length === 0) {
+                // Focus on the next cell
                 nextCell.focus();
+            } else if (event.key === 'ArrowUp') {
+                // Focus on the last child (when entering from ArrowUp)
+                nextCell.children[nextCell.children.length - 1].focus();
+            } else {
+                // Focus on the first child (whene entering from: ArrowDown, ArrowLeft, ArrowRight)
+                nextCell.children[0].focus();
             }
 
-            // Check if shift key is pressed to start cell selection
+            // Holding shift key while moving with arrow keys will start selection
             if (event.shiftKey) {
                 if (!this.isSelecting) {
                     this.selectionStart(row, col);
@@ -332,14 +334,10 @@ export class Grid {
         this.selectingFromCell = { row, col };
         this.selectingToCell = { row, col };
         this.selectedCells = [];
+        this.clearHighlights();
     }
 
     selectionUpdate(row, col) {
-        // Remove previous selection highlights
-        for (let i = 0; i < this.container.children.length; i++) {
-            this.container.children[i].classList.remove('highlight-selected');
-        }
-
         // Return if not selecting
         if (!this.isSelecting) return;
 
@@ -361,8 +359,9 @@ export class Grid {
             }
         }
 
+        // Update which cells are highlighted
+        this.clearHighlights();
         if (this.selectedCells.length > 1) {
-            // Highlight selected cells
             for (let i = 0; i < this.selectedCells.length; i++) {
                 this.cellAt(this.selectedCells[i].row, this.selectedCells[i].col).classList.add('highlight-selected');
             }
@@ -446,9 +445,9 @@ export class Grid {
             scale: IMAGE_EXPORT_SCALE,
             onclone: (cloneDoc) => {
                 const clonedContainer = cloneDoc.getElementById('grid-container');
-                
+
                 // Style the container to fully display the grid
-                clonedContainer.style.overflow = 'visible';     
+                clonedContainer.style.overflow = 'visible';
                 clonedContainer.style.width = 'auto';
                 clonedContainer.style.height = 'auto';
                 clonedContainer.style.maxWidth = 'none';
@@ -463,7 +462,7 @@ export class Grid {
                             clonedContainer.children[i].classList.remove(className);
                         }
                     }
-                    
+
                     // Deletes cells that are neither hints nor empty
                     if (!(clonedContainer.children[i].classList.contains('hint') || clonedContainer.children[i].classList.contains('empty'))) {
                         clonedContainer.children[i].textContent = '';
@@ -484,7 +483,7 @@ export class Grid {
                 </head>
                 <body style="margin:0"></body>
             </html>`);
-            
+
             // Append the canvas to the new tab's body
             newTab.document.body.append(canvas);
 

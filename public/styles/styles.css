@@ -152,29 +152,7 @@ body {
 .cell>div[contenteditable="true"]:focus {
     /* Highlight the focused cell by changing its color */
     border: none;
-    background-color: rgb(238, 238, 238);
-}
-
-.cell:empty {
-    /* Hide the caret/cursor for empty cells. Otherwise it displays in the top of the div */
-    caret-color: transparent;
-}
-
-.cell::selection {
-    /* Disable default selection background */
-    background: none;
-}
-
-.cell.hint {
-    /* Shrink text to fit and allow breaking lines */
-    font-size: 1rem;
-    /* Make hints italic */
-    font-style: italic;
-}
-
-.cell.empty {
-    background-color: rgb(13, 27, 58);
-    color: rgb(13, 27, 58);
+    background-color: rgba(188, 218, 228, 0.418);
 }
 
 .cell.highlight-selected {
@@ -201,6 +179,28 @@ body {
     height: 4px;
     background-color: rgba(138, 43, 226, 0.3);
     transform: translateY(-50%);
+}
+
+.cell:empty {
+    /* Hide the caret/cursor for empty cells. Otherwise it displays in the top of the div */
+    caret-color: transparent;
+}
+
+.cell::selection {
+    /* Disable default selection background */
+    background: none;
+}
+
+.cell.hint {
+    /* Shrink text to fit and allow breaking lines */
+    font-size: 1rem;
+    /* Make hints italic */
+    font-style: italic;
+}
+
+.cell.empty {
+    background-color: rgb(13, 27, 58);
+    color: rgb(13, 27, 58);
 }
 
 /* Styles for word lists in the sidebars */
