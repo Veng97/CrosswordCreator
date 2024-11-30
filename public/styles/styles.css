@@ -63,9 +63,9 @@ body {
 
 .controls button {
     /* Light green background color */
-    background-color: #90EE90;
+    background-color: #9b99fc;
     /* Slightly darker green border */
-    border: 1px solid #76C76B;
+    border: 1px solid #000;
     /* Rounded corners */
     border-radius: 5px;
     /* Smooth transition for background color */
@@ -75,6 +75,15 @@ body {
 .controls button:hover {
     /* Darker green on hover */
     background-color: #76C76B;
+}
+
+.controls button i {
+    font-size: 24px;
+}
+
+.controls button:has(>i) {
+    height: 51px;
+    width: 51px;
 }
 
 /* Styles for grid and cells */
@@ -139,11 +148,12 @@ body {
     padding: 0;
 }
 
-.cell[contenteditable="true"]:focus, .cell>div[contenteditable="true"]:focus {
+.cell[contenteditable="true"]:focus,
+.cell>div[contenteditable="true"]:focus {
     /* Highlight the focused cell by changing its color */
     border: none;
     background-color: rgb(238, 238, 238);
-  }
+}
 
 .cell:empty {
     /* Hide the caret/cursor for empty cells. Otherwise it displays in the top of the div */
