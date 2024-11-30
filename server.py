@@ -1,28 +1,34 @@
+from waitress import serve
 from flask import Flask, request, send_file, send_from_directory, jsonify
+from bs4 import BeautifulSoup
 import os
 import json
 import requests
-from bs4 import BeautifulSoup
 import regex
 
+HOST = '127.0.0.1'
+PORT = 5000
 PUZZLES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'puzzles')
 DICTIONARY_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dict.json')
 
-# In-memory cache for help requests
-cache = {
-    "patterns": {},  # For pattern-based results
-    "synonyms": {},  # For synonym-based results
+# Cache for pattern/synonym queries
+CACHE = {
+    "patterns": {},
+    "synonyms": {},
 }
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def serve_index():
     return send_from_directory('public', 'index.html')
 
+
 @app.route('/<path:path>')
 def serve_static(path):
     return send_from_directory('public', path)
+
 
 @app.route('/puzzle-options')
 def puzzle_options():
@@ -33,6 +39,7 @@ def puzzle_options():
         print(f'Error listing puzzle files: {e}')
         return 'Error listing puzzle files', 500
 
+
 @app.route('/puzzles/load/<filename>')
 def puzzle_load(filename):
     try:
@@ -40,6 +47,7 @@ def puzzle_load(filename):
     except Exception as e:
         print(f'Error loading puzzle file: {e}')
         return 'Error loading puzzle file', 500
+
 
 @app.route('/puzzles/save/<filename>', methods=['POST'])
 def puzzle_save(filename):
@@ -51,6 +59,7 @@ def puzzle_save(filename):
         print(f'Error saving puzzle file: {e}')
         return 'Error saving puzzle file', 500
 
+
 @app.route('/dictionary/load')
 def dictionary_load():
     try:
@@ -58,6 +67,7 @@ def dictionary_load():
     except Exception as e:
         print(f'Error loading dictionary file: {e}')
         return 'Error loading dictionary file', 500
+
 
 @app.route('/dictionary/save', methods=['POST'])
 def dictionary_save():
@@ -74,7 +84,7 @@ def dictionary_save():
 def grabWords(html) -> list[str]:
     if not html:
         return []
-    
+
     words: list[str] = []
 
     soup = BeautifulSoup(html, "html.parser")
@@ -86,13 +96,14 @@ def grabWords(html) -> list[str]:
 
     return words
 
+
 @app.route('/help/pattern/<pattern>')
 def helpPattern(pattern: str):
 
     # Check if the result is cached
-    if pattern in cache["patterns"]:
-        return cache["patterns"][pattern], 200
-    
+    if pattern in CACHE["patterns"]:
+        return CACHE["patterns"][pattern], 200
+
     # Make a request to the krydsordexperten.dk website: https://krydsordexperten.dk/krydsord/<synonym>
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
@@ -107,8 +118,8 @@ def helpPattern(pattern: str):
 
     try:
         response = requests.get(f"https://krydsordexperten.dk/ord/{pattern}", headers=headers)
-        cache["patterns"][pattern] = grabWords(response.text)
-        return cache["patterns"][pattern], 200
+        CACHE["patterns"][pattern] = grabWords(response.text)
+        return CACHE["patterns"][pattern], 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -119,9 +130,9 @@ def helpSynonym(synonym: str):
     synonym = synonym.replace("æ", "ae").replace("ø", "oe").replace("å", "aa")
 
     # Check if the result is cached
-    if synonym in cache["synonyms"]:
-        return cache["synonyms"][synonym], 200
-    
+    if synonym in CACHE["synonyms"]:
+        return CACHE["synonyms"][synonym], 200
+
     # Make a request to the krydsordexperten.dk website: https://krydsordexperten.dk/krydsord/<synonym>
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
@@ -136,11 +147,12 @@ def helpSynonym(synonym: str):
 
     try:
         response = requests.get(f"https://krydsordexperten.dk/krydsord/{synonym}", headers=headers)
-        cache["synonyms"][synonym] = grabWords(response.text)
-        return cache["synonyms"][synonym], 200
+        CACHE["synonyms"][synonym] = grabWords(response.text)
+        return CACHE["synonyms"][synonym], 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-    
+
 if __name__ == '__main__':
-    app.run(port=8000)
+    print(f'Serving "Crossword Helper" at http://{HOST}:{PORT}')
+    serve(app, host=HOST, port=PORT)
