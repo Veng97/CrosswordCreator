@@ -44,7 +44,7 @@ body {
     margin-bottom: 50px;
 }
 
-/* General styles for controls */
+/* Styles for controls */
 .controls {
     margin-bottom: 20px;
 }
@@ -54,14 +54,14 @@ body {
 .controls button {
     min-width: 50px;
     padding: 8px 15px;
-    margin: 5px;
+    margin: 5px 0px;
     font-size: 14px;
     cursor: pointer;
     /* Set a consistent height for input, select, and button */
     height: 40px;
 }
 
-button {
+.controls button {
     /* Light green background color */
     background-color: #90EE90;
     /* Slightly darker green border */
@@ -72,7 +72,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.controls button:hover {
     /* Darker green on hover */
     background-color: #76C76B;
 }
@@ -82,12 +82,11 @@ button:hover {
     display: grid;
     margin-left: auto;
     margin-right: auto;
-    justify-content: center;
     overflow: auto;
     max-width: 60vw;
-    width: 90%;
-    /* Adds a little bit of spacing to avoid overlap with scrollbar and cell borders */
-    padding-right: 2px;
+    width: 100%;
+    /* The inner cells share borders with the neighboring cells. The outer cells needs this wrapper to have the same border width */
+    border: 1px solid #000;
 }
 
 .cell {
@@ -105,7 +104,7 @@ button:hover {
     padding-left: 1px;
     padding-right: 1px;
     /* Highlight grid lines */
-    border: 1px solid #ccc;
+    border: 1px solid #000;
     /* Required for pseudo-elements (highlights) */
     position: relative;
     /* Indicate that the cells are selectable */
@@ -132,13 +131,19 @@ button:hover {
 .cell>div:nth-child(2) {
     /* Add a border to separate the two halves */
     margin-top: 1px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #000;
 }
 
 .cell:has(> div) {
     /* Remove padding for cells with sub-cells */
     padding: 0;
 }
+
+.cell[contenteditable="true"]:focus, .cell>div[contenteditable="true"]:focus {
+    /* Highlight the focused cell by changing its color */
+    border: none;
+    background-color: rgb(238, 238, 238);
+  }
 
 .cell:empty {
     /* Hide the caret/cursor for empty cells. Otherwise it displays in the top of the div */
@@ -188,12 +193,7 @@ button:hover {
     transform: translateY(-50%);
 }
 
-/* Styles for dictionary word add */
-#word-add {
-    width: 100%;
-}
-
-/* Styles for dictionary list */
+/* Styles for word lists in the sidebars */
 .word-list {
     flex: 1;
     overflow-y: auto;

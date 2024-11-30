@@ -1,4 +1,7 @@
 
+// Controls the pixel scale of the exported image (higher values result in higher resolution images)
+const IMAGE_EXPORT_SCALE = 4;
+
 export class Grid {
     constructor(id, width = 10, height = 10) {
         this.container = document.getElementById(id);
@@ -439,52 +442,53 @@ export class Grid {
     }
 
     async exportGridContainer() {
-
-        this.clearHighlights();
-
-        // Clone the grid-container, preserving attributes
-        let clonedContainer = this.container.cloneNode(true);
-
-        clonedContainer.style.gridTemplateColumns = `repeat(${this.width()}, 0fr)`;
-        clonedContainer.style.gridTemplateRows = `repeat(${this.height()}, 0fr)`;
-        clonedContainer.style.width = 'auto';
-        clonedContainer.style.height = 'auto';
-        clonedContainer.style.maxWidth = 'none';
-        clonedContainer.style.maxHeight = 'none';
-
-        // Iterate over cells and keep only the text content
-        for (let i = 0; i < clonedContainer.children.length; i++) {
-            if (!(clonedContainer.children[i].classList.contains('hint') || clonedContainer.children[i].classList.contains('empty'))) {
-                clonedContainer.children[i].textContent = '';
-            }
-        }
+        html2canvas(this.container, {
+            scale: IMAGE_EXPORT_SCALE,
+            onclone: (cloneDoc) => {
+                const clonedContainer = cloneDoc.getElementById('grid-container');
                 
-        // Serialize the cloned element including its attributes
-        const tempDiv = document.createElement('div');
-        tempDiv.appendChild(clonedContainer);
-        
-        // Create a new HTML document
-        const newTabContent = `
-            <!DOCTYPE html>
+                // Style the container to fully display the grid
+                clonedContainer.style.overflow = 'visible';     
+                clonedContainer.style.width = 'auto';
+                clonedContainer.style.height = 'auto';
+                clonedContainer.style.maxWidth = 'none';
+                clonedContainer.style.maxHeight = 'none';
+
+                // Post-process the cloned container
+                for (let i = 0; i < clonedContainer.children.length; i++) {
+                    // Removes classes starting with 'highlight' as they are only used for highlighting cells while working with the grid
+                    for (let j = clonedContainer.children[i].classList.length - 1; j >= 0; j--) {
+                        const className = clonedContainer.children[i].classList[j];
+                        if (className.startsWith("highlight")) {
+                            clonedContainer.children[i].classList.remove(className);
+                        }
+                    }
+                    
+                    // Deletes cells that are neither hints nor empty
+                    if (!(clonedContainer.children[i].classList.contains('hint') || clonedContainer.children[i].classList.contains('empty'))) {
+                        clonedContainer.children[i].textContent = '';
+                    }
+                }
+            }
+        }).then(canvas => {
+            const newTab = window.open();
+
+            // Write an empty HTML document to the new tab
+            newTab.document.open();
+            newTab.document.write(`<!DOCTYPE html>
             <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Exported Puzzle</title>
-                <link rel="stylesheet" href="styles/styles.css">
-            </head>
-            <body>
-                ${tempDiv.innerHTML}
-            </body>
-            </html>
-        `;
-    
-        // Open a new tab
-        const newTab = window.open();
-    
-        // Write the new HTML content
-        newTab.document.open();
-        newTab.document.write(newTabContent);
-        newTab.document.close();
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Exported Puzzle</title>
+                </head>
+                <body style="margin:0"></body>
+            </html>`);
+            
+            // Append the canvas to the new tab's body
+            newTab.document.body.append(canvas);
+
+            newTab.document.close();
+        });
     }
 }
