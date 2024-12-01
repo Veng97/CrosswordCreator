@@ -229,6 +229,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-transform: uppercase;
     padding: 10px;
     border-bottom: 1px solid #ccc;
     position: relative;
