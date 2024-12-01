@@ -181,7 +181,8 @@ body {
     transform: translateY(-50%);
 }
 
-.cell:empty {
+.cell:empty,
+.cell div:empty {
     /* Hide the caret/cursor for empty cells. Otherwise it displays in the top of the div */
     caret-color: transparent;
 }
