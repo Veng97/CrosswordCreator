@@ -38,32 +38,30 @@ export class Grid {
         }
 
         // Handle cell arrows
-        if (value.startsWith('arrow')) {
-            switch (value) {
-                case 'arrow-left':
-                    cell.textContent = value;
-                    cell.classList.add('arrow');
-                    cell.setAttribute('direction', value);
-                    break;
-                case 'arrow-right':
-                    cell.textContent = value;
-                    cell.classList.add('arrow');
-                    cell.setAttribute('direction', value);
-                    break;
-                case 'arrow-up':
-                    cell.textContent = value;
-                    cell.classList.add('arrow');
-                    cell.setAttribute('direction', value);
-                    break;
-                case 'arrow-down':
-                    cell.textContent = value;
-                    cell.classList.add('arrow');
-                    cell.setAttribute('direction', value);
-                    break;
-                default:
-                    cell.classList.remove('arrow');
-                    cell.removeAttribute('direction');
-            }
+        switch (value) {
+            case 'arrow-left':
+                cell.textContent = value;
+                cell.classList.add('arrow');
+                cell.setAttribute('direction', value);
+                break;
+            case 'arrow-right':
+                cell.textContent = value;
+                cell.classList.add('arrow');
+                cell.setAttribute('direction', value);
+                break;
+            case 'arrow-up':
+                cell.textContent = value;
+                cell.classList.add('arrow');
+                cell.setAttribute('direction', value);
+                break;
+            case 'arrow-down':
+                cell.textContent = value;
+                cell.classList.add('arrow');
+                cell.setAttribute('direction', value);
+                break;
+            default:
+                cell.classList.remove('arrow');
+                cell.removeAttribute('direction');
         }
 
         // Handle cell splitting
