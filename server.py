@@ -1,10 +1,10 @@
-from waitress import serve
-from flask import Flask, request, send_file, send_from_directory, jsonify
-from bs4 import BeautifulSoup
 import os
 import json
 import requests
 import regex
+from waitress import serve
+from flask import Flask, request, send_file, send_from_directory, jsonify
+from bs4 import BeautifulSoup
 
 HOST = '127.0.0.1'
 PORT = 5000
