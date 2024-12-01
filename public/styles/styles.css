@@ -1,3 +1,23 @@
+:root {
+    /* Control styles */
+    --control-btn-color: #9b99fc;
+    --control-btn-color-hover: #6a68c5;
+    /* Grid styles */
+    --grid-clr: #000;
+    /* Cell styles */
+    --cell-selected-clr: rgba(188, 218, 228, 0.418);
+    --cell-empty-clr: rgb(13, 27, 58);
+    --cell-highlight-vertical-clr: rgba(218, 165, 32, 0.3);
+    --cell-highlight-horizontal-clr: rgba(138, 43, 226, 0.3);
+    /* Arrow styles */
+    --arrow-clr: rgb(13, 27, 58);
+    --arrow-margin: 15%;
+    --arrow-thickness: 10px;
+    --arrow-headwidth: 10px;
+    --arrow-headlength: 15px;
+}
+
+/* Reset default styles */
 * {
     margin: 0;
     padding: 0;
@@ -62,19 +82,14 @@ body {
 }
 
 .controls button {
-    /* Light green background color */
-    background-color: #9b99fc;
-    /* Slightly darker green border */
-    border: 1px solid #000;
-    /* Rounded corners */
+    background-color: var(--control-btn-color);
+    border: 1px solid black;
     border-radius: 5px;
-    /* Smooth transition for background color */
     transition: background-color 0.3s ease;
 }
 
 .controls button:hover {
-    /* Darker green on hover */
-    background-color: #76C76B;
+    background-color: var(--control-btn-color-hover);
 }
 
 .controls button i {
@@ -95,7 +110,7 @@ body {
     max-width: 60vw;
     width: 100%;
     /* The inner cells share borders with the neighboring cells. The outer cells needs this wrapper to have the same border width */
-    border: 1px solid #000;
+    border: 1px solid var(--grid-clr);
 }
 
 .cell {
@@ -113,7 +128,7 @@ body {
     padding-left: 1px;
     padding-right: 1px;
     /* Highlight grid lines */
-    border: 1px solid #000;
+    border: 1px solid var(--grid-clr);
     /* Required for pseudo-elements (highlights) */
     position: relative;
     /* Indicate that the cells are selectable */
@@ -140,7 +155,7 @@ body {
 .cell>div:nth-child(2) {
     /* Add a border to separate the two halves */
     margin-top: 1px;
-    border-top: 1px solid #000;
+    border-top: 1px solid var(--grid-clr);
 }
 
 .cell:has(> div) {
@@ -152,11 +167,11 @@ body {
 .cell>div[contenteditable="true"]:focus {
     /* Highlight the focused cell by changing its color */
     border: none;
-    background-color: rgba(188, 218, 228, 0.418);
+    background-color: var(--cell-selected-clr);
 }
 
 .cell.highlight-selected {
-    background-color: rgba(188, 218, 228, 0.418);
+    background-color: var(--cell-selected-clr);
 }
 
 .cell.highlight-vertical::before {
@@ -166,7 +181,7 @@ body {
     bottom: 0;
     left: 50%;
     width: 4px;
-    background-color: rgba(218, 165, 32, 0.3);
+    background-color: var(--cell-highlight-vertical-clr);
     transform: translateX(-50%);
 }
 
@@ -177,7 +192,7 @@ body {
     right: 0;
     top: 50%;
     height: 4px;
-    background-color: rgba(138, 43, 226, 0.3);
+    background-color: var(--cell-highlight-horizontal-clr);
     transform: translateY(-50%);
 }
 
@@ -200,8 +215,8 @@ body {
 }
 
 .cell.empty {
-    background-color: rgb(13, 27, 58);
-    color: rgb(13, 27, 58);
+    color: var(--cell-empty-clr);
+    background-color: var(--cell-empty-clr);
 }
 
 /* Styles for word lists in the sidebars */
@@ -242,4 +257,80 @@ body {
 .word-list li .count::after {
     content: ' ]';
     position: relative;
+}
+
+/* Styles for the arrow */
+.arrow {
+    position: relative;
+    color: transparent;
+}
+
+/* Arrow line (the shaft) */
+.arrow::before {
+    content: "";
+    position: absolute;
+    background-color: var(--arrow-clr);
+}
+
+.arrow[direction="arrow-up"]::before,
+.arrow[direction="arrow-down"]::before {
+    width: var(--arrow-thickness);
+}
+
+.arrow[direction="arrow-left"]::before,
+.arrow[direction="arrow-right"]::before {
+    height: var(--arrow-thickness);
+}
+
+.arrow[direction="arrow-up"]::before {
+    top: calc(var(--arrow-margin) + var(--arrow-headlength));
+    bottom: var(--arrow-margin);
+}
+
+.arrow[direction="arrow-down"]::before {
+    top: var(--arrow-margin);
+    bottom: calc(var(--arrow-margin) + var(--arrow-headlength));
+}
+
+.arrow[direction="arrow-left"]::before {
+    left: calc(var(--arrow-margin) + var(--arrow-headlength));
+    right: var(--arrow-margin);
+}
+
+.arrow[direction="arrow-right"]::before {
+    left: var(--arrow-margin);
+    right: calc(var(--arrow-margin) + var(--arrow-headlength));
+}
+
+/* Arrow triangle (the head) */
+.arrow::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.arrow[direction="arrow-up"]::after {
+    border-width: 0 var(--arrow-headwidth) var(--arrow-headlength) var(--arrow-headwidth);
+    border-color: transparent transparent var(--arrow-clr) transparent;
+    top: var(--arrow-margin);
+}
+
+.arrow[direction="arrow-down"]::after {
+    border-width: var(--arrow-headlength) var(--arrow-headwidth) 0 var(--arrow-headwidth);
+    border-color: var(--arrow-clr) transparent transparent transparent;
+    bottom: var(--arrow-margin);
+}
+
+.arrow[direction="arrow-left"]::after {
+    border-width: var(--arrow-headwidth) var(--arrow-headlength) var(--arrow-headwidth) 0;
+    border-color: transparent var(--arrow-clr) transparent transparent;
+    left: var(--arrow-margin);
+}
+
+.arrow[direction="arrow-right"]::after {
+    border-width: var(--arrow-headwidth) 0 var(--arrow-headwidth) var(--arrow-headlength);
+    border-color: transparent transparent transparent var(--arrow-clr);
+    right: var(--arrow-margin);
 }

@@ -37,6 +37,35 @@ export class Grid {
             cell.textContent = value;
         }
 
+        // Handle cell arrows
+        if (value.startsWith('arrow')) {
+            switch (value) {
+                case 'arrow-left':
+                    cell.textContent = value;
+                    cell.classList.add('arrow');
+                    cell.setAttribute('direction', value);
+                    break;
+                case 'arrow-right':
+                    cell.textContent = value;
+                    cell.classList.add('arrow');
+                    cell.setAttribute('direction', value);
+                    break;
+                case 'arrow-up':
+                    cell.textContent = value;
+                    cell.classList.add('arrow');
+                    cell.setAttribute('direction', value);
+                    break;
+                case 'arrow-down':
+                    cell.textContent = value;
+                    cell.classList.add('arrow');
+                    cell.setAttribute('direction', value);
+                    break;
+                default:
+                    cell.classList.remove('arrow');
+                    cell.removeAttribute('direction');
+            }
+        }
+
         // Handle cell splitting
         if (cell.children.length === 0) {
             // Check if the cell contains a pipe character; if so, split the cell into upper/lower cells
@@ -114,24 +143,29 @@ export class Grid {
             // Enable deleting cell content with delete or backspace keys
             if (event.key === 'Delete' || event.key === 'Backspace') {
                 if (cell.children.length === 0) {
+                    // If the cell contains a single character; delete the character.
+                    // Note: Erasing the cell content changes the cell to an empty cell, so we need to notify changes.
                     if (cell.textContent.length === 1) {
                         this.updateEntryAt(row, col, '');
                         this.notifyChanges();
+                        event.preventDefault(); // Prevents the default behavior of the Delete/Backspace key which would otherwise delete another character.
+                        return;
                     }
                 }
                 else if (cell.children.length > 1) {
-                    // If the cell contains upper/lower cells; delete the selected cell and focus on the remaining one
+                    // If the cell contains upper/lower cells; delete the selected cell and focus on the remaining one. 
+                    // Note: The remaining cell should still be a hint, so we don't need to notify changes.
                     const activeChild = document.activeElement;
                     if (activeChild.textContent === '') {
-                        event.preventDefault();
                         activeChild.remove();
                         this.updateEntryAt(row, col, cell.textContent);
+                        event.preventDefault(); // Prevents the default behavior of the Delete/Backspace key which would potentially delete another character or an entire div.
                         return;
                     }
                 }
             }
 
-            // Prevents the default behavior of the Enter key. In some cases this would otherwise create nested <div> elements
+            // Prevents the default behavior of the Enter key. In some cases this would otherwise create nested <div> elements.
             if (event.key === 'Enter') {
                 event.preventDefault();
                 return;
