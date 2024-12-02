@@ -20,8 +20,8 @@ CACHE = {
     "synonyms": {},
 }
 
-# Directory to serve static/public files from
-STATIC_DIR = os.path.join(os.path.dirname(__file__), 'public')
+# Directory to serve static files from
+STATIC_DIR = os.path.join(os.path.dirname(__file__), 'static')
 
 app = Flask(__name__)
 
@@ -152,9 +152,9 @@ def helpSynonym(synonym: str):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--host', type=str, default=HOST, help='Host to serve the app on')
-    parser.add_argument('--port', type=int, default=PORT, help='Port to serve the app on')
-    parser.add_argument('--dir', type=str, default='.', help='Directory to store the grid and dictionary files')
+    parser.add_argument('--host', type=str, default=HOST, help=f'Host to serve the app on. Default: {HOST}')
+    parser.add_argument('--port', type=int, default=PORT, help=f'Port to serve the app on. Default: {PORT}')
+    parser.add_argument('--dir', type=str, default=os.getcwd(), help='Directory to store the grid and dictionary files. Default: current directory')
 
     args = parser.parse_args()
 
