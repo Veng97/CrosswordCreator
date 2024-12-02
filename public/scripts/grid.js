@@ -38,30 +38,16 @@ export class Grid {
         }
 
         // Handle cell arrows
-        switch (value) {
-            case 'arrow-left':
-                cell.textContent = value;
-                cell.classList.add('arrow');
-                cell.setAttribute('direction', value);
-                break;
-            case 'arrow-right':
-                cell.textContent = value;
-                cell.classList.add('arrow');
-                cell.setAttribute('direction', value);
-                break;
-            case 'arrow-up':
-                cell.textContent = value;
-                cell.classList.add('arrow');
-                cell.setAttribute('direction', value);
-                break;
-            case 'arrow-down':
-                cell.textContent = value;
-                cell.classList.add('arrow');
-                cell.setAttribute('direction', value);
-                break;
-            default:
-                cell.classList.remove('arrow');
-                cell.removeAttribute('direction');
+        const directions = ['arrow-left', 'arrow-right', 'arrow-up', 'arrow-down',
+            'arrow-up-right', 'arrow-up-left', 'arrow-down-right', 'arrow-down-left',
+            'arrow-right-up', 'arrow-right-down', 'arrow-left-up', 'arrow-left-down'
+        ];
+        if (directions.includes(value)) {
+            cell.classList.add('arrow');
+            cell.setAttribute('direction', value);
+        } else {
+            cell.classList.remove('arrow');
+            cell.removeAttribute('direction');
         }
 
         // Handle cell splitting

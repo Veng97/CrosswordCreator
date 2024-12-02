@@ -262,78 +262,69 @@ body {
     position: relative;
 }
 
-/* Styles for the arrow */
+/* Arrow styles */
 .arrow {
     position: relative;
     color: transparent;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
 }
 
-/* Arrow line (the shaft) */
-.arrow::before {
-    content: "";
-    position: absolute;
-    background-color: var(--arrow-clr);
+.arrow[direction="arrow-down"],
+.arrow[direction="arrow-up"],
+.arrow[direction="arrow-left"],
+.arrow[direction="arrow-right"] {
+    background-image: url('arrow-down.svg');
 }
 
-.arrow[direction="arrow-up"]::before,
-.arrow[direction="arrow-down"]::before {
-    width: var(--arrow-thickness);
+.arrow[direction="arrow-up"] {
+    transform: scaleY(-1);
 }
 
-.arrow[direction="arrow-left"]::before,
-.arrow[direction="arrow-right"]::before {
-    height: var(--arrow-thickness);
+.arrow[direction="arrow-left"] {
+    transform: rotate(90deg);
 }
 
-.arrow[direction="arrow-up"]::before {
-    top: calc(var(--arrow-margin) + var(--arrow-headlength));
-    bottom: var(--arrow-margin);
+.arrow[direction="arrow-right"] {
+    transform: rotate(-90deg);
 }
 
-.arrow[direction="arrow-down"]::before {
-    top: var(--arrow-margin);
-    bottom: calc(var(--arrow-margin) + var(--arrow-headlength));
+.arrow[direction="arrow-down-right"],
+.arrow[direction="arrow-down-left"],
+.arrow[direction="arrow-up-right"],
+.arrow[direction="arrow-up-left"],
+.arrow[direction="arrow-left-down"],
+.arrow[direction="arrow-left-up"],
+.arrow[direction="arrow-right-down"],
+.arrow[direction="arrow-right-up"] {
+    background-image: url('arrow-down-right.svg');
 }
 
-.arrow[direction="arrow-left"]::before {
-    left: calc(var(--arrow-margin) + var(--arrow-headlength));
-    right: var(--arrow-margin);
+.arrow[direction="arrow-down-left"] {
+    transform: scaleX(-1);
 }
 
-.arrow[direction="arrow-right"]::before {
-    left: var(--arrow-margin);
-    right: calc(var(--arrow-margin) + var(--arrow-headlength));
+.arrow[direction="arrow-up-right"] {
+    transform: scaleY(-1);
 }
 
-/* Arrow triangle (the head) */
-.arrow::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
+.arrow[direction="arrow-up-left"] {
+    transform: scaleX(-1) scaleY(-1);
 }
 
-.arrow[direction="arrow-up"]::after {
-    border-width: 0 var(--arrow-headwidth) var(--arrow-headlength) var(--arrow-headwidth);
-    border-color: transparent transparent var(--arrow-clr) transparent;
-    top: var(--arrow-margin);
+.arrow[direction="arrow-left-down"] {
+    transform: rotate(90deg);
 }
 
-.arrow[direction="arrow-down"]::after {
-    border-width: var(--arrow-headlength) var(--arrow-headwidth) 0 var(--arrow-headwidth);
-    border-color: var(--arrow-clr) transparent transparent transparent;
-    bottom: var(--arrow-margin);
+.arrow[direction="arrow-left-up"] {
+    transform: rotate(90deg) scaleX(-1);
 }
 
-.arrow[direction="arrow-left"]::after {
-    border-width: var(--arrow-headwidth) var(--arrow-headlength) var(--arrow-headwidth) 0;
-    border-color: transparent var(--arrow-clr) transparent transparent;
-    left: var(--arrow-margin);
+.arrow[direction="arrow-right-down"] {
+    transform: rotate(90deg) scaleY(-1);
 }
 
-.arrow[direction="arrow-right"]::after {
-    border-width: var(--arrow-headwidth) 0 var(--arrow-headwidth) var(--arrow-headlength);
-    border-color: transparent transparent transparent var(--arrow-clr);
-    right: var(--arrow-margin);
+.arrow[direction="arrow-right-up"] {
+    transform: rotate(90deg) scaleX(-1) scaleY(-1);
 }
