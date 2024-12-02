@@ -268,14 +268,23 @@ body {
     color: transparent;
     width: 100%;
     height: 100%;
-    background-size: cover;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
+
+.arrow:focus {
+    color: black;
+    background-image: none !important;
+    transform: none !important;
+}
+
 
 .arrow[direction="arrow-down"],
 .arrow[direction="arrow-up"],
 .arrow[direction="arrow-left"],
 .arrow[direction="arrow-right"] {
-    background-image: url('arrow-down.svg');
+    background-image: url('/assets/arrow-down.svg');
 }
 
 .arrow[direction="arrow-up"] {
@@ -298,7 +307,7 @@ body {
 .arrow[direction="arrow-left-up"],
 .arrow[direction="arrow-right-down"],
 .arrow[direction="arrow-right-up"] {
-    background-image: url('arrow-down-right.svg');
+    background-image: url('/assets/arrow-down-right.svg');
 }
 
 .arrow[direction="arrow-down-left"] {
