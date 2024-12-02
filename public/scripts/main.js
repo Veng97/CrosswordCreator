@@ -1,14 +1,20 @@
 // import { loadGridData, saveGridData, generateEmptyGrid, addToGrid, removeFromGrid, selectGridData } from './grid.js';
-import { Grid } from './grid.js';
-import { Search } from './search.js';
 import { Dictionary } from './dictionary.js';
+import { Grid } from './grid.js';
 import { Helper } from './helper.js';
+import { Search } from './search.js';
 
 // Initialize objects
 const grid = new Grid('grid-container');
 const search = new Search(grid);
 const dictionary = new Dictionary('dictionary-list', 'dictionary-msg', grid, search);
 const helper = new Helper('helper-list', 'helper-msg', grid, search);
+
+// Load dictionary entries (on page load)
+dictionary.loadFile();
+
+// Load grid data (on page load)
+grid.loadFile();
 
 // Register callbacks
 grid.onChanges(() => search.clearHighlights());
@@ -28,12 +34,10 @@ document.getElementById('shift-right').addEventListener('click', () => grid.shif
 document.getElementById('export').addEventListener('click', () => grid.exportGridContainer());
 
 // File controls
-const fileSelector = document.getElementById('select-grid-file');
 const loadFileBtn = document.getElementById('load-grid-file');
 const saveFileBtn = document.getElementById('save-grid-file');
-loadFileBtn.addEventListener('click', async () => grid.loadFile(`/puzzles/load/${fileSelector.value}`));
-saveFileBtn.addEventListener('click', async () => grid.saveFile(`/puzzles/save/${fileSelector.value}`));
-grid.populateFileSelector(fileSelector); // Populates dropdown with JSON files (on page load)
+loadFileBtn.addEventListener('click', async () => grid.loadFile());
+saveFileBtn.addEventListener('click', async () => grid.saveFile());
 
 // Word controls
 const wordSearch = document.getElementById('word-search');
@@ -60,4 +64,3 @@ wordAdd.addEventListener('keypress', (event) => {
         wordAdd.value = ''; // Clear input field
     }
 });
-dictionary.loadFile(); // Load dictionary entries (on page load)

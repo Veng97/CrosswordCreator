@@ -1,4 +1,7 @@
 
+const GRID_SAVE_URL = 'grid/save';
+const GRID_LOAD_URL = 'grid/load';
+
 // Controls the pixel scale of the exported image (higher values result in higher resolution images)
 const IMAGE_EXPORT_SCALE = 4;
 
@@ -408,9 +411,9 @@ export class Grid {
         this.selectedCells = [];
     }
 
-    async loadFile(url) {
+    async loadFile() {
         try {
-            const response = await fetch(url);
+            const response = await fetch(GRID_LOAD_URL);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -421,9 +424,9 @@ export class Grid {
         }
     }
 
-    async saveFile(url) {
+    async saveFile() {
         try {
-            const response = await fetch(url, {
+            const response = await fetch(GRID_SAVE_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -437,24 +440,6 @@ export class Grid {
             alert(result);
         } catch (error) {
             console.error('Error saving grid:', error);
-        }
-    }
-
-    async populateFileSelector(gridSelector) {
-        try {
-            const response = await fetch('/puzzle-options');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const files = await response.json();
-            files.forEach(file => {
-                const option = document.createElement('option');
-                option.value = file;
-                option.textContent = file;
-                gridSelector.appendChild(option);
-            });
-        } catch (error) {
-            console.error('Error loading JSON file list:', error);
         }
     }
 
