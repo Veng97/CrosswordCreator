@@ -26,6 +26,11 @@ STATIC_DIR = os.path.join(os.path.dirname(__file__), 'static')
 app = Flask(__name__)
 
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(STATIC_DIR, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
 @app.route('/')
 def serve_index():
     return send_from_directory(STATIC_DIR, 'index.html')

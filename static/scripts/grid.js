@@ -55,8 +55,10 @@ export class Grid {
 
         // Handle cell splitting
         if (cell.children.length === 0) {
-            // Check if the cell contains a pipe character; if so, split the cell into upper/lower cells
-            if (value.includes('|')) {
+            // Check if the cell contains a pipe or slash character; if so, split the cell into upper/lower cells
+            if (value.includes('|') || value.includes('/')) {
+                // Replace any '/' characters with '|' characters for consistency
+                value = value.replace('/', '|');
 
                 // Replace the cell with the upper/lower cells
                 cell.innerHTML = '';
@@ -155,6 +157,13 @@ export class Grid {
             // Prevents the default behavior of the Enter key. In some cases this would otherwise create nested <div> elements.
             if (event.key === 'Enter') {
                 event.preventDefault();
+                return;
+            }
+
+            // Save the grid when pressing Ctrl+S
+            if (event.key === 's' && event.ctrlKey) {
+                event.preventDefault();
+                this.saveFile();
                 return;
             }
 

@@ -4,3 +4,4 @@ waitress
 regex
 requests
 pyinstaller
+tk

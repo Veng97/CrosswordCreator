@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 # Run PyInstaller to create the executable
 echo "Building the Flask app..."
-pyinstaller --name "$EXECUTABLE_NAME" --noconsole --onefile --add-data "static:static" "$ENTRYPOINT"
+pyinstaller --name "$EXECUTABLE_NAME" --windowed --onefile --add-data "static:static" "$ENTRYPOINT"
 
 # Move the executable to the root directory
 echo "Moving the executable to the root directory..."
@@ -27,6 +27,6 @@ mv "dist/$EXECUTABLE_NAME" "$EXECUTABLE_NAME"
 
 # Optional: Clean up temporary files created by PyInstaller
 echo "Cleaning up temporary files..."
-rm -rf build dist __pycache__ *.spec
+# rm -rf build dist __pycache__ *.spec
 
 echo "Build completed successfully!"
