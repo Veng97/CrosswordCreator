@@ -3,12 +3,11 @@ const DICTIONARY_LOAD_URL = '/dictionary/load';
 const DICTIONARY_SAVE_URL = '/dictionary/save';
 
 export class Dictionary {
-    constructor(list_id, msg_id, grid, search) {
+    constructor(list_id, msg_id, search) {
         this.list = document.getElementById(list_id);
         this.msg = document.getElementById(msg_id);
-        this.grid = grid;
         this.search = search;
-        this.data = []; 
+        this.data = [];
     }
 
     async loadFile() {
@@ -86,7 +85,7 @@ export class Dictionary {
 
         // Add click event listener to the li element
         li.addEventListener('click', () => this.search.highlightWordLocations(word));
-        
+
         li.appendChild(removeButton);
         li.appendChild(wordText);
         li.appendChild(locationCount);
@@ -101,7 +100,7 @@ export class Dictionary {
             const wordElement = element.querySelector('.word');
             const wordExists = this.search.findExistingLocation(wordElement.textContent);
             wordElement.classList.toggle('exists', wordExists !== null);
-            
+
             // Update the word count
             const countElement = element.querySelector('.count');
             if (wordExists) {

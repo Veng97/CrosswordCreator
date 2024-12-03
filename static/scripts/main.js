@@ -7,8 +7,8 @@ import { Search } from './search.js';
 // Initialize objects
 const grid = new Grid('grid-container');
 const search = new Search(grid);
-const dictionary = new Dictionary('dictionary-list', 'dictionary-msg', grid, search);
-const helper = new Helper('helper-list', 'helper-msg', grid, search);
+const dictionary = new Dictionary('dictionary-list', 'dictionary-msg', search);
+const helper = new Helper('helper-list', 'helper-msg', search);
 
 // Load dictionary entries (on page load)
 dictionary.loadFile();
