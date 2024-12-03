@@ -1,9 +1,10 @@
 import os
-import sys
 import json
 import requests
 import regex
 import argparse
+import webbrowser
+
 from waitress import serve
 from flask import Flask, request, send_file, send_from_directory, jsonify
 from bs4 import BeautifulSoup
@@ -160,6 +161,7 @@ if __name__ == '__main__':
     parser.add_argument('--host', type=str, default=HOST, help=f'Host to serve the app on. Default: {HOST}')
     parser.add_argument('--port', type=int, default=PORT, help=f'Port to serve the app on. Default: {PORT}')
     parser.add_argument('--dir', type=str, default=os.getcwd(), help='Directory to store the grid and dictionary files. Default: current directory')
+    parser.add_argument('--browser', type=int, default=1, help='Open the browser automatically. Default: True')
 
     args = parser.parse_args()
 
@@ -186,5 +188,12 @@ if __name__ == '__main__':
         with open(PATH_TO_DICT, 'w') as f:
             json.dump([], f, indent=2)
 
+    if args.browser > 0:
+        webbrowser.open(f"http://{HOST}:{PORT}", new=args.browser)
+
+    # Start Flask in a separate thread
     print(f'Serving "Crossword Helper" at http://{HOST}:{PORT}')
-    serve(app, host=HOST, port=PORT)
+    try:
+        serve(app, host=HOST, port=PORT)
+    except KeyboardInterrupt:
+        pass

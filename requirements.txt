@@ -3,5 +3,5 @@ beautifulsoup4
 waitress
 regex
 requests
-pyinstaller
 tk
+pyinstaller

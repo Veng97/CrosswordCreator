@@ -27,6 +27,6 @@ mv "dist/$EXECUTABLE_NAME" "$EXECUTABLE_NAME"
 
 # Optional: Clean up temporary files created by PyInstaller
 echo "Cleaning up temporary files..."
-# rm -rf build dist __pycache__ *.spec
+rm -rf build dist __pycache__ *.spec
 
 echo "Build completed successfully!"
