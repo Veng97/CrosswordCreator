@@ -211,12 +211,12 @@
       "data": ""
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "l"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "asaklklaks"
     },
     {
       "type": "empty",
@@ -273,12 +273,12 @@
       "data": ""
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "star",
+      "data": "l"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "star",
+      "data": "p"
     },
     {
       "type": "empty",

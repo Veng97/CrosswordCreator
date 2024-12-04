@@ -387,7 +387,7 @@ export class Grid {
                 // Post-process the cloned container
                 for (let i = 0; i < clonedContainer.children.length; i++) {
                     if (clonedContainer.children[i].classList.contains('char')) {
-                        clonedContainer.children[i].textContent = '';
+                        clonedContainer.children[i].classList.add('hidden');
                     }
                 }
             }

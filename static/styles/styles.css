@@ -5,10 +5,16 @@
     /* Grid styles */
     --grid-clr: #000;
     /* Cell styles */
+    --cell-font-size: 2rem;
     --cell-selected-clr: rgba(188, 218, 228, 0.418);
     --cell-blocked-clr: rgb(13, 27, 58);
     --cell-highlight-vertical-clr: rgba(218, 165, 32, 0.3);
     --cell-highlight-horizontal-clr: rgba(138, 43, 226, 0.3);
+    /* Hint styles */
+    --hint-font-size: 1rem;
+    /* Star styles */
+    --star-font-size: 2rem;
+    --star-clr: rgb(13, 27, 58);
     /* Arrow styles */
     --arrow-clr: rgb(13, 27, 58);
     --arrow-margin: 15%;
@@ -118,7 +124,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: var(--cell-font-size);
     text-align: center;
     text-transform: uppercase;
     /* Fill available space, but restrict to square cells */
@@ -211,7 +217,7 @@ body {
 .cell.hint,
 .cell.arrow {
     /* Shrink text to fit and allow breaking lines */
-    font-size: 1rem;
+    font-size: var(--hint-font-size);
     /* Make hints italic */
     font-style: italic;
 }
@@ -219,6 +225,20 @@ body {
 .cell.blocked {
     color: var(--cell-blocked-clr);
     background-color: var(--cell-blocked-clr);
+}
+
+.cell.hidden {
+    color: transparent;
+}
+
+.cell.star::before {
+    content: '*';
+    position: absolute;
+    top: 0;
+    /* It seems to align nicely by scaling this by 15% */
+    left: calc(var(--star-font-size) * 0.15);
+    font-size: calc(var(--star-font-size));
+    color: var(--star-clr);
 }
 
 /* Styles for word lists in the sidebars */

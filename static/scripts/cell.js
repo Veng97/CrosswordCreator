@@ -1,5 +1,6 @@
 export const CellType = {
     CHAR: 'char',
+    STAR: 'star',
     HINT: 'hint',
     EMPTY: 'empty',
     BLOCKED: 'blocked',
@@ -55,14 +56,14 @@ export class Cell {
             if (this.element.children.length === 0) {
                 // If the cell contains a single character; delete the character.
                 // Note: Erasing the cell content changes the cell to an empty cell, so we need to notify changes.
-                if (this.element.textContent.length === 0) {
+                if (this.element.textContent.length === 1) {
                     event.preventDefault(); // Prevents the default behavior of the Delete/Backspace key which would otherwise delete another character.
                     this.setData('', true);
                     this.setType(CellType.EMPTY);
                     return;
                 }
             }
-            else if (this.element.children.length > 1) {
+            else if (this.element.children.length >= 1) {
                 // If the cell contains upper/lower cells; delete the selected cell and focus on the remaining one. 
                 // Note: The remaining cell should still be a hint, so we don't need to notify changes.
                 const activeChild = document.activeElement;
@@ -88,6 +89,14 @@ export class Cell {
             event.preventDefault();
             this.setData('#');
             this.setType(CellType.BLOCKED);
+            return;
+        }
+
+        // Convert to star cell
+        if (event.data === '*' && this.#type === CellType.CHAR) {
+            event.preventDefault();
+            this.setData(this.element.innerHTML.replace('*', ''));
+            this.setType(CellType.STAR);
             return;
         }
 
@@ -143,6 +152,10 @@ export class Cell {
             this.setType(CellType.HINT);
         }
 
+        if (this.element.children.length === 1) {
+            this.setData(this.element.textContent, true);
+        }
+
         // Update the data of the cell
         this.setData(this.element.innerHTML);
     }
@@ -173,7 +186,8 @@ export class Cell {
             throw new Error('Invalid cell type: ' + type);
         }
 
-        this.element.classList.toggle('char', type === CellType.CHAR);
+        this.element.classList.toggle('char', (type === CellType.CHAR || type === CellType.STAR));
+        this.element.classList.toggle('star', type === CellType.STAR);
         this.element.classList.toggle('hint', type === CellType.HINT);
         this.element.classList.toggle('blocked', type === CellType.BLOCKED);
 
