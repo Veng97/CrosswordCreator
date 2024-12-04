@@ -17,7 +17,6 @@ dictionary.loadFile();
 grid.loadFile();
 
 // Register callbacks
-grid.onChanges(() => search.clearHighlights());
 grid.onChanges(() => dictionary.updateWordCounts());
 grid.onSelected((selectedWord) => helper.askWord(selectedWord));
 
@@ -41,7 +40,7 @@ saveFileBtn.addEventListener('click', async () => grid.saveFile());
 
 // Word controls
 const wordSearch = document.getElementById('word-search');
-wordSearch.addEventListener('input', () => search.clearHighlights());
+wordSearch.addEventListener('input', () => grid.clearHighlights());
 wordSearch.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         search.highlightWordLocations(wordSearch.value);

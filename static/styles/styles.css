@@ -6,7 +6,7 @@
     --grid-clr: #000;
     /* Cell styles */
     --cell-selected-clr: rgba(188, 218, 228, 0.418);
-    --cell-empty-clr: rgb(13, 27, 58);
+    --cell-blocked-clr: rgb(13, 27, 58);
     --cell-highlight-vertical-clr: rgba(218, 165, 32, 0.3);
     --cell-highlight-horizontal-clr: rgba(138, 43, 226, 0.3);
     /* Arrow styles */
@@ -129,6 +129,7 @@ body {
     padding-left: 4px;
     padding-right: 4px;
     /* Highlight grid lines */
+    outline: none;
     border: 1px solid var(--grid-clr);
     /* Required for pseudo-elements (highlights) */
     position: relative;
@@ -154,25 +155,23 @@ body {
     white-space: pre-wrap;
 }
 
-.cell>div:nth-child(2) {
-    /* Add a border to separate the two halves */
-    margin-top: 1px;
+.cell>div:first-child {
+    border-bottom: 1px solid var(--grid-clr);
+}
+
+.cell>div:last-child {
     border-top: 1px solid var(--grid-clr);
 }
+
 
 .cell:has(> div) {
     /* Remove padding for cells with sub-cells */
     padding: 0;
 }
 
+.cell.highlight-selected,
 .cell[contenteditable="true"]:focus,
 .cell>div[contenteditable="true"]:focus {
-    /* Highlight the focused cell by changing its color */
-    border: none;
-    background-color: var(--cell-selected-clr);
-}
-
-.cell.highlight-selected {
     background-color: var(--cell-selected-clr);
 }
 
@@ -209,16 +208,17 @@ body {
     background: none;
 }
 
-.cell.hint {
+.cell.hint,
+.cell.arrow {
     /* Shrink text to fit and allow breaking lines */
     font-size: 1rem;
     /* Make hints italic */
     font-style: italic;
 }
 
-.cell.empty {
-    color: var(--cell-empty-clr);
-    background-color: var(--cell-empty-clr);
+.cell.blocked {
+    color: var(--cell-blocked-clr);
+    background-color: var(--cell-blocked-clr);
 }
 
 /* Styles for word lists in the sidebars */

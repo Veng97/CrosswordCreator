@@ -179,7 +179,7 @@ if __name__ == '__main__':
     if not os.path.isfile(PATH_TO_GRID):
         rows = 10
         cols = 15
-        grid = [["" for _ in range(cols)] for _ in range(rows)]
+        grid = [[{'type': 'empty', 'data': ''} for _ in range(cols)] for _ in range(rows)]
         with open(PATH_TO_GRID, 'w') as f:
             json.dump(grid, f, indent=2)
 
