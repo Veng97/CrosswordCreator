@@ -3,10 +3,9 @@ const WORD_PATTERN_URL = '/help/pattern';
 const WORD_SYNONYM_URL = '/help/synonym';
 
 export class Helper {
-    constructor(list_id, msg_id, grid, search) {
+    constructor(list_id, msg_id, search) {
         this.list = document.getElementById(list_id);
         this.msg = document.getElementById(msg_id);
-        this.grid = grid;
         this.search = search;
         this.data = [];
     }

@@ -2,9 +2,31 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Build Python Virtual Environment",
+            "type": "shell",
+            "command": "python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "Builds a Python Virtual Environment for the project (.venv) and installs the required packages"
+        },
+        {
+            "label": "Clean Python Virtual Environment",
+            "type": "shell",
+            "command": "rm -rf .venv",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "Cleans the Python Virtual Environment for the project (.venv)"
+        },
+        {
             "label": "Start Python HTTP Server",
             "type": "shell",
-            "command": "python3 server.py",
+            "command": "python3 serve.py",
             "group": {
                 "kind": "build",
                 "isDefault": true

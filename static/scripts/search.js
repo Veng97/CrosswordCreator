@@ -1,3 +1,4 @@
+import { HighlightType } from './cell.js';
 
 export class Search {
     constructor(grid) {
@@ -5,8 +6,6 @@ export class Search {
     }
 
     highlightWordLocations(word) {
-        this.clearHighlights();
-
         if (!word) return
 
         const possibleLocations = this.findPossibleLocations(word);
@@ -52,7 +51,7 @@ export class Search {
                 return false;
             }
             for (let i = 0; i < word.length; i++) {
-                const value = this.grid.data[row][col + i];
+                const value = this.grid.charAt(row, col + i);
                 if ((force || value !== '') && value.toUpperCase() !== word[i].toUpperCase()) {
                     return false;
                 }
@@ -62,7 +61,7 @@ export class Search {
                 return false;
             }
             for (let i = 0; i < word.length; i++) {
-                const value = this.grid.data[row + i][col];
+                const value = this.grid.charAt(row + i, col);
                 if ((force || value !== '') && value.toUpperCase() !== word[i].toUpperCase()) {
                     return false;
                 }
@@ -71,22 +70,15 @@ export class Search {
         return true;
     }
 
-    clearHighlights() {
-        console.log('Clearing search highlights');
-        for (let i = 0; i < this.grid.container.children.length; i++) {
-            this.grid.container.children[i].classList.remove('highlight-horizontal', 'highlight-vertical');
-        }
-    }
-
     highlightWord(word, location) {
         const { row, col, dir } = location;
         if (dir === 'horizontal') {
             for (let i = 0; i < word.length; i++) {
-                this.grid.cellAt(row, col + i).classList.add('highlight-horizontal');
+                this.grid.cellAt(row, col + i).addHighlight(HighlightType.HORIZONTAL);
             }
         } else {
             for (let i = 0; i < word.length; i++) {
-                this.grid.cellAt(row + i, col).classList.add('highlight-vertical');
+                this.grid.cellAt(row + i, col).addHighlight(HighlightType.VERTICAL);
             }
         }
     }

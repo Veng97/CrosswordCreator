@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crossword Puzzle Maker</title>
-  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -22,9 +23,6 @@
       <div id="grid-controls" class="controls">
         <div>
           <input id="word-search" type="text" placeholder="Search word" />
-          <select id="select-grid-file">
-            <!-- Options will be populated dynamically -->
-          </select>
           <button id="load-grid-file">Load</button>
           <button id="save-grid-file">Save</button>
           <button id="export">Export</button>
@@ -46,6 +44,8 @@
       </div>
 
       <div id="grid-container" class="grid" spellcheck="false"></div>
+
+      <div id="secret-container" class="secret" spellcheck="false"></div>
     </div>
 
     <div id="helper-tab">
