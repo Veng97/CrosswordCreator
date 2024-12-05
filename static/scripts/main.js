@@ -22,6 +22,22 @@ grid.onChanges(() => dictionary.updateWordCounts());
 grid.onChanges(() => secret.update());
 grid.onSelected((selectedWord) => helper.askWord(selectedWord));
 
+// Save the grid when pressing Ctrl+S
+document.addEventListener('keydown', (event) => {
+    if (event.key === 's' && event.ctrlKey) {
+        event.preventDefault();
+        grid.saveFile();
+    }
+});
+
+// Load the grid when pressing Ctrl+O
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'o' && event.ctrlKey) {
+        event.preventDefault();
+        grid.loadFile();
+    }
+});
+
 // Grid controls
 document.getElementById('add-row').addEventListener('click', () => grid.addRow());
 document.getElementById('add-col').addEventListener('click', () => grid.addColumn());

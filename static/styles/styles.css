@@ -10,6 +10,7 @@
     --cell-blocked-clr: rgb(13, 27, 58);
     --cell-highlight-vertical-clr: rgba(218, 165, 32, 0.3);
     --cell-highlight-horizontal-clr: rgba(138, 43, 226, 0.3);
+    --cell-highlight-secret-clr: rgb(241, 197, 241);
     /* Hint styles */
     --hint-font-size: 1rem;
     /* Star styles */
@@ -122,6 +123,7 @@ body {
     border: 2px solid var(--grid-clr);
     margin-top: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 /* Styles for grid and cells */
@@ -219,6 +221,10 @@ body {
     height: 4px;
     background-color: var(--cell-highlight-horizontal-clr);
     transform: translateY(-50%);
+}
+
+.cell.highlight-secret {
+    background-color: var(--cell-highlight-secret-clr);
 }
 
 .cell:empty,

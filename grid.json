@@ -1,214 +1,748 @@
 [
   [
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Morten Veng"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "par"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Del af hus"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Klage"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Bullshit"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "k\u00e6ledyr"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "Morgenmad"
+    },
+    {
+      "type": "hint",
+      "data": "Heste-v\u00e6ddel\u00f8b"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
     }
   ],
   [
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Elsker middagslys og roser"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "star",
+      "data": "d"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Apparat med fodpedal"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Retning"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "t"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">vodka g\u00f8r mand til dette</div><div contenteditable=\"true\">lejr</div>"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "a"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "b"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "hint",
+      "data": "g\u00e5 p\u00e5 kn\u00e6"
+    },
+    {
+      "type": "char",
+      "data": "h"
+    },
+    {
+      "type": "hint",
+      "data": "b\u00e6lgfrugt"
+    },
+    {
+      "type": "char",
+      "data": "\u00c6"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "T"
     }
   ],
   [
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Pytipande"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "r"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Ballet-Sk\u00f8rt"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "u"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Film med Wolverine"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Taffel chips"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "s"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "n"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "a"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "c"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "k"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "s"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">svampe</div><div contenteditable=\"true\">delikatesse p\u00e5 d\u00e5se</div>"
+    },
+    {
+      "type": "char",
+      "data": "f"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "char",
+      "data": "g"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "hint",
+      "data": "farvel"
     }
   ],
   [
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Rynke-fjerner"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "b"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "O"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "T"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "O"
+    },
+    {
+      "type": "char",
+      "data": "X"
+    },
+    {
+      "type": "hint",
+      "data": "Tr\u00e6ning af fysik og sj\u00e6l"
+    },
+    {
+      "type": "char",
+      "data": "y"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "g"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">frue</div><div contenteditable=\"true\">k\u00f8kken-redskab</div>"
+    },
+    {
+      "type": "char",
+      "data": "m"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">omtrent</div><div contenteditable=\"true\">bedre halvdel</div>"
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    }
+  ],
+  [
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "Gyroskop og accelero-meter"
+    },
+    {
+      "type": "star",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "M"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">Medium</div><div contenteditable=\"true\">ton</div>"
+    },
+    {
+      "type": "char",
+      "data": "M"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">.. Bean</div><div contenteditable=\"true\">Drengenavn</div>"
+    },
+    {
+      "type": "char",
+      "data": "m"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "hint",
+      "data": "v\u00e6gud-smykning"
+    },
+    {
+      "type": "char",
+      "data": "m"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "star",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "k"
+    },
+    {
+      "type": "hint",
+      "data": "erotisk"
+    },
+    {
+      "type": "char",
+      "data": "h"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "d"
+    }
+  ],
+  [
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "en l\u00e6kker mus"
+    },
+    {
+      "type": "char",
+      "data": "K"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "T"
+    },
+    {
+      "type": "char",
+      "data": "E"
+    },
+    {
+      "type": "star",
+      "data": "M"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "D"
+    },
+    {
+      "type": "hint",
+      "data": "Frisklavede"
+    },
+    {
+      "type": "char",
+      "data": "p"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">M\u00f8bel system</div><div contenteditable=\"true\">hej og farvel</div>"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "k"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "star",
+      "data": "a"
+    },
+    {
+      "type": "hint",
+      "data": "terninge-spil"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "hint",
+      "data": "energi-enhed"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    }
+  ],
+  [
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "Listig"
+    },
+    {
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "star",
+      "data": "N"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "hint",
+      "data": "En Fjumr"
+    },
+    {
+      "type": "char",
+      "data": "N"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "hint",
+      "data": "Blodtype"
+    },
+    {
+      "type": "char",
+      "data": "b"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">v\u00e6gt enhed</div><div contenteditable=\"true\">Indg\u00e5r i Fransk mad</div>"
+    },
+    {
+      "type": "char",
+      "data": "g"
+    },
+    {
+      "type": "hint",
+      "data": "Radius"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "hint",
+      "data": "Uden-landske"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "y"
+    },
+    {
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "char",
+      "data": "k"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    }
+  ],
+  [
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "spielberg film"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "T"
+    },
+    {
+      "type": "hint",
+      "data": "berygtet kejser"
+    },
+    {
+      "type": "hint",
+      "data": "To ens"
+    },
+    {
+      "type": "hint",
+      "data": "R\u00e6kke"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "k"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">Digitalt design-v\u00e6rkt\u00f8j</div><div contenteditable=\"true\">large</div>"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "d"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "b"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">f\u00f8r prosit</div><div contenteditable=\"true\">m\u00e5nedlig st\u00f8tte</div>"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "j"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    }
+  ],
+  [
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">frisk smag</div><div contenteditable=\"true\">Ber\u00f8mt elsker</div>"
+    },
+    {
+      "type": "char",
+      "data": "m"
+    },
+    {
+      "type": "char",
+      "data": "I"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "star",
+      "data": "t"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">Frieri</div><div contenteditable=\"true\">Ferie med hende</div>"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "l"
+    },
+    {
+      "type": "char",
+      "data": "b"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "char",
+      "data": "d"
+    },
+    {
+      "type": "hint",
+      "data": "Magthaver i hjemmet"
     },
     {
       "type": "char",
@@ -216,407 +750,629 @@
     },
     {
       "type": "hint",
-      "data": "asaklklaks"
+      "data": "<div contenteditable=\"true\">st\u00f8rrelse</div><div contenteditable=\"true\">m\u00f8nster</div>"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "s"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "t"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "r"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "affogato"
     },
     {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "to Ens"
     }
   ],
   [
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Fyrv\u00e6rk-erieT"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "r"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "a"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "K"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">Udbrud</div><div contenteditable=\"true\">s\u00f8mmet</div>"
+    },
+    {
+      "type": "char",
+      "data": "y"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "h"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">Bilm\u00e6rke</div><div contenteditable=\"true\">listig person eller dyr</div>"
+    },
+    {
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "char",
+      "data": "z"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "char",
+      "data": "k"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "Digte"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "d"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">Terninge-kast</div><div contenteditable=\"true\">bygge-materiale</div>"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "hint",
+      "data": "For...."
+    },
+    {
+      "type": "char",
+      "data": "f"
+    },
+    {
+      "type": "char",
+      "data": "\u00f8"
     },
     {
       "type": "star",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">matematisk tegn</div><div contenteditable=\"true\">kokain</div>"
+    },
+    {
+      "type": "char",
+      "data": "y"
+    },
+    {
+      "type": "hint",
+      "data": "intelligent system"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "Meter"
+    },
+    {
+      "type": "char",
+      "data": "m"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">Rock and ....</div><div contenteditable=\"true\">Filformat</div>"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
       "data": "l"
     },
     {
+      "type": "char",
+      "data": "l"
+    },
+    {
+      "type": "hint",
+      "data": "Nusset"
+    },
+    {
+      "type": "hint",
+      "data": "RusT"
+    },
+    {
       "type": "star",
-      "data": "p"
+      "data": "i"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "r"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">Kan man v\u00e6re p\u00e5</div><div contenteditable=\"true\">bygge</div>"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "t"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "v"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "\u00e6"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "r"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">grynt</div><div contenteditable=\"true\">modeskaber</div>"
+    },
+    {
+      "type": "char",
+      "data": "\u00f8"
+    },
+    {
+      "type": "char",
+      "data": "f"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
     }
   ],
   [
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Eksekver-bar fil"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "x"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">stueplan</div><div contenteditable=\"true\">vokaler</div>"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "t"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "a"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "g"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Godt n\u00e5r man cykler"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "m"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "d"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "v"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "char",
+      "data": "d"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">irette-s\u00e6ttelse</div><div contenteditable=\"true\">bandeord</div>"
+    },
+    {
+      "type": "char",
+      "data": "f"
+    },
+    {
+      "type": "char",
+      "data": "y"
     }
   ],
   [
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Forholds-orD"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "o"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "m"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">F\u00f8re til brude-skamlen</div><div contenteditable=\"true\">bvadr</div>"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "\u00e6"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "g"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "t"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "t"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">L\u00e6rested</div><div contenteditable=\"true\">oml\u00f8bstid</div>"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "u"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "star",
+      "data": "n"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "i"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">Natur-farvet</div><div contenteditable=\"true\">To ens</div>"
+    },
+    {
+      "type": "char",
+      "data": "b"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "g"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
     }
   ],
   [
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Grafisk Design"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "l"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "a"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "y"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "o"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "u"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "t"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Tidsrum"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "\u00e5"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "r"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "b\u00f8jE"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "n"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">ja</div><div contenteditable=\"true\">uran</div>"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
     }
   ],
   [
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Hjort"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "d"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "\u00e5"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "r"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "hint",
+      "data": "Ferie uden hende"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "d"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "r"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "n"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "star",
+      "data": "g"
     },
     {
-      "type": "empty",
-      "data": ""
-    }
-  ],
-  [
-    {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "e"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "t"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "u"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "r"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     },
     {
-      "type": "empty",
-      "data": ""
+      "type": "char",
+      "data": "s"
     },
     {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
-    },
-    {
-      "type": "empty",
-      "data": ""
+      "type": "blocked",
+      "data": "#"
     }
   ]
 ]

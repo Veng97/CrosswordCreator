@@ -11,23 +11,7 @@ export class Grid {
     constructor(id, width = 10, height = 10) {
         this.container = document.getElementById(id);
 
-        // Save the grid when pressing Ctrl+S
-        this.container.addEventListener('keydown', (event) => {
-            if (event.key === 's' && event.ctrlKey) {
-                event.preventDefault();
-                this.saveFile();
-            }
-        });
-
-        // Load the grid when pressing Ctrl+O
-        this.container.addEventListener('keydown', (event) => {
-            if (event.key === 'o' && event.ctrlKey) {
-                event.preventDefault();
-                this.loadFile();
-            }
-        });
-
-        // Clear highlights on any key press (except while selecting)
+        // Clear highlights on any key press (except while selecting with shift and arrow keys)
         this.container.addEventListener('keydown', (_) => {
             if (!this.isSelecting) {
                 this.clearHighlights();

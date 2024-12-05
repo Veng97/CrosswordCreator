@@ -11,6 +11,7 @@ export const HighlightType = {
     SELECTED: 'highlight-selected',
     VERTICAL: 'highlight-vertical',
     HORIZONTAL: 'highlight-horizontal',
+    SECRET: 'highlight-secret',
 };
 
 export const ArrowType = {
