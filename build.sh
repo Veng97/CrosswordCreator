@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 # Run PyInstaller to create the executable
 echo "Building the Flask app..."
-pyinstaller --name "$EXECUTABLE_NAME" --windowed --onefile --add-data "static:static" "$ENTRYPOINT"
+pyinstaller --name "$EXECUTABLE_NAME" --windowed --onefile --splash "static/assets/splash.png" --icon "static/assets/favicon.ico" --add-data "static:static" "$ENTRYPOINT"
 
 # Move the executable to the root directory
 echo "Moving the executable to the root directory..."
