@@ -87,24 +87,35 @@ export class Cell {
         // Check for blocked cell
         if (event.data === '#') {
             event.preventDefault();
-            this.setData('#');
             this.setType(CellType.BLOCKED);
+            this.setData('#');
             return;
         }
 
-        // Convert to star cell
-        if (event.data === '*' && this.#type === CellType.CHAR) {
-            event.preventDefault();
-            this.setData(this.element.innerHTML.replace('*', ''));
-            this.setType(CellType.STAR);
-            return;
+        // Convert to/from star cell
+        if (event.data === '*') {
+            // From char to star
+            if (this.#type === CellType.CHAR) {
+                event.preventDefault();
+                this.setType(CellType.STAR);
+                this.setData(this.element.innerHTML.replace('*', ''));
+                return;
+
+            }
+            // From star to char 
+            else if (this.#type === CellType.STAR) {
+                event.preventDefault();
+                this.setType(CellType.CHAR);
+                this.setData(this.element.innerHTML.replace('*', ''));
+                return;
+            }
         }
 
         // Convert to arrow cell
         if (Object.values(ArrowType).includes(this.element.innerHTML)) {
             event.preventDefault();
-            this.setData(this.element.innerHTML);
             this.setType(CellType.ARROW);
+            this.setData(this.element.innerHTML);
             return;
         }
 
@@ -182,6 +193,8 @@ export class Cell {
     }
 
     setType(type) {
+        // Note: If changing the type/data of the cell, this function should be called before 'setData' to
+        // ensure the 'notifyChanges' function is called with the correct type.
         if (!Object.values(CellType).includes(type)) {
             throw new Error('Invalid cell type: ' + type);
         }
@@ -206,9 +219,9 @@ export class Cell {
         return this.#type;
     }
 
-    getCharacter(show_non_chars = false) {
-        if (this.#type !== CellType.CHAR) {
-            return show_non_chars ? '_' : '';
+    getChar(show_non_char = false) {
+        if (this.#type !== CellType.CHAR && this.#type !== CellType.STAR) {
+            return show_non_char ? '_' : '';
         }
         return this.#data;
     }

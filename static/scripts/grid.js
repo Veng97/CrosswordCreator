@@ -42,7 +42,7 @@ export class Grid {
     width = () => this.cells[0].length;
     height = () => this.cells.length;
 
-    charAt = (row, col) => this.cells[row][col].getCharacter();
+    charAt = (row, col) => this.cells[row][col].getChar();
     cellAt = (row, col) => this.cells[row][col];
 
     draw() {
@@ -312,7 +312,7 @@ export class Grid {
         if (this.selectedCells.length > 1) {
             let selectedWord = "";
             for (let i = 0; i < this.selectedCells.length; i++) {
-                selectedWord += this.cells[this.selectedCells[i].row][this.selectedCells[i].col].getCharacter(true);
+                selectedWord += this.cells[this.selectedCells[i].row][this.selectedCells[i].col].getChar(true);
             }
             this.notifySelected(selectedWord);
         }

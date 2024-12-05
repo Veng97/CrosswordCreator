@@ -1,11 +1,12 @@
-// import { loadGridData, saveGridData, generateEmptyGrid, addToGrid, removeFromGrid, selectGridData } from './grid.js';
 import { Dictionary } from './dictionary.js';
 import { Grid } from './grid.js';
 import { Helper } from './helper.js';
 import { Search } from './search.js';
+import { Secret } from './secret.js';
 
 // Initialize objects
 const grid = new Grid('grid-container');
+const secret = new Secret(grid, 'secret-container');
 const search = new Search(grid);
 const dictionary = new Dictionary('dictionary-list', 'dictionary-msg', search);
 const helper = new Helper('helper-list', 'helper-msg', search);
@@ -18,6 +19,7 @@ grid.loadFile();
 
 // Register callbacks
 grid.onChanges(() => dictionary.updateWordCounts());
+grid.onChanges(() => secret.update());
 grid.onSelected((selectedWord) => helper.askWord(selectedWord));
 
 // Grid controls
@@ -29,7 +31,6 @@ document.getElementById('shift-up').addEventListener('click', () => grid.shiftUp
 document.getElementById('shift-down').addEventListener('click', () => grid.shiftDown());
 document.getElementById('shift-left').addEventListener('click', () => grid.shiftLeft());
 document.getElementById('shift-right').addEventListener('click', () => grid.shiftRight());
-
 document.getElementById('export').addEventListener('click', () => grid.exportGridContainer());
 
 // File controls
