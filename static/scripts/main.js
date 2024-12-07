@@ -18,9 +18,14 @@ dictionary.loadFile();
 grid.loadFile();
 
 // Register callbacks
-grid.onChanges(() => dictionary.updateWordCounts());
 grid.onChanges(() => secret.update());
-grid.onSelected((selectedWord) => helper.askWord(selectedWord));
+grid.onChanges(() => dictionary.update());
+
+// File controls
+const loadFileBtn = document.getElementById('load-grid-file');
+const saveFileBtn = document.getElementById('save-grid-file');
+loadFileBtn.addEventListener('click', async () => grid.loadFile());
+saveFileBtn.addEventListener('click', async () => grid.saveFile());
 
 // Save the grid when pressing Ctrl+S
 document.addEventListener('keydown', (event) => {
@@ -49,30 +54,15 @@ document.getElementById('shift-left').addEventListener('click', () => grid.shift
 document.getElementById('shift-right').addEventListener('click', () => grid.shiftRight());
 document.getElementById('export').addEventListener('click', () => grid.exportGridContainer());
 
-// File controls
-const loadFileBtn = document.getElementById('load-grid-file');
-const saveFileBtn = document.getElementById('save-grid-file');
-loadFileBtn.addEventListener('click', async () => grid.loadFile());
-saveFileBtn.addEventListener('click', async () => grid.saveFile());
-
-// Word controls
+// Search for word - in grid
 const wordSearch = document.getElementById('word-search');
-wordSearch.addEventListener('input', () => grid.clearHighlights());
 wordSearch.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         search.highlightWordLocations(wordSearch.value);
     }
 });
 
-// Helper controls
-const wordAsk = document.getElementById('word-ask');
-wordAsk.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        helper.askWord(wordAsk.value);
-    }
-});
-
-// Dictionary controls
+// Add word - to dictionary
 const wordAdd = document.getElementById('word-add');
 wordAdd.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
@@ -80,3 +70,13 @@ wordAdd.addEventListener('keypress', (event) => {
         wordAdd.value = ''; // Clear input field
     }
 });
+
+// Ask for word
+const wordAskLanguage = document.getElementById('word-ask-language');
+const wordAsk = document.getElementById('word-ask');
+wordAsk.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        helper.askWord(wordAskLanguage.value, wordAsk.value);
+    }
+});
+grid.onSelected((selectedWord) => helper.askWord(wordAskLanguage.value, selectedWord));

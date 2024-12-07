@@ -93,7 +93,7 @@ HELPERS = {
 }
 
 
-def askWord(word: str, language: str) -> list[str]:
+def askWord(language: str, word: str) -> list[str]:
     if language not in HELPERS:
         raise ValueError(f"Language '{language}' is not supported.")
     return HELPERS[language].askWord(word)

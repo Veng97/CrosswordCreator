@@ -93,7 +93,7 @@ export class Dictionary {
         this.list.appendChild(li);
     }
 
-    updateWordCounts() {
+    update() {
         console.log('Updating word counts!');
         this.list.querySelectorAll('li').forEach((element) => {
             // Draw line through the word if it exists in the grid

@@ -71,18 +71,10 @@ def dictionary_save():
         return 'Error saving dictionary file', 500
 
 
-@ app.route('/help/pattern/<pattern>')
-def helpPattern(pattern: str):
+@ app.route('/help/<language>/<word>')
+def help(language: str, word: str):
     try:
-        return askWord(pattern, language="danish"), 200
-    except Exception as e:
-        return jsonify({"Error": str(e)}), 500
-
-
-@ app.route('/help/synonym/<synonym>')
-def helpSynonym(synonym: str):
-    try:
-        return askWord(synonym, language="danish"), 200
+        return askWord(language=language, word=word), 200
     except Exception as e:
         return jsonify({"Error": str(e)}), 500
 

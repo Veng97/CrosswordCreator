@@ -1,6 +1,4 @@
-
-const WORD_PATTERN_URL = '/help/pattern';
-const WORD_SYNONYM_URL = '/help/synonym';
+const HELP_URL = '/help';
 
 export class Helper {
     constructor(list_id, msg_id, search) {
@@ -10,42 +8,17 @@ export class Helper {
         this.data = [];
     }
 
-    async askWord(word) {
-        // If pattern contains '_' search for synonyms
-        if (word.includes('_')) {
-            this.searchPattern(word);
-        } else {
-            this.searchSynonyms(word);
-        }
-    }
-
-    async searchPattern(word) {
-        this.msg.textContent = `Searching pattern: ${word}`;
-        console.log('Searching pattern:', word);
+    async askWord(language, word) {
+        console.log('Asking word: ' + word + ' (' + language + ')');
         try {
-            const response = await fetch(WORD_PATTERN_URL + '/' + word);
+            const response = await fetch(HELP_URL + '/' + language + '/' + word);
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`HTTP Error! Status: ${response.status}`);
             }
             this.data = await response.json();
             this.draw();
         } catch (error) {
-            console.error('Error searching pattern:', error);
-        }
-    }
-
-    async searchSynonyms(word) {
-        this.msg.textContent = `Searching synonyms: ${word}`;
-        console.log('Searching synonyms:', word);
-        try {
-            const response = await fetch(WORD_SYNONYM_URL + '/' + word);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            this.data = await response.json();
-            this.draw();
-        } catch (error) {
-            console.error('Error searching synonyms:', error);
+            console.error('Error:', error);
         }
     }
 
