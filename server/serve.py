@@ -1,17 +1,20 @@
 import os
 import json
+import requests
 import argparse
 import webbrowser
-# from waitress import serve
+
 from flask import Flask, request, send_file, send_from_directory, jsonify
 
-from helper import askWord
+from .help import askWord
 
 HOST = '127.0.0.1'
 PORT = 5000
+STATIC_DIR = os.path.join(os.path.dirname(__file__), '../static')
+
 PATH_TO_GRID = 'grid.json'
 PATH_TO_DICT = 'dict.json'
-STATIC_DIR = os.path.join(os.path.dirname(__file__), 'static')
+
 
 app = Flask(__name__)
 
@@ -47,8 +50,8 @@ def grid_save():
             json.dump(request.json, f, indent=2)
         return f'Saved {PATH_TO_GRID}!', 200
     except Exception as e:
-        print(f'Faile to save grid: {e}')
-        return 'Faile to save grid', 500
+        print(f'Failed to save grid: {e}')
+        return 'Failed to save grid', 500
 
 
 @ app.route('/dictionary/load')
@@ -126,7 +129,7 @@ if __name__ == '__main__':
     # Start Flask in a separate thread
     print(f'Serving "Crossword Helper" at http://{HOST}:{PORT}')
     try:
-        # serve(app, host=HOST, port=PORT)
-        app.run(host=HOST, port=PORT)
+        # Serve with Flask
+        app.run(host=HOST, port=PORT, debug=True)
     except KeyboardInterrupt:
         pass
