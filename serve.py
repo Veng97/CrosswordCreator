@@ -4,7 +4,7 @@ import argparse
 import logging
 import webbrowser
 from waitress import serve
-from flask import Flask, request, send_file, send_from_directory
+from flask import Flask, send_file, request
 
 from helper import askWord
 from logger import coloredFormatter
@@ -26,19 +26,19 @@ app.logger.addHandler(coloredFormatter())
 app.logger.setLevel(logging.DEBUG)
 
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(STATIC_DIR, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
-
-
 @app.route('/')
 def serve_index():
-    return send_from_directory(STATIC_DIR, 'index.html')
+    return send_file(os.path.join(STATIC_DIR, 'index.html'))
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_file(os.path.join(STATIC_DIR, 'favicon.ico'), mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/<path:path>')
 def serve_static(path):
-    return send_from_directory(STATIC_DIR, path)
+    return send_file(os.path.join(STATIC_DIR, path))
 
 
 @app.route('/grid/load')
