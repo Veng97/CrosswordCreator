@@ -1,11 +1,13 @@
 import os
 import json
 import argparse
+import logging
 import webbrowser
-# from waitress import serve
-from flask import Flask, request, send_file, send_from_directory, jsonify
+from waitress import serve
+from flask import Flask, request, send_file, send_from_directory
 
 from helper import askWord
+from logger import coloredFormatter
 
 HOST = '127.0.0.1'
 PORT = 5000
@@ -14,6 +16,14 @@ PATH_TO_DICT = 'dict.json'
 STATIC_DIR = os.path.join(os.path.dirname(__file__), 'static')
 
 app = Flask(__name__)
+
+# Suppress Flask's default HTTP request logs
+logging.getLogger('werkzeug').setLevel(logging.WARNING)
+
+# Replace Flask's default logger handlers
+app.logger.handlers = []  # Clear existing handlers
+app.logger.addHandler(coloredFormatter())
+app.logger.setLevel(logging.DEBUG)
 
 
 @app.route('/favicon.ico')
@@ -36,8 +46,9 @@ def grid_load():
     try:
         return send_file(PATH_TO_GRID)
     except Exception as e:
-        print(f'Failed to load grid: {e}')
-        return 'Failed to load grid', 500
+        msg = f'Failed to load grid: {e}'
+        app.logger.error(msg)
+        return msg, 500
 
 
 @app.route('/grid/save', methods=['POST'])
@@ -45,38 +56,47 @@ def grid_save():
     try:
         with open(PATH_TO_GRID, 'w') as f:
             json.dump(request.json, f, indent=2)
-        return f'Saved {PATH_TO_GRID}!', 200
+
+        msg = f'Saved {PATH_TO_GRID}!'
+        app.logger.info(msg)
+        return msg, 200
     except Exception as e:
-        print(f'Faile to save grid: {e}')
-        return 'Faile to save grid', 500
+        msg = f'Failed to save grid: {e}'
+        app.logger.error(msg)
+        return msg, 500
 
 
-@ app.route('/dictionary/load')
+@app.route('/dictionary/load')
 def dictionary_load():
     try:
         return send_file(PATH_TO_DICT, mimetype='application/json')
     except Exception as e:
-        print(f'Error loading dictionary file: {e}')
-        return 'Error loading dictionary file', 500
+        msg = f'Error loading dictionary file: {e}'
+        app.logger.error(msg)
+        return msg, 500
 
 
-@ app.route('/dictionary/save', methods=['POST'])
+@app.route('/dictionary/save', methods=['POST'])
 def dictionary_save():
     try:
         with open(PATH_TO_DICT, 'w') as f:
             json.dump(request.json, f, indent=2)
         return f'Dictionary saved!', 200
     except Exception as e:
-        print(f'Error saving dictionary file: {e}')
-        return 'Error saving dictionary file', 500
+        msg = f'Error saving dictionary file: {e}'
+        app.logger.error(msg)
+        return msg, 500
 
 
-@ app.route('/help/<language>/<word>')
+@app.route('/help/<language>/<word>')
 def help(language: str, word: str):
     try:
+        app.logger.info(f'Fetching word: {word}')
         return askWord(language=language, word=word), 200
     except Exception as e:
-        return jsonify({"Error": str(e)}), 500
+        msg = f'Failed to fetch word: {e}'
+        app.logger.warning(msg)
+        return msg, 500
 
 
 if __name__ == '__main__':
@@ -112,13 +132,13 @@ if __name__ == '__main__':
         with open(PATH_TO_DICT, 'w') as f:
             json.dump([], f, indent=2)
 
-    if args.browser > 0:
-        webbrowser.open(f"http://{HOST}:{PORT}", new=args.browser)
+    # if args.browser > 0:
+    #     webbrowser.open(f"http://{HOST}:{PORT}", new=args.browser)
 
     # Start Flask in a separate thread
     print(f'Serving "Crossword Helper" at http://{HOST}:{PORT}')
     try:
-        # serve(app, host=HOST, port=PORT)
-        app.run(host=HOST, port=PORT)
+        serve(app, host=HOST, port=PORT, _quiet=True)
+        # app.run(host=HOST, port=PORT, debug=True)
     except KeyboardInterrupt:
         pass
