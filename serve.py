@@ -1,29 +1,13 @@
 import os
 import json
-import argparse
-import logging
-import webbrowser
 from waitress import serve
 from flask import Flask, send_file, request
 
+from globals import HOST, PORT, PATH_TO_GRID, PATH_TO_DICT, STATIC_DIR
 from helper import askWord
-from logger import coloredFormatter
 
-HOST = '127.0.0.1'
-PORT = 5000
-PATH_TO_GRID = 'grid.json'
-PATH_TO_DICT = 'dict.json'
-STATIC_DIR = os.path.join(os.path.dirname(__file__), 'static')
 
 app = Flask(__name__)
-
-# Suppress Flask's default HTTP request logs
-logging.getLogger('werkzeug').setLevel(logging.WARNING)
-
-# Replace Flask's default logger handlers
-app.logger.handlers = []  # Clear existing handlers
-app.logger.addHandler(coloredFormatter())
-app.logger.setLevel(logging.DEBUG)
 
 
 @app.route('/')
@@ -99,25 +83,48 @@ def help(language: str, word: str):
         return msg, 500
 
 
+def serve_flask_app(host: str = HOST, port: int = PORT, debug: bool = False):
+    app.logger.info(f'Starting server at http://{host}:{port}')
+    if debug:
+        # Run the app in debug mode
+        app.run(host=host, port=port, debug=True, use_reloader=False)
+    else:
+        # Use Waitress to serve the app
+        serve(app, host=host, port=port, _quiet=True)
+
+
 if __name__ == '__main__':
+    # Set up logging
+    import logging
+    from colorlog import ColoredFormatter
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--host', type=str, default=HOST, help=f'Host to serve the app on. Default: {HOST}')
-    parser.add_argument('--port', type=int, default=PORT, help=f'Port to serve the app on. Default: {PORT}')
-    parser.add_argument('--dir', type=str, default=os.getcwd(), help='Directory to store the grid and dictionary files. Default: current directory')
-    parser.add_argument('--browser', type=int, default=1, help='Open the browser automatically. Default: True')
+    formatter = ColoredFormatter(
+        "%(log_color)s[%(asctime)s] %(levelname)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        log_colors={
+            'DEBUG': 'cyan',
+            'INFO': 'green',
+            'WARNING': 'yellow',
+            'ERROR': 'red',
+            'CRITICAL': 'bold_red',
+        },
+    )
 
-    args = parser.parse_args()
+    # Create a StreamHandler for console output
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter)
+
+    # Replace Flask's default logger handlers
+    app.logger.handlers = []  # Clear existing handlers
+    app.logger.addHandler(handler)
+    app.logger.setLevel(logging.DEBUG)
+
+    # Suppress Flask's default HTTP request logs
+    logging.getLogger('werkzeug').setLevel(logging.WARNING)
 
     # Modify the global variables
-    HOST = args.host
-    PORT = args.port
-    PATH_TO_DICT = os.path.join(args.dir, PATH_TO_DICT)
-    PATH_TO_GRID = os.path.join(args.dir, PATH_TO_GRID)
-
-    # Create the directory if it doesn't exist
-    if not os.path.isdir(args.dir):
-        os.makedirs(args.dir)
+    PATH_TO_DICT = os.path.join(os.getcwd(), PATH_TO_DICT)
+    PATH_TO_GRID = os.path.join(os.getcwd(), PATH_TO_GRID)
 
     # Create the grid file if it doesn't exist
     if not os.path.isfile(PATH_TO_GRID):
@@ -132,13 +139,7 @@ if __name__ == '__main__':
         with open(PATH_TO_DICT, 'w') as f:
             json.dump([], f, indent=2)
 
-    # if args.browser > 0:
-    #     webbrowser.open(f"http://{HOST}:{PORT}", new=args.browser)
-
-    # Start Flask in a separate thread
-    print(f'Serving "Crossword Helper" at http://{HOST}:{PORT}')
     try:
-        serve(app, host=HOST, port=PORT, _quiet=True)
-        # app.run(host=HOST, port=PORT, debug=True)
+        serve_flask_app(debug=True)
     except KeyboardInterrupt:
         pass
