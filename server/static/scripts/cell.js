@@ -200,7 +200,7 @@ export class Cell {
             throw new Error('Invalid cell type: ' + type);
         }
 
-        this.element.classList.toggle('char', (type === CellType.CHAR || type === CellType.STAR));
+        this.element.classList.toggle('char', (type === CellType.CHAR || type === CellType.STAR || type === CellType.EMPTY));
         this.element.classList.toggle('star', type === CellType.STAR);
         this.element.classList.toggle('hint', type === CellType.HINT);
         this.element.classList.toggle('blocked', type === CellType.BLOCKED);
@@ -221,10 +221,14 @@ export class Cell {
     }
 
     getChar(show_non_char = false) {
-        if (this.#type !== CellType.CHAR && this.#type !== CellType.STAR) {
+        if (!this.isChar()) {
             return show_non_char ? '_' : '';
         }
         return this.#data.toUpperCase();
+    }
+
+    isChar() {
+        return this.#type === CellType.CHAR || this.#type === CellType.STAR || this.#type === CellType.EMPTY;
     }
 
     addHighlight(type = HighlightType.SELECTED) {

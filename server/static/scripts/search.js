@@ -51,7 +51,11 @@ export class Search {
                 return false;
             }
             for (let i = 0; i < word.length; i++) {
-                const value = this.grid.charAt(row, col + i);
+                const cell = this.grid.cellAt(row, col + i);
+                if (!cell.isChar()) {
+                    return false;
+                }
+                const value = cell.getChar();
                 if ((force || value !== '') && value.toUpperCase() !== word[i].toUpperCase()) {
                     return false;
                 }
@@ -61,7 +65,11 @@ export class Search {
                 return false;
             }
             for (let i = 0; i < word.length; i++) {
-                const value = this.grid.charAt(row + i, col);
+                const cell = this.grid.cellAt(row + i, col);
+                if (!cell.isChar()) {
+                    return false;
+                }
+                const value = cell.getChar();
                 if ((force || value !== '') && value.toUpperCase() !== word[i].toUpperCase()) {
                     return false;
                 }
