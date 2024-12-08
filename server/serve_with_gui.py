@@ -1,24 +1,27 @@
 import logging
-import webbrowser
 import threading
-import customtkinter as ctk
 import time
 import queue
+import customtkinter as ctk
+from tkinter import PhotoImage
+from webbrowser import open as open_browser
 
 import globals
-from serve import app, serve_flask_app, update_dict_path, update_grid_path
-
-BUTTON_COLOR = "#0d1b3a"
-BUTTON_HOVER_COLOR = "#293a5e"
+from serve import app, serve_flask_app, update_dict_path, update_grid_path, update_port
 
 
 class FlaskGUI(ctk.CTk):
+    FONT_TYPE = "consolas"
+    FONT_SIZE = 15
+    BUTTON_COLOR = "#0d1b3a"
+    BUTTON_HOVER_COLOR = "#293a5e"
+
     def __init__(self):
         super().__init__()
         ctk.set_appearance_mode("dark")
-
+        self.title("Crossword Creator (Backend)")
+        self.iconphoto(True, PhotoImage(file=globals.PATH_TO_ICON))
         self.geometry("800x500")
-        self.title("Crossword Helper (Backend)")
 
         # Configure things to close the window properly
         self.drawing = True
@@ -35,10 +38,10 @@ class FlaskGUI(ctk.CTk):
         self.header.grid_columnconfigure((0, 1), weight=1)
         self.header.grid_rowconfigure(0, weight=0)
 
-        self.frame = ctk.CTkFrame(self)
-        self.frame.grid(row=1, column=0, rowspan=1, columnspan=1, sticky="nsew")
-        self.frame.grid_columnconfigure(0, weight=1)
-        self.frame.grid_rowconfigure(0, weight=1)
+        self.scrollable = ctk.CTkFrame(self)
+        self.scrollable.grid(row=1, column=0, rowspan=1, columnspan=1, sticky="nsew")
+        self.scrollable.grid_columnconfigure(0, weight=1)
+        self.scrollable.grid_rowconfigure(0, weight=1)
 
         self.footer = ctk.CTkFrame(self)
         self.footer.grid(row=2, column=0, rowspan=1, sticky="nsew")
@@ -46,19 +49,19 @@ class FlaskGUI(ctk.CTk):
         self.footer.grid_columnconfigure((1, 2), weight=0)
         self.footer.grid_rowconfigure(0, weight=0)
 
-        self.configureHeader()
-        self.configureFooter()
-        self.configureLogger()
+        self.configureHeader(self.header)
+        self.configureFooter(self.footer)
+        self.configureLogger(self.scrollable)
 
-    def configureHeader(self):
-        self.filepath_label = ctk.CTkLabel(self.header,
+    def configureHeader(self, frame: ctk.CTkFrame):
+        self.filepath_label = ctk.CTkLabel(frame,
                                            text=f"Dict: {globals.PATH_TO_DICT}\nGrid: {globals.PATH_TO_GRID}",
-                                           font=ctk.CTkFont("consolas", 14, weight="bold"),
+                                           font=ctk.CTkFont(self.FONT_TYPE, self.FONT_SIZE),
                                            )
         self.filepath_label.grid(row=0, column=0, padx=20, pady=10, sticky="w")
 
         # Function to update the path to the grid/dictionary
-        def onSelectDirectory():
+        def onChangeFolder():
             selected_directory: str = ctk.filedialog.askdirectory()
             if not selected_directory:
                 return
@@ -69,63 +72,60 @@ class FlaskGUI(ctk.CTk):
 
             self.filepath_label.configure(text=f"Dict: {globals.PATH_TO_DICT}\nGrid: {globals.PATH_TO_GRID}")
 
-        self.select_dir_btn = ctk.CTkButton(self.header,
-                                            text="Select",
-                                            font=ctk.CTkFont("consolas", 14, weight="bold"),
-                                            fg_color=BUTTON_COLOR,
-                                            hover_color=BUTTON_HOVER_COLOR,
-                                            command=onSelectDirectory,
-                                            )
-        self.select_dir_btn.grid(row=0, column=1, padx=20, pady=10, sticky="e")
+        self.change_folder_btn = ctk.CTkButton(frame,
+                                               text="Change Folder",
+                                               font=ctk.CTkFont(self.FONT_TYPE, self.FONT_SIZE, weight="bold"),
+                                               height=40,
+                                               fg_color=self.BUTTON_COLOR,
+                                               hover_color=self.BUTTON_HOVER_COLOR,
+                                               command=onChangeFolder,
+                                               )
+        self.change_folder_btn.grid(row=0, column=1, padx=20, pady=10, sticky="e")
 
-    def configureFooter(self):
+    def configureFooter(self, frame: ctk.CTkFrame):
         # Display the URL
-        self.url_label = ctk.CTkLabel(self.footer,
+        self.url_label = ctk.CTkLabel(frame,
                                       text=f"Idle",
-                                      font=ctk.CTkFont("consolas", 14, weight="bold"),
+                                      font=ctk.CTkFont(self.FONT_TYPE, self.FONT_SIZE),
                                       )
         self.url_label.grid(row=0, column=0, padx=20, pady=10, sticky="w")
 
         # Open URL in browser
-        self.open_url_btn = ctk.CTkButton(self.footer,
-                                          text="Open",
-                                          font=ctk.CTkFont("consolas", 14, weight="bold"),
-                                          command=lambda: webbrowser.open(f"http://{globals.HOST}:{globals.PORT}"),
-                                          fg_color=BUTTON_COLOR,
-                                          hover_color=BUTTON_HOVER_COLOR,
+        self.open_url_btn = ctk.CTkButton(frame,
+                                          text="Open Browser",
+                                          font=ctk.CTkFont(self.FONT_TYPE, self.FONT_SIZE, weight="bold"),
+                                          height=40,
+                                          fg_color=self.BUTTON_COLOR,
+                                          hover_color=self.BUTTON_HOVER_COLOR,
+                                          command=self.onOpenBrowser,
                                           )
-        self.open_url_btn.grid(row=0, column=1, padx=20, pady=10, sticky="e")
+        self.open_url_btn.grid(row=0, column=2, padx=20, pady=10, sticky="e")
 
         # Start the Flask server
-        def onStart():
-            self.serve()
-            self.url_label.configure(text=f"Serving: {globals.HOST}:{globals.PORT}", state="disabled")
-            self.serve_btn.configure(text="Running", state="disabled")
-
-        self.serve_btn = ctk.CTkButton(self.footer,
+        self.serve_btn = ctk.CTkButton(frame,
                                        text="Serve",
-                                       font=ctk.CTkFont("consolas", 14, weight="bold"),
-                                       command=onStart,
-                                       fg_color=BUTTON_COLOR,
-                                       hover_color=BUTTON_HOVER_COLOR,
+                                       font=ctk.CTkFont(self.FONT_TYPE, self.FONT_SIZE, weight="bold"),
+                                       height=40,
+                                       fg_color=self.BUTTON_COLOR,
+                                       hover_color=self.BUTTON_HOVER_COLOR,
+                                       command=self.onStartServer,
                                        )
-        self.serve_btn.grid(row=0, column=2, padx=20, pady=10, sticky="e")
+        self.serve_btn.grid(row=0, column=1, padx=20, pady=10, sticky="e")
 
-    def configureLogger(self):
+    def configureLogger(self, frame: ctk.CTkFrame):
         # Add a Text widget to display logs
-        self.logger = ctk.CTkTextbox(self.frame,
-                                     font=ctk.CTkFont("consolas", 14),
+        self.logger = ctk.CTkTextbox(frame,
+                                     font=ctk.CTkFont(self.FONT_TYPE, self.FONT_SIZE),
                                      wrap=ctk.WORD,
-                                     #  fg_color=("#000000"),
                                      )
         self.logger.grid(row=0, column=0, sticky="nsew")
 
         # Configure tags for different log levels with color
         self.logger.tag_config("DEBUG", foreground="cyan")
-        self.logger.tag_config("INFO", foreground="green")
+        self.logger.tag_config("INFO", foreground="white")
         self.logger.tag_config("WARNING", foreground="yellow")
         self.logger.tag_config("ERROR", foreground="red")
-        self.logger.tag_config("CRITICAL", foreground="red", underline=1)
+        self.logger.tag_config("CRITICAL", foreground="red", underline=True)
 
         # Configure logging format
         handler = logging.StreamHandler()
@@ -156,6 +156,21 @@ class FlaskGUI(ctk.CTk):
         app.logger.addHandler(handler)
         app.logger.setLevel(logging.DEBUG)
 
+    def onStartServer(self):
+        """
+        Callback function to start the Flask server
+        """
+
+        # Start the server
+        self.serve()
+
+        # Update the URL label and disable the button
+        self.url_label.configure(text=f"Serving: {globals.HOST}:{globals.PORT}", state="disabled")
+        self.serve_btn.configure(text="Running", state="disabled")
+
+    def onOpenBrowser(self):
+        open_browser(f"http://{globals.HOST}:{globals.PORT}")
+
     def serve(self):
         # Check if thread member exists; if so, the server is already running
         if hasattr(self, "flask_thread"):
@@ -164,6 +179,9 @@ class FlaskGUI(ctk.CTk):
         # Ensure that the grid and dictionary files exist
         update_grid_path(globals.PATH_TO_GRID, create_if_missing=True)
         update_dict_path(globals.PATH_TO_DICT, create_if_missing=True)
+
+        # Ensure that the port is available
+        update_port()
 
         # When launched with 'daemon=True', the thread will be terminated when the main thread exits
         self.flask_thread = threading.Thread(target=serve_flask_app, daemon=True)

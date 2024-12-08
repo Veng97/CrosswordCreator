@@ -1,5 +1,6 @@
 import os
 import json
+import socket
 from waitress import serve
 from flask import Flask, send_file, request
 
@@ -13,11 +14,6 @@ app = Flask(__name__)
 @app.route('/')
 def serve_index():
     return send_file(os.path.join(globals.STATIC_DIR, 'index.html'))
-
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_file(os.path.join(globals.STATIC_DIR, 'favicon.ico'), mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/<path:path>')
@@ -83,16 +79,6 @@ def help(language: str, word: str):
         return msg, 500
 
 
-def serve_flask_app(host: str = globals.HOST, port: int = globals.PORT, debug: bool = False):
-    app.logger.info(f'Starting server at http://{host}:{port}')
-    if debug:
-        # Run the app in debug mode
-        app.run(host=host, port=port, debug=True, use_reloader=False)
-    else:
-        # Use Waitress to serve the app
-        serve(app, host=host, port=port, _quiet=True)
-
-
 def update_grid_path(path: str, create_if_missing: bool = True):
 
     # Allow the user to specify either a directory or a file
@@ -132,6 +118,34 @@ def update_dict_path(path: str, create_if_missing: bool = True) -> str:
         app.logger.info(f'Creating default dictionary at {globals.PATH_TO_DICT}')
         with open(globals.PATH_TO_DICT, 'w') as f:
             json.dump([], f, indent=2)
+
+
+def update_port() -> int:
+    # Check if the default port is already in use
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        if s.connect_ex((globals.HOST, globals.PORT)) != 0:
+            return globals.PORT
+
+    app.logger.warning(f'Port {globals.PORT} was already in use! Maybe you have another server running?')
+
+    # Bind to any available port and retrieve the port number
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind((globals.HOST, 0))
+        globals.PORT = s.getsockname()[1]
+
+    app.logger.warning(f'Found available port on {globals.PORT}')
+
+    return globals.PORT
+
+
+def serve_flask_app(debug: bool = False):
+    app.logger.info(f'Starting server at http://{globals.HOST}:{globals.PORT}')
+    if debug:
+        # Run the app in debug mode
+        app.run(host=globals.HOST, port=globals.PORT, debug=True, use_reloader=False)
+    else:
+        # Use Waitress to serve the app
+        serve(app, host=globals.HOST, port=globals.PORT, _quiet=True)
 
 
 if __name__ == '__main__':
