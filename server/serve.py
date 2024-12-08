@@ -96,9 +96,11 @@ def serve_flask_app(host: str = globals.HOST, port: int = globals.PORT, debug: b
 def update_grid_path(path: str, create_if_missing: bool = True):
 
     # Allow the user to specify either a directory or a file
-    globals.PATH_TO_GRID = path if path.endswith('.json') else os.path.join(path, 'grid.json')
+    updated_path = path if path.endswith('.json') else os.path.join(path, 'grid.json')
 
-    app.logger.info(f'Updated grid path: {path}')
+    if globals.PATH_TO_GRID != updated_path:
+        globals.PATH_TO_GRID = updated_path
+        app.logger.info(f'Updated grid path: {globals.PATH_TO_GRID}')
 
     if not create_if_missing:
         return
@@ -116,9 +118,11 @@ def update_grid_path(path: str, create_if_missing: bool = True):
 def update_dict_path(path: str, create_if_missing: bool = True) -> str:
 
     # Allow the user to specify either a directory or a file
-    globals.PATH_TO_DICT = path if path.endswith('.json') else os.path.join(path, 'dict.json')
+    updated_path = path if path.endswith('.json') else os.path.join(path, 'dict.json')
 
-    app.logger.info(f'Updated dictionary path: {path}')
+    if globals.PATH_TO_DICT != updated_path:
+        globals.PATH_TO_DICT = updated_path
+        app.logger.info(f'Updated dict path: {globals.PATH_TO_DICT}')
 
     if not create_if_missing:
         return

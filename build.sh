@@ -2,8 +2,8 @@
 set -e  # Exit immediately if a command exits with a non-zero status
 
 # Configuration
-ENTRYPOINT="serve.py"                    # Flask app's entry file (with .py extension)
-EXECUTABLE_NAME="CrossWordHelper"        # Name of the output executable
+ENTRYPOINT="server/serve_with_gui.py"        # Flask app's entry file (with .py extension)
+EXECUTABLE_NAME="CrossWordHelper"   # Name of the output executable
 
 # Create a virtual environment
 echo "Creating a virtual environment..."
@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 # Run PyInstaller to create the executable
 echo "Building the Flask app..."
-pyinstaller --name "$EXECUTABLE_NAME" --windowed --onefile --splash "static/assets/splash.png" --icon "static/assets/favicon.ico" --add-data "static:static" "$ENTRYPOINT"
+pyinstaller --name "$EXECUTABLE_NAME" --windowed --onefile --icon "static/assets/favicon.ico" --add-data "server/static:static" "$ENTRYPOINT"
 
 # Move the executable to the root directory
 echo "Moving the executable to the root directory..."

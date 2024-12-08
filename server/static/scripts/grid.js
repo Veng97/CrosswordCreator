@@ -4,7 +4,7 @@ const GRID_SAVE_URL = 'grid/save';
 const GRID_LOAD_URL = 'grid/load';
 
 // Controls the pixel scale of the exported image (higher values result in higher resolution images)
-const IMAGE_EXPORT_SCALE = 4;
+const IMAGE_EXPORT_SCALE = 2;
 
 
 export class Grid {
