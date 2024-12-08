@@ -9,7 +9,7 @@ export class Helper {
     }
 
     async askWord(language, word) {
-        console.log('Asking word: ' + word + ' (' + language + ')');
+        this.msg.textContent = 'Looking for: ' + word;
         try {
             const response = await fetch(HELP_URL + '/' + language + '/' + word);
             if (!response.ok) {

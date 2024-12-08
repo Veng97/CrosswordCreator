@@ -224,7 +224,7 @@ export class Cell {
         if (this.#type !== CellType.CHAR && this.#type !== CellType.STAR) {
             return show_non_char ? '_' : '';
         }
-        return this.#data;
+        return this.#data.toUpperCase();
     }
 
     addHighlight(type = HighlightType.SELECTED) {

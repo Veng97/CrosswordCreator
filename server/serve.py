@@ -75,7 +75,7 @@ def dictionary_save():
 @app.route('/help/<language>/<word>')
 def help(language: str, word: str):
     try:
-        app.logger.info(f'Fetching word: {word}')
+        app.logger.info(f'Fetching word: {word} ({language})')
         return helpers.askWord(language=language, word=word), 200
     except Exception as e:
         msg = f'Failed to fetch word: {e}'

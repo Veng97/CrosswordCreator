@@ -57,6 +57,10 @@ class Helper:
 # Derived Helper Classes
 #########################
 class DanishHelper(Helper):
+    """
+    Connects to https://krydsordexperten.dk/ to get synonyms and patterns for Danish words.
+    """
+
     def askSynonym(self, synonym: str) -> list[str]:
         # Replace Danish characters (only necessary for synonyms)
         synonym = synonym.replace("æ", "ae").replace("ø", "oe").replace("å", "aa")
@@ -85,11 +89,37 @@ class DanishHelper(Helper):
         return words
 
 
+class EnglishHelper(Helper):
+    """
+    Connects to https://www.datamuse.com/api/ to get synonyms and patterns for English words.
+    """
+
+    def askSynonym(self, synonym: str) -> list[str]:
+        response = self.request(f"https://api.datamuse.com/words?ml={synonym}")
+        return self.__parseResponse(response)
+
+    def askPattern(self, pattern: str) -> list[str]:
+        pattern = pattern.replace("_", "?")  # Datamuse uses '?' as a wildcard
+
+        response = self.request(f"https://api.datamuse.com/words?sp={pattern}")
+        return self.__parseResponse(response)
+
+    def __parseResponse(self, response: Response) -> list[str]:
+        # Helper function to grab words from the HTML from thesaurus.com
+        if not response.ok:
+            return []
+
+        words: list[str] = [entry["word"] for entry in response.json()]
+
+        return words
+
+
 #########################
 # Factory Function
 #########################
-HELPERS = {
-    "danish": DanishHelper()
+HELPERS: dict[str, Helper] = {
+    "danish": DanishHelper(),
+    "english": EnglishHelper()
 }
 
 
