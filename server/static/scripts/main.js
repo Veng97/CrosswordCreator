@@ -27,17 +27,17 @@ const saveFileBtn = document.getElementById('save-grid-file');
 loadFileBtn.addEventListener('click', async () => grid.loadFile());
 saveFileBtn.addEventListener('click', async () => grid.saveFile());
 
-// Save the grid when pressing Ctrl+S
+// Save the grid when pressing Ctrl+S or Command+S
 document.addEventListener('keydown', (event) => {
-    if (event.key === 's' && event.ctrlKey) {
+    if (event.key === 's' && (event.ctrlKey || event.metaKey)) {
         event.preventDefault();
         grid.saveFile();
     }
 });
 
-// Load the grid when pressing Ctrl+O
+// Load the grid when pressing Ctrl+O or Command+O
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'o' && event.ctrlKey) {
+    if (event.key === 'o' && (event.ctrlKey || event.metaKey)) {
         event.preventDefault();
         grid.loadFile();
     }
