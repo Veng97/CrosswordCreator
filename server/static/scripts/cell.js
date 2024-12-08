@@ -221,10 +221,12 @@ export class Cell {
     }
 
     getChar(show_non_char = false) {
-        if (!this.isChar()) {
-            return show_non_char ? '_' : '';
+        if (this.#type === CellType.CHAR || this.#type === CellType.STAR) {
+            if (this.#data.length === 1) {
+                return this.#data.toUpperCase();
+            }
         }
-        return this.#data.toUpperCase();
+        return show_non_char ? '_' : '';
     }
 
     isChar() {
