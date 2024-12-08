@@ -1,6 +1,6 @@
 :root {
     /* Control styles */
-    --control-btn-color: #9b99fc;
+    --control-btn-color: rgba(188, 218, 228, 0.418);
     --control-btn-color-hover: #6a68c5;
     /* Grid styles */
     --grid-clr: #000;
@@ -10,7 +10,7 @@
     --cell-blocked-clr: rgb(13, 27, 58);
     --cell-highlight-vertical-clr: rgba(218, 165, 32, 0.3);
     --cell-highlight-horizontal-clr: rgba(138, 43, 226, 0.3);
-    --cell-highlight-secret-clr: rgb(241, 197, 241);
+    --cell-highlight-secret-clr: rgb(241, 197, 241, 0.4);
     /* Hint styles */
     --hint-font-size: 1rem;
     /* Star styles */
