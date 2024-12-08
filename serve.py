@@ -3,8 +3,8 @@ import json
 from waitress import serve
 from flask import Flask, send_file, request
 
-from globals import HOST, PORT, PATH_TO_GRID, PATH_TO_DICT, STATIC_DIR
-from helper import askWord
+import globals
+import helpers
 
 
 app = Flask(__name__)
@@ -12,23 +12,23 @@ app = Flask(__name__)
 
 @app.route('/')
 def serve_index():
-    return send_file(os.path.join(STATIC_DIR, 'index.html'))
+    return send_file(os.path.join(globals.STATIC_DIR, 'index.html'))
 
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_file(os.path.join(STATIC_DIR, 'favicon.ico'), mimetype='image/vnd.microsoft.icon')
+    return send_file(os.path.join(globals.STATIC_DIR, 'favicon.ico'), mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/<path:path>')
 def serve_static(path):
-    return send_file(os.path.join(STATIC_DIR, path))
+    return send_file(os.path.join(globals.STATIC_DIR, path))
 
 
 @app.route('/grid/load')
 def grid_load():
     try:
-        return send_file(PATH_TO_GRID)
+        return send_file(globals.PATH_TO_GRID)
     except Exception as e:
         msg = f'Failed to load grid: {e}'
         app.logger.error(msg)
@@ -38,10 +38,10 @@ def grid_load():
 @app.route('/grid/save', methods=['POST'])
 def grid_save():
     try:
-        with open(PATH_TO_GRID, 'w') as f:
+        with open(globals.PATH_TO_GRID, 'w') as f:
             json.dump(request.json, f, indent=2)
 
-        msg = f'Saved {PATH_TO_GRID}!'
+        msg = f'Saved {globals.PATH_TO_GRID}!'
         app.logger.info(msg)
         return msg, 200
     except Exception as e:
@@ -53,7 +53,7 @@ def grid_save():
 @app.route('/dictionary/load')
 def dictionary_load():
     try:
-        return send_file(PATH_TO_DICT, mimetype='application/json')
+        return send_file(globals.PATH_TO_DICT, mimetype='application/json')
     except Exception as e:
         msg = f'Error loading dictionary file: {e}'
         app.logger.error(msg)
@@ -63,7 +63,7 @@ def dictionary_load():
 @app.route('/dictionary/save', methods=['POST'])
 def dictionary_save():
     try:
-        with open(PATH_TO_DICT, 'w') as f:
+        with open(globals.PATH_TO_DICT, 'w') as f:
             json.dump(request.json, f, indent=2)
         return f'Dictionary saved!', 200
     except Exception as e:
@@ -76,14 +76,14 @@ def dictionary_save():
 def help(language: str, word: str):
     try:
         app.logger.info(f'Fetching word: {word}')
-        return askWord(language=language, word=word), 200
+        return helpers.askWord(language=language, word=word), 200
     except Exception as e:
         msg = f'Failed to fetch word: {e}'
         app.logger.warning(msg)
         return msg, 500
 
 
-def serve_flask_app(host: str = HOST, port: int = PORT, debug: bool = False):
+def serve_flask_app(host: str = globals.HOST, port: int = globals.PORT, debug: bool = False):
     app.logger.info(f'Starting server at http://{host}:{port}')
     if debug:
         # Run the app in debug mode
@@ -93,26 +93,52 @@ def serve_flask_app(host: str = HOST, port: int = PORT, debug: bool = False):
         serve(app, host=host, port=port, _quiet=True)
 
 
-if __name__ == '__main__':
-    # Set up logging
-    import logging
-    from colorlog import ColoredFormatter
+def update_grid_path(path: str, create_if_missing: bool = True):
 
-    formatter = ColoredFormatter(
-        "%(log_color)s[%(asctime)s] %(levelname)s: %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-        log_colors={
-            'DEBUG': 'cyan',
-            'INFO': 'green',
-            'WARNING': 'yellow',
-            'ERROR': 'red',
-            'CRITICAL': 'bold_red',
-        },
-    )
+    # Allow the user to specify either a directory or a file
+    globals.PATH_TO_GRID = path if path.endswith('.json') else os.path.join(path, 'grid.json')
+
+    app.logger.info(f'Updated grid path: {path}')
+
+    if not create_if_missing:
+        return
+
+    # Create the grid file if it doesn't exist
+    if not os.path.isfile(globals.PATH_TO_GRID):
+        app.logger.info(f'Creating default grid at {globals.PATH_TO_GRID}')
+        rows = 10
+        cols = 15
+        grid = [[{'type': 'empty', 'data': ''} for _ in range(cols)] for _ in range(rows)]
+        with open(globals.PATH_TO_GRID, 'w') as f:
+            json.dump(grid, f, indent=2)
+
+
+def update_dict_path(path: str, create_if_missing: bool = True) -> str:
+
+    # Allow the user to specify either a directory or a file
+    globals.PATH_TO_DICT = path if path.endswith('.json') else os.path.join(path, 'dict.json')
+
+    app.logger.info(f'Updated dictionary path: {path}')
+
+    if not create_if_missing:
+        return
+
+    # Create the dictionary file if it doesn't exist
+    if not os.path.isfile(globals.PATH_TO_DICT):
+        app.logger.info(f'Creating default dictionary at {globals.PATH_TO_DICT}')
+        with open(globals.PATH_TO_DICT, 'w') as f:
+            json.dump([], f, indent=2)
+
+
+if __name__ == '__main__':
+    import logging
 
     # Create a StreamHandler for console output
     handler = logging.StreamHandler()
-    handler.setFormatter(formatter)
+    handler.setFormatter(logging.Formatter(
+        "[%(asctime)s] %(levelname)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
+    ))
 
     # Replace Flask's default logger handlers
     app.logger.handlers = []  # Clear existing handlers
@@ -122,22 +148,9 @@ if __name__ == '__main__':
     # Suppress Flask's default HTTP request logs
     logging.getLogger('werkzeug').setLevel(logging.WARNING)
 
-    # Modify the global variables
-    PATH_TO_DICT = os.path.join(os.getcwd(), PATH_TO_DICT)
-    PATH_TO_GRID = os.path.join(os.getcwd(), PATH_TO_GRID)
-
-    # Create the grid file if it doesn't exist
-    if not os.path.isfile(PATH_TO_GRID):
-        rows = 10
-        cols = 15
-        grid = [[{'type': 'empty', 'data': ''} for _ in range(cols)] for _ in range(rows)]
-        with open(PATH_TO_GRID, 'w') as f:
-            json.dump(grid, f, indent=2)
-
-    # Create the dictionary file if it doesn't exist
-    if not os.path.isfile(PATH_TO_DICT):
-        with open(PATH_TO_DICT, 'w') as f:
-            json.dump([], f, indent=2)
+    # Update the global variables
+    update_grid_path(os.path.join(os.getcwd(), 'examples'))
+    update_dict_path(os.path.join(os.getcwd(), 'examples'))
 
     try:
         serve_flask_app(debug=True)
