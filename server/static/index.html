@@ -21,31 +21,36 @@
 
     <div id="grid-tab">
       <div id="grid-controls" class="controls">
-        <div>
-          <input id="word-search" type="text" placeholder="Search word" />
-          <button id="load-grid-file">Load</button>
-          <button id="save-grid-file">Save</button>
-          <button id="export">Export</button>
-        </div>
-        <div>
-          Rows:
+        <input id="word-search" type="text" placeholder="Search word" />
+
+        <button id="load-grid-file">Load</button>
+        <button id="save-grid-file">Save</button>
+        <button id="export">Export</button>
+
+        <div class="group">
+          <p>Rows:</p>
           <button id="add-row"><i class="icon">+</i></button>
           <button id="remove-row"><i class="icon">-</i></button>
-          <button id="shift-up"><i class="icon">&#8593;</i></button>
-          <button id="shift-down"><i class="icon">&#8595;</i></button>
         </div>
-        <div>
-          Columns:
+
+        <div class="group">
+          <p>Columns:</p>
           <button id="add-col"><i class="icon">+</i></button>
           <button id="remove-col"><i class="icon">-</i></button>
-          <button id="shift-left"><i class="icon" style="position:relative;bottom:3px;right:1px;">&#8592;</i></button>
-          <button id="shift-right"><i class="icon" style="position:relative;bottom:3px;right:1px;">&#8594;</i></button>
+        </div>
+
+        <div class="group">
+          <p>Move:</p>
+          <button id="shift-up"><i class="icon">&#8593;</i></button>
+          <button id="shift-down"><i class="icon">&#8595;</i></button>
+          <button id="shift-left"><i class="icon">&#8592;</i></button>
+          <button id="shift-right"><i class="icon">&#8594;</i></button>
         </div>
       </div>
 
-      <div id="grid-container" class="grid" spellcheck="false"></div>
+      <div id="grid-container" spellcheck="false"></div>
 
-      <div id="secret-container" class="secret" spellcheck="false"></div>
+      <div id="secret-container" spellcheck="false"></div>
     </div>
 
     <div id="helper-tab">

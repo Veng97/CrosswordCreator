@@ -68,7 +68,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 /* Styles for controls */
@@ -86,6 +86,7 @@ body {
     cursor: pointer;
     /* Set a consistent height for input, select, and button */
     height: 40px;
+    line-height: 100%;
 }
 
 .controls button {
@@ -104,12 +105,38 @@ body {
 }
 
 .controls button:has(>i) {
-    height: 51px;
-    width: 51px;
+    width: 40px;
 }
 
+/* Styles for grid controls */
+#grid-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#grid-controls .group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+#grid-controls p {
+    margin: 0;
+}
+
+#grid-controls button,
+#grid-controls input {
+    margin: 0;
+}
+
+
 /* Styles for secret */
-.secret {
+#secret-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,15 +146,14 @@ body {
     width: 100%;
     font-size: 2rem;
     text-transform: uppercase;
-    padding: 10px;
-    border: 2px solid var(--grid-clr);
+    padding: 5px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    border: 1px solid var(--grid-clr);
     cursor: pointer;
 }
 
 /* Styles for grid and cells */
-.grid {
+#grid-container {
     display: grid;
     margin-left: auto;
     margin-right: auto;

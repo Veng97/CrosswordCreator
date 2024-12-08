@@ -11,39 +11,39 @@ const search = new Search(grid);
 const dictionary = new Dictionary('dictionary-list', 'dictionary-msg', search);
 const helper = new Helper('helper-list', 'helper-msg', search);
 
-// Load dictionary entries (on page load)
-dictionary.loadFile();
-
-// Load grid data (on page load)
-grid.loadFile();
+// Page elements
+const wordSearch = document.getElementById('word-search');
+const wordAdd = document.getElementById('word-add');
+const wordAskLanguage = document.getElementById('word-ask-language');
+const wordAsk = document.getElementById('word-ask');
 
 // Register callbacks
 grid.onChanges(() => secret.update());
 grid.onChanges(() => dictionary.update());
+grid.onSelected((selectedWord) => helper.askWord(wordAskLanguage.value, selectedWord));
 
-// File controls
-const loadFileBtn = document.getElementById('load-grid-file');
-const saveFileBtn = document.getElementById('save-grid-file');
-loadFileBtn.addEventListener('click', async () => grid.loadFile());
-saveFileBtn.addEventListener('click', async () => grid.saveFile());
-
-// Save the grid when pressing Ctrl+S or Command+S
+// Handle keyboard shortcuts
 document.addEventListener('keydown', (event) => {
+    // Save the grid when pressing Ctrl+S or Command+S
     if (event.key === 's' && (event.ctrlKey || event.metaKey)) {
         event.preventDefault();
         grid.saveFile();
     }
-});
-
-// Load the grid when pressing Ctrl+O or Command+O
-document.addEventListener('keydown', (event) => {
+    // Load the grid when pressing Ctrl+O or Command+O
     if (event.key === 'o' && (event.ctrlKey || event.metaKey)) {
         event.preventDefault();
         grid.loadFile();
     }
+    // Search for word when pressing Ctrl+F or Command+F
+    if (event.key === 'f' && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        wordSearch.focus();
+    }
 });
 
-// Grid controls
+// Controls
+document.getElementById('load-grid-file').addEventListener('click', async () => grid.loadFile());
+document.getElementById('save-grid-file').addEventListener('click', async () => grid.saveFile());
 document.getElementById('add-row').addEventListener('click', () => grid.addRow());
 document.getElementById('add-col').addEventListener('click', () => grid.addColumn());
 document.getElementById('remove-row').addEventListener('click', () => grid.removeRow());
@@ -55,7 +55,6 @@ document.getElementById('shift-right').addEventListener('click', () => grid.shif
 document.getElementById('export').addEventListener('click', () => grid.exportGridContainer());
 
 // Search for word - in grid
-const wordSearch = document.getElementById('word-search');
 wordSearch.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         search.highlightWordLocations(wordSearch.value);
@@ -63,7 +62,6 @@ wordSearch.addEventListener('keypress', (event) => {
 });
 
 // Add word - to dictionary
-const wordAdd = document.getElementById('word-add');
 wordAdd.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         dictionary.addWord(wordAdd.value)
@@ -72,11 +70,14 @@ wordAdd.addEventListener('keypress', (event) => {
 });
 
 // Ask for word
-const wordAskLanguage = document.getElementById('word-ask-language');
-const wordAsk = document.getElementById('word-ask');
 wordAsk.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         helper.askWord(wordAskLanguage.value, wordAsk.value);
     }
 });
-grid.onSelected((selectedWord) => helper.askWord(wordAskLanguage.value, selectedWord));
+
+// Load dictionary entries (on page load)
+dictionary.loadFile();
+
+// Load grid data (on page load)
+grid.loadFile();
