@@ -355,7 +355,7 @@ body {
 .arrow[direction="arrow-up"],
 .arrow[direction="arrow-left"],
 .arrow[direction="arrow-right"] {
-    background-image: url('/assets/arrow-down.svg');
+    background-image: url('./assets/arrow-down.svg');
 }
 
 .arrow[direction="arrow-up"] {
@@ -378,7 +378,7 @@ body {
 .arrow[direction="arrow-left-up"],
 .arrow[direction="arrow-right-down"],
 .arrow[direction="arrow-right-up"] {
-    background-image: url('/assets/arrow-down-right.svg');
+    background-image: url('./assets/arrow-down-right.svg');
 }
 
 .arrow[direction="arrow-down-left"] {
