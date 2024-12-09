@@ -207,7 +207,7 @@ export class Cell {
 
         if (type === CellType.ARROW) {
             this.element.classList.add('arrow');
-            this.element.setAttribute('direction', this.#data);
+            this.element.setAttribute('direction', this.element.innerHTML);
         } else {
             this.element.classList.remove('arrow');
             this.element.removeAttribute('direction');
