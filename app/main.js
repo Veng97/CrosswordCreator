@@ -1,4 +1,4 @@
-import './scripts/thirdparty/html2canvas.js';
+import './scripts/thirdparty/html2canvas.min.js';
 
 import { Dictionary } from './scripts/dictionary.js';
 import { Grid } from './scripts/grid.js';
@@ -79,7 +79,7 @@ wordAsk.addEventListener('keypress', (event) => {
 });
 
 // Load dictionary entries (on page load)
-// dictionary.loadFile();
+dictionary.loadCache();
 
 // Load grid data (on page load)
-// grid.loadFile();
+grid.loadCache();
