@@ -1,7 +1,0 @@
-Flask
-beautifulsoup4
-waitress
-regex
-requests
-customtkinter
-pyinstaller

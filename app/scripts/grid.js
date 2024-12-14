@@ -1,7 +1,6 @@
 import { Cell, HighlightType } from './cell.js';
 
-const GRID_SAVE_URL = 'grid/save';
-const GRID_LOAD_URL = 'grid/load';
+const CACHE_KEY = 'CrosswordCreatorGrid';
 
 // Controls the pixel scale of the exported image (higher values result in higher resolution images)
 const IMAGE_EXPORT_SCALE = 2;
@@ -225,6 +224,8 @@ export class Grid {
         for (let i = 0; i < this.callbacks.length; i++) {
             this.callbacks[i]();
         }
+
+        this.saveCache();
     }
 
     onSelected(callback) {
@@ -323,36 +324,62 @@ export class Grid {
         this.draw();
     }
 
-    async loadFile() {
-        console.log('Loading grid!');
-        try {
-            const response = await fetch(GRID_LOAD_URL);
-            if (!response.ok) {
-                throw new Error(`HTTP Error! Status: ${response.status}`);
-            }
-            this.fromStruct(await response.json());
-        } catch (error) {
-            console.error('Error loading grid:', error);
+
+    async loadCache() {
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        if (!cachedData) {
+            return;
         }
+        console.log('Loading grid from cache!');
+        this.fromStruct(JSON.parse(cachedData));
+    }
+
+    async saveCache() {
+        console.log('Saving grid to cache!');
+        localStorage.setItem(CACHE_KEY, JSON.stringify(this.toStruct()));
+    }
+
+    async loadFile() {
+        // Create an input element to trigger file selection
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+
+        // Trigger file selection
+        input.addEventListener('change', async () => {
+            const file = input.files[0];
+            if (!file) {
+                return;
+            }
+
+            // Read the file as text
+            const text = await file.text();
+            this.fromStruct(JSON.parse(text));
+        });
+
+        input.click();
     }
 
     async saveFile() {
-        console.log('Saving grid!');
-        try {
-            const response = await fetch(GRID_SAVE_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this.toStruct())
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP Error! Status: ${response.status}`);
-            }
-            alert(await response.text());
-        } catch (error) {
-            console.error('Error saving grid:', error);
-        }
+        console.log('Saving grid to file!');
+
+        // Create a Blob from the JSON data
+        const blob = new Blob([JSON.stringify(this.toStruct())], { type: 'application/json' });
+
+        // Create an Object URL for the Blob
+        const url = URL.createObjectURL(blob);
+
+        // Use the URL to trigger the download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'grid.json';
+        a.click();
+
+        // Clean up by revoking the Object URL after the download
+        URL.revokeObjectURL(url);
+
+        // Save the grid to cache
+        this.saveCache();
     }
 
     async exportGridContainer() {

@@ -1,0 +1,13 @@
+FROM node
+
+# Set working directory
+WORKDIR /workspace
+
+# Ensure permissions for VS Code's user
+RUN chown -R node:node /workspace
+
+# Switch to the "node" user
+USER node
+
+# Default shell
+CMD ["bash"]

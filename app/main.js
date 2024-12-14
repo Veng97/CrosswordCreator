@@ -1,8 +1,10 @@
-import { Dictionary } from './dictionary.js';
-import { Grid } from './grid.js';
-import { Helper } from './helper.js';
-import { Search } from './search.js';
-import { Secret } from './secret.js';
+import './scripts/thirdparty/html2canvas.min.js';
+
+import { Dictionary } from './scripts/dictionary.js';
+import { Grid } from './scripts/grid.js';
+import { Helper } from './scripts/helper.js';
+import { Search } from './scripts/search.js';
+import { Secret } from './scripts/secret.js';
 
 // Initialize objects
 const grid = new Grid('grid-container');
@@ -77,7 +79,7 @@ wordAsk.addEventListener('keypress', (event) => {
 });
 
 // Load dictionary entries (on page load)
-dictionary.loadFile();
+dictionary.loadCache();
 
 // Load grid data (on page load)
-grid.loadFile();
+grid.loadCache();

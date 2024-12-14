@@ -1,6 +1,5 @@
 
-const DICTIONARY_LOAD_URL = '/dictionary/load';
-const DICTIONARY_SAVE_URL = '/dictionary/save';
+const CACHE_KEY = 'CrosswordCreatorDictionary';
 
 export class Dictionary {
     constructor(list_id, msg_id, search) {
@@ -8,38 +7,6 @@ export class Dictionary {
         this.msg = document.getElementById(msg_id);
         this.search = search;
         this.data = [];
-    }
-
-    async loadFile() {
-        try {
-            const response = await fetch(DICTIONARY_LOAD_URL);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            this.data = await response.json();
-            this.draw();
-        } catch (error) {
-            console.error('Error loading dictionary:', error);
-        }
-    }
-
-    async saveFile() {
-        try {
-            const response = await fetch(DICTIONARY_SAVE_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this.data)
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP Error! Status: ${response.status}`);
-            }
-            const result = await response.text();
-            console.log(result);
-        } catch (error) {
-            console.error('Error saving dictionary:', error);
-        }
     }
 
     addWord(word) {
@@ -109,5 +76,20 @@ export class Dictionary {
                 countElement.textContent = this.search.findPossibleLocations(wordElement.textContent).length;
             }
         });
+    }
+
+    async loadCache() {
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        if (cachedData) {
+            console.log('Loading dict from cache!');
+            this.data = JSON.parse(cachedData);
+            this.draw();
+        }
+    }
+
+    async saveFile() {
+        // Save in local storage (cache)
+        console.log('Saving dict to cache!');
+        localStorage.setItem(CACHE_KEY, JSON.stringify(this.data));
     }
 };
