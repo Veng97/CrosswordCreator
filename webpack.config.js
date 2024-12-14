@@ -16,7 +16,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './app/index.html',
       inject: 'body', // Inject scripts at the bottom of the body
-      filename: 'index.html', // Change the output HTML file name here
+      filename: 'docs/index.html', // Change the output HTML file name here
 
     }),
     new HtmlInlineScriptPlugin(),
