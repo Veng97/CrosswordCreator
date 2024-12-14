@@ -7,7 +7,7 @@ from tkinter import PhotoImage
 from webbrowser import open as open_browser
 
 import globals
-from serve import app, serve_flask_app, update_dict_path, update_grid_path, update_port
+from serve import app, serve_flask_app, find_available_port
 
 
 class FlaskGUI(ctk.CTk):
@@ -20,7 +20,7 @@ class FlaskGUI(ctk.CTk):
         super().__init__()
         ctk.set_appearance_mode("dark")
         self.title("Crossword Creator (Backend)")
-        self.iconphoto(True, PhotoImage(file=globals.PATH_TO_ICON))
+        # self.iconphoto(True, PhotoImage(file=globals.PATH_TO_ICON))
         self.geometry("800x500")
 
         # Configure things to close the window properly
@@ -29,58 +29,22 @@ class FlaskGUI(ctk.CTk):
 
         # Configure grid layout (2x1)
         self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure((0), weight=0)
-        self.grid_rowconfigure((1), weight=1)
-        self.grid_rowconfigure((2), weight=0)
-
-        self.header = ctk.CTkFrame(self)
-        self.header.grid(row=0, column=0, rowspan=1, sticky="we")
-        self.header.grid_columnconfigure((0, 1), weight=1)
-        self.header.grid_rowconfigure(0, weight=0)
+        self.grid_rowconfigure((0), weight=1)
+        self.grid_rowconfigure((1), weight=0)
 
         self.scrollable = ctk.CTkFrame(self)
-        self.scrollable.grid(row=1, column=0, rowspan=1, columnspan=1, sticky="nsew")
+        self.scrollable.grid(row=0, column=0, rowspan=1, columnspan=1, sticky="nsew")
         self.scrollable.grid_columnconfigure(0, weight=1)
         self.scrollable.grid_rowconfigure(0, weight=1)
 
         self.footer = ctk.CTkFrame(self)
-        self.footer.grid(row=2, column=0, rowspan=1, sticky="nsew")
+        self.footer.grid(row=1, column=0, rowspan=1, sticky="nsew")
         self.footer.grid_columnconfigure((0), weight=1)
         self.footer.grid_columnconfigure((1, 2), weight=0)
         self.footer.grid_rowconfigure(0, weight=0)
 
-        self.configureHeader(self.header)
-        self.configureFooter(self.footer)
         self.configureLogger(self.scrollable)
-
-    def configureHeader(self, frame: ctk.CTkFrame):
-        self.filepath_label = ctk.CTkLabel(frame,
-                                           text=f"Dict: {globals.PATH_TO_DICT}\nGrid: {globals.PATH_TO_GRID}",
-                                           font=ctk.CTkFont(self.FONT_TYPE, self.FONT_SIZE),
-                                           )
-        self.filepath_label.grid(row=0, column=0, padx=20, pady=10, sticky="w")
-
-        # Function to update the path to the grid/dictionary
-        def onChangeFolder():
-            selected_directory: str = ctk.filedialog.askdirectory()
-            if not selected_directory:
-                return
-
-            # Ensure that the grid and dictionary files exist
-            update_grid_path(selected_directory, create_if_missing=True)
-            update_dict_path(selected_directory, create_if_missing=True)
-
-            self.filepath_label.configure(text=f"Dict: {globals.PATH_TO_DICT}\nGrid: {globals.PATH_TO_GRID}")
-
-        self.change_folder_btn = ctk.CTkButton(frame,
-                                               text="Change Folder",
-                                               font=ctk.CTkFont(self.FONT_TYPE, self.FONT_SIZE, weight="bold"),
-                                               height=40,
-                                               fg_color=self.BUTTON_COLOR,
-                                               hover_color=self.BUTTON_HOVER_COLOR,
-                                               command=onChangeFolder,
-                                               )
-        self.change_folder_btn.grid(row=0, column=1, padx=20, pady=10, sticky="e")
+        self.configureFooter(self.footer)
 
     def configureFooter(self, frame: ctk.CTkFrame):
         # Display the URL
@@ -176,12 +140,8 @@ class FlaskGUI(ctk.CTk):
         if hasattr(self, "flask_thread"):
             return
 
-        # Ensure that the grid and dictionary files exist
-        update_grid_path(globals.PATH_TO_GRID, create_if_missing=True)
-        update_dict_path(globals.PATH_TO_DICT, create_if_missing=True)
-
         # Ensure that the port is available
-        update_port()
+        find_available_port()
 
         # When launched with 'daemon=True', the thread will be terminated when the main thread exits
         self.flask_thread = threading.Thread(target=serve_flask_app, daemon=True)
