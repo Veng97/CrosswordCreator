@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 // Base Helper Class
-class Helper {
+class BaseHelper {
     /**
      * Helper class to get synonyms and patterns from external APIs.
      * This class implements a cache for the results to avoid making the same request multiple times.
@@ -58,7 +58,7 @@ class Helper {
 }
 
 // DanishHelper Class
-class DanishHelper extends Helper {
+class DanishHelper extends BaseHelper {
     /**
      * Connects to https://krydsordexperten.dk/ to get synonyms and patterns for Danish words.
      */
@@ -97,7 +97,7 @@ class DanishHelper extends Helper {
 }
 
 // EnglishHelper Class
-class EnglishHelper extends Helper {
+class EnglishHelper extends BaseHelper {
     /**
      * Connects to https://www.datamuse.com/api/ to get synonyms and patterns for English words.
      */
@@ -128,19 +128,54 @@ const HELPERS = {
     english: new EnglishHelper()
 };
 
-async function askWord(language, word) {
-    if (!HELPERS[language]) {
-        throw new Error(`Language '${language}' is not supported.`);
+export class Helper {
+    constructor(list_id, msg_id, search) {
+        this.list = document.getElementById(list_id);
+        this.msg = document.getElementById(msg_id);
+        this.search = search;
+        this.data = [];
     }
-    return HELPERS[language].askWord(word);
-}
 
-// Example usage
-(async () => {
-    try {
-        const result = await askWord("english", "happy");
-        console.log(result);
-    } catch (error) {
-        console.error(error);
+    async askWord(language, word) {
+        if (!HELPERS[language]) {
+            throw new Error(`Language '${language}' is not supported.`);
+        }
+        console.log('Requesting: ' + word + ' (' + language + ')');
+        this.data = await HELPERS[language].askWord(word);
+        this.draw();
     }
-})();
+
+    draw() {
+        if (!this.data) {
+            this.msg.textContent = 'Hmm, something failed :(';
+            return;
+        }
+        console.log('Drawing:', this.data);
+        this.msg.textContent = `${this.data.length} words found`;
+        this.list.innerHTML = '';
+        this.data.forEach(word => this.drawEntry(word));
+    }
+
+    drawEntry(word) {
+        const li = document.createElement('li');
+
+        // Create the span to display the location count
+        const wordLength = document.createElement('span');
+        wordLength.className = 'count';
+        wordLength.textContent = word.length;
+
+        // Add the word as the text content of the li
+        const wordText = document.createElement('span');
+        wordText.className = 'word';
+        wordText.textContent = word;
+
+        // Add click event listener to the li element
+        li.addEventListener('click', () => this.search.highlightWordLocations(word));
+
+        li.appendChild(wordText);
+        li.appendChild(wordLength);
+
+        this.list.appendChild(li);
+    }
+
+};
