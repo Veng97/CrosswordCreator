@@ -4,7 +4,7 @@ from waitress import serve
 from flask import Flask, send_file
 
 import globals
-
+import helpers
 
 app = Flask(__name__)
 
@@ -17,6 +17,17 @@ def serve_index():
 @app.route('/<path:path>')
 def serve_static(path):
     return send_file(os.path.join(globals.STATIC_DIR, path))
+
+
+@app.route('/help/<language>/<word>')
+def help(language: str, word: str):
+    try:
+        app.logger.info(f'Fetching word: {word} ({language})')
+        return helpers.askWord(language=language, word=word), 200
+    except Exception as e:
+        msg = f'Failed to fetch word: {e}'
+        app.logger.warning(msg)
+        return msg, 500
 
 
 def find_available_port() -> int:
