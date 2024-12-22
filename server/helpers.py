@@ -1,3 +1,5 @@
+import threading
+from typing import Optional
 from requests import Response, get
 from bs4 import BeautifulSoup
 from regex import sub
@@ -6,6 +8,8 @@ from regex import sub
 #########################
 # Base Helper Class
 #########################
+
+
 class Helper:
     """
     Helper class to get synonyms and patterns from external API's.
@@ -23,12 +27,9 @@ class Helper:
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Referer': 'http://google.com',
+            'Referer': 'https://www.google.com/',
             'Connection': 'keep-alive',
             'Upgrade-Insecure-Requests': '1',
-            'DNT': '1',
         }
 
     def request(self, url: str) -> Response:
@@ -45,6 +46,15 @@ class Helper:
                 return self.synonyms[word]
             self.synonyms[word] = self.askSynonym(word)
             return self.synonyms[word]
+
+    def cacheWords(self, words: list[str] = ['_', '__', '___'], on_completion: Optional[callable] = None):
+        def runFromThread():
+            for word in words:
+                self.askWord(word)
+            if on_completion:
+                on_completion()
+
+        threading.Thread(target=runFromThread, daemon=True).start()
 
     def askSynonym(self, synonym: str):
         raise NotImplementedError
