@@ -21,7 +21,7 @@ class FlaskGUI(ctk.CTk):
         super().__init__()
         ctk.set_appearance_mode("dark")
         self.title("Crossword Creator (Backend)")
-        # self.iconphoto(True, PhotoImage(file=globals.PATH_TO_ICON))
+        self.iconphoto(True, PhotoImage(file=globals.PATH_TO_ICON))
         self.geometry("800x500")
 
         # Configure things to close the window properly

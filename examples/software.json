@@ -1,0 +1,1190 @@
+[
+  [
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "Office snack"
+    },
+    {
+      "type": "hint",
+      "data": "screen type"
+    },
+    {
+      "type": "hint",
+      "data": "Username"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "Commmand Line Interface"
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "char",
+      "data": "l"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "hint",
+      "data": "coffee alternative"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "rock band"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "char",
+      "data": "d"
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "hint",
+      "data": "random number generator"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "gaming statistic"
+    },
+    {
+      "type": "char",
+      "data": "k"
+    },
+    {
+      "type": "char",
+      "data": "d"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">efficient architecture</div><div contenteditable=\"true\">recon-figurable</div>"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "m"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "hint",
+      "data": "Browser Crumb"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">function notation</div><div contenteditable=\"true\">kernel panic</div>"
+    },
+    {
+      "type": "char",
+      "data": "f"
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "hint",
+      "data": "Bare metal"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">software as chaotic as Mom's secret recipe</div><div contenteditable=\"true\">operates below 1000V</div>"
+    },
+    {
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "char",
+      "data": "p"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "g"
+    },
+    {
+      "type": "char",
+      "data": "h"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "arrow",
+      "data": "arrow-right"
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "d"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "toy company from 1932"
+    },
+    {
+      "type": "char",
+      "data": "l"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "g"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "hint",
+      "data": "infrared"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "hint",
+      "data": "......-Doo"
+    },
+    {
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "b"
+    },
+    {
+      "type": "char",
+      "data": "y"
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "Graphics interface"
+    },
+    {
+      "type": "char",
+      "data": "v"
+    },
+    {
+      "type": "char",
+      "data": "g"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">orange president</div><div contenteditable=\"true\">tiny workers</div>"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "char",
+      "data": "k"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "arrow",
+      "data": "arrow-down"
+    },
+    {
+      "type": "char",
+      "data": "m"
+    },
+    {
+      "type": "hint",
+      "data": "<div contenteditable=\"true\">development board</div><div contenteditable=\"true\">developer of league of legends</div>"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "d"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "particle accelerator"
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "char",
+      "data": "w"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "f"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "called on startup"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "l"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "z"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "embedded operating system"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "char",
+      "data": "s"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "char",
+      "data": "r"
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "has nine lives"
+    },
+    {
+      "type": "char",
+      "data": "c"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "char",
+      "data": "e"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "hint",
+      "data": "universal time"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "blocked",
+      "data": "#"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "char",
+      "data": "i"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "char",
+      "data": "o"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "char",
+      "data": "n"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "arrow",
+      "data": "arrow-down-right"
+    },
+    {
+      "type": "char",
+      "data": "f"
+    },
+    {
+      "type": "char",
+      "data": "a"
+    },
+    {
+      "type": "char",
+      "data": "u"
+    },
+    {
+      "type": "char",
+      "data": "l"
+    },
+    {
+      "type": "char",
+      "data": "t"
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    },
+    {
+      "type": "empty",
+      "data": ""
+    }
+  ]
+]
