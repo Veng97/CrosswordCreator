@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e  # Exit immediately if a command exits with a non-zero status
+cd "$(dirname "$0")" # Go to the directory of this script
 
 # Configuration
-ENTRYPOINT="serve.py"                    # Flask app's entry file (with .py extension)
-EXECUTABLE_NAME="CrossWordHelper"        # Name of the output executable
+ENTRYPOINT="serve_with_gui.py"            # Flask app's entry file (with .py extension)
+EXECUTABLE_NAME="CrossWordHelper"         # Name of the output executable
 
 # Create a virtual environment
 echo "Creating a virtual environment..."
@@ -16,6 +17,9 @@ source .venv/bin/activate
 # Install dependencies
 echo "Installing dependencies..."
 pip install -r requirements.txt
+
+# Go to the app directory
+cd app
 
 # Run PyInstaller to create the executable
 echo "Building the Flask app..."

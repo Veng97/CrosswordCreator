@@ -3,5 +3,4 @@ waitress
 customtkinter
 beautifulsoup4
 requests
-regex
 pyinstaller

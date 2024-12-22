@@ -1,9 +1,9 @@
 import logging
-import threading
 import time
-import queue
 import customtkinter as ctk
 from tkinter import PhotoImage
+from queue import Queue
+from threading import Thread
 from webbrowser import open as open_browser
 
 import globals
@@ -50,7 +50,10 @@ class FlaskGUI(ctk.CTk):
 
         # Cache words for each language
         for language, helper in helpers.HELPERS.items():
-            helper.cacheWords(words=['_', '__', '___', '____', '_____'], on_completion=lambda language=language: app.logger.info(f"Cached words in {language}"))
+            helper.cacheWords(
+                words=['_', '__', '___', '____', '_____', '______', '_______', '________', '_________', '__________'],
+                on_completion=lambda language=language: app.logger.info(f"Cached words in {language}"),
+            )
 
     def configureFooter(self, frame: ctk.CTkFrame):
         # Display the URL
@@ -105,7 +108,7 @@ class FlaskGUI(ctk.CTk):
         ))
 
         # Custom handler to redirect logs to the Text widget
-        self.log_queue = queue.Queue()
+        self.log_queue = Queue()
         handler.emit = lambda record: self.log_queue.put((handler.format(record), record.levelname))
 
         # Periodically poll logs from the queue and update the Text widget
@@ -150,7 +153,7 @@ class FlaskGUI(ctk.CTk):
         find_available_port()
 
         # When launched with 'daemon=True', the thread will be terminated when the main thread exits
-        self.flask_thread = threading.Thread(target=serve_flask_app, daemon=True)
+        self.flask_thread = Thread(target=serve_flask_app, daemon=True)
         self.flask_thread.start()
 
     def draw(self):

@@ -1,9 +1,8 @@
-import threading
+from threading import Thread
 from typing import Optional
 from requests import Response, get
 from bs4 import BeautifulSoup
-from regex import sub
-
+from re import sub
 
 #########################
 # Base Helper Class
@@ -54,7 +53,7 @@ class Helper:
             if on_completion:
                 on_completion()
 
-        threading.Thread(target=runFromThread, daemon=True).start()
+        Thread(target=runFromThread, daemon=True).start()
 
     def askSynonym(self, synonym: str):
         raise NotImplementedError
