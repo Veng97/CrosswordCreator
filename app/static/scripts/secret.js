@@ -34,6 +34,8 @@ export class Secret {
                 }
             }
         });
+
+        this.update();
     };
 
     update() {
