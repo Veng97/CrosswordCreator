@@ -26,7 +26,7 @@ class FlaskGUI(ctk.CTk):
 
         # Configure things to close the window properly
         self.drawing = True
-        self.protocol("WM_DELETE_WINDOW", self.terminate)
+        self.protocol("WM_DELETE_WINDOW", self.__terminate)
 
         # Configure grid layout (2x1)
         self.grid_columnconfigure(0, weight=1)
@@ -44,10 +44,10 @@ class FlaskGUI(ctk.CTk):
         self.footer.grid_columnconfigure((1, 2), weight=0)
         self.footer.grid_rowconfigure(0, weight=0)
 
-        self.configureLogger(self.scrollable)
-        self.configureFooter(self.footer)
+        self.__configureLogger(self.scrollable)
+        self.__configureFooter(self.footer)
 
-    def configureFooter(self, frame: ctk.CTkFrame):
+    def __configureFooter(self, frame: ctk.CTkFrame):
         # Display the URL
         self.url_label = ctk.CTkLabel(frame,
                                       text=f"Idle",
@@ -62,7 +62,7 @@ class FlaskGUI(ctk.CTk):
                                           height=40,
                                           fg_color=self.BUTTON_COLOR,
                                           hover_color=self.BUTTON_HOVER_COLOR,
-                                          command=self.onOpenBrowser,
+                                          command=self.__onOpenBrowser,
                                           )
         self.open_url_btn.grid(row=0, column=2, padx=20, pady=10, sticky="e")
 
@@ -73,11 +73,11 @@ class FlaskGUI(ctk.CTk):
                                        height=40,
                                        fg_color=self.BUTTON_COLOR,
                                        hover_color=self.BUTTON_HOVER_COLOR,
-                                       command=self.onStartServer,
+                                       command=self.__onStartServer,
                                        )
         self.serve_btn.grid(row=0, column=1, padx=20, pady=10, sticky="e")
 
-    def configureLogger(self, frame: ctk.CTkFrame):
+    def __configureLogger(self, frame: ctk.CTkFrame):
         # Add a Text widget to display logs
         self.logger = ctk.CTkTextbox(frame,
                                      font=ctk.CTkFont(self.FONT_TYPE, self.FONT_SIZE),
@@ -121,22 +121,26 @@ class FlaskGUI(ctk.CTk):
         app.logger.addHandler(handler)
         app.logger.setLevel(logging.DEBUG)
 
-    def onStartServer(self):
+    def __onStartServer(self):
         """
         Callback function to start the Flask server
         """
 
         # Start the server
-        self.serve()
+        self.__serve()
 
         # Update the URL label and disable the button
         self.url_label.configure(text=f"Serving: {globals.HOST}:{globals.PORT}", state="disabled")
         self.serve_btn.configure(text="Running", state="disabled")
 
-    def onOpenBrowser(self):
+    def __onOpenBrowser(self):
         open_browser(f"http://{globals.HOST}:{globals.PORT}")
 
-    def serve(self):
+    def __serve(self):
+        """
+        Starts the Flask server in a separate thread.
+        """
+
         # Check if thread member exists; if so, the server is already running
         if hasattr(self, "flask_thread"):
             return
@@ -148,14 +152,21 @@ class FlaskGUI(ctk.CTk):
         self.flask_thread = Thread(target=serve_flask_app, daemon=True)
         self.flask_thread.start()
 
+    def __terminate(self):
+        """
+        Callback function to terminate the GUI application.
+        """
+        self.drawing = False
+
     def draw(self):
+        """
+        Main loop for the GUI. Must be called to draw the GUI.
+        Returns True if the GUI application is still running, False otherwise.
+        """
         if self.drawing:
             self.update()
             self.update_idletasks()
         return self.drawing
-
-    def terminate(self):
-        self.drawing = False
 
 
 if __name__ == "__main__":
