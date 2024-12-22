@@ -7,7 +7,6 @@ from threading import Thread
 from webbrowser import open as open_browser
 
 import globals
-import helpers
 
 from serve import app, serve_flask_app, find_available_port
 
@@ -47,13 +46,6 @@ class FlaskGUI(ctk.CTk):
 
         self.configureLogger(self.scrollable)
         self.configureFooter(self.footer)
-
-        # Cache words for each language
-        for language, helper in helpers.HELPERS.items():
-            helper.cacheWords(
-                words=['_', '__', '___', '____', '_____', '______', '_______', '________', '_________', '__________'],
-                on_completion=lambda language=language: app.logger.info(f"Cached words in {language}"),
-            )
 
     def configureFooter(self, frame: ctk.CTkFrame):
         # Display the URL

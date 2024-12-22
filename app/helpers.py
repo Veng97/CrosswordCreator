@@ -1,5 +1,3 @@
-from threading import Thread
-from typing import Optional
 from requests import Response, get
 from bs4 import BeautifulSoup
 from re import sub
@@ -45,15 +43,6 @@ class Helper:
                 return self.synonyms[word]
             self.synonyms[word] = self.askSynonym(word)
             return self.synonyms[word]
-
-    def cacheWords(self, words: list[str] = ['_', '__', '___'], on_completion: Optional[callable] = None):
-        def runFromThread():
-            for word in words:
-                self.askWord(word)
-            if on_completion:
-                on_completion()
-
-        Thread(target=runFromThread, daemon=True).start()
 
     def askSynonym(self, synonym: str):
         raise NotImplementedError
