@@ -1,0 +1,6 @@
+flask
+waitress
+customtkinter
+beautifulsoup4
+requests
+pyinstaller
