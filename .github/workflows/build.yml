@@ -42,11 +42,11 @@ jobs:
     - name: Archive Executable
       run: |
         if [ ${{ matrix.os }} == 'ubuntu-latest' ]; then
-          mv dist/crossword-creator crossword-creator-linux
+          mv app/dist/crossword-creator crossword-creator-linux
         elif [ ${{ matrix.os }} == 'windows-latest' ]; then
-          move dist\crossword-creator.exe crossword-creator-windows.exe
+          move app/dist\crossword-creator.exe crossword-creator-windows.exe
         elif [ ${{ matrix.os }} == 'macos-latest' ]; then
-          mv dist/crossword-creator crossword-creator-mac
+          mv app/dist/crossword-creator crossword-creator-mac
         fi
       
     - name: Upload Artifact
