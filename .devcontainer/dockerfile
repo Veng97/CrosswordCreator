@@ -1,0 +1,42 @@
+FROM node
+
+# # Install necessary dependencies
+# RUN apt-get update -y \
+#     && apt-get -y install \
+#         libnss3 \
+#         libdbus-1-3 \
+#         libatk1.0-0 \
+#         libatk-bridge2.0-0 \
+#         libcups2 \
+#         libdrm2 \
+#         libgtk-3-0 \
+#         libcanberra-gtk3-module \
+#         libgbm1 \
+#         libasound2 \    
+#         libx11-xcb1 \
+#         libxcomposite1 \
+#         ffmpeg \
+#     && rm -rf /var/lib/apt/lists/*
+
+# RUN apt-get update \
+#   && apt-get install -y dbus dbus-x11 \
+#   && rm -rf /var/lib/apt/lists/* \
+#   # && mkdir -p /var/run/dbus && chmod -R 777 /var/run/dbus \
+#   && chmod 1777 /tmp
+# ENV DBUS_SESSION_BUS_ADDRESS autolaunch:
+# RUN dbus-daemon --system
+
+RUN npm install -g @neutralinojs/neu
+RUN chmod -R 4755 /usr/local/lib/node_modules
+
+# Switch to the "node" user
+USER node
+
+# Set working directory
+WORKDIR /workspace
+
+# Ensure permissions for VS Code's user
+RUN chown -R node:node /workspace
+
+# Default shell
+CMD ["bash"]

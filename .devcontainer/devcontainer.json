@@ -1,0 +1,28 @@
+{
+    "name": "Node.js Dev Container",
+    "build": {
+        "dockerfile": "dockerfile"
+    },
+    "remoteUser": "node",
+    "mounts": [
+        // "source=/var/run/dbus/system_bus_socket,target=/var/run/dbus/system_bus_socket,type=bind",
+        "source=${localWorkspaceFolder},target=/workspace,type=bind"
+    ],
+    "privileged": true,
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "files.exclude": {
+                    "**/node_modules": true
+                }
+            },
+            "vscode": {
+                "extensions": [
+                    "dbaeumer.vscode-eslint",
+                    "esbenp.prettier-vscode"
+                ]
+            }
+        }
+    }
+}

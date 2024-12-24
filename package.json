@@ -1,0 +1,14 @@
+{
+  "name": "crossword-creator",
+  "version": "1.0.0",
+  "description": "Blabla",
+  "scripts": {
+    "start": "electron --no-sandbox ."
+  },
+  "author": "Morten Veng",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "main": "app.js",
+  "keywords": []
+}
