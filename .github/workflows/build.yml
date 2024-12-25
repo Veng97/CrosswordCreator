@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest] #, windows-latest, macos-latest]
+        os: [ubuntu-22.04, ubuntu-24.04, macos-latest, windows-latest]
         python-version: [3.11]
 
     steps:
@@ -36,24 +36,11 @@ jobs:
     - name: Build Executable
       run: |
         cd app
-        pyinstaller --name crossword-creator --windowed --onefile --add-data "static:static" serve_with_gui.py
+        pyinstaller --name crossword-creator-${{ matrix.os }} --windowed --onefile --add-data "static:static" serve_with_gui.py
 
     # Archive the executable
-    - name: Archive Executable
-      run: |
-        if [ ${{ matrix.os }} == 'ubuntu-latest' ]; then
-          mv app/dist/crossword-creator crossword-creator-linux
-        elif [ ${{ matrix.os }} == 'windows-latest' ]; then
-          move app/dist\crossword-creator.exe crossword-creator-windows.exe
-        elif [ ${{ matrix.os }} == 'macos-latest' ]; then
-          mv app/dist/crossword-creator crossword-creator-mac
-        fi
-      
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
         name: built-executables-${{ matrix.os }}
-        path: |
-          crossword-creator-linux
-          crossword-creator-windows.exe
-          crossword-creator-mac
+        path: app/dist/*
