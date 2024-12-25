@@ -5,14 +5,14 @@ on:
     branches:
       - main
   pull_request:
-      types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-24.04, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: [3.11]
 
     steps:
@@ -36,11 +36,25 @@ jobs:
     - name: Build Executable
       run: |
         cd app
-        pyinstaller --name crossword-creator-${{ matrix.os }} --windowed --onefile --add-data "static:static" serve_with_gui.py
+        pyinstaller --name crossword-creator --windowed --onefile --add-data "static:static" serve_with_gui.py
 
-    # Archive the executable
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+    # Upload build artifact for release
+    - name: Create a Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: built-executables-${{ matrix.os }}
-        path: app/dist/*
+        tag_name: v1.0.${{ github.run_number }}
+        release_name: "Version 1.0.${{ github.run_number }}"
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: app/dist/crossword-creator*
+        asset_name: crossword-creator-${{ matrix.os }}
+        asset_content_type: application/octet-stream
