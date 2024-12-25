@@ -39,13 +39,6 @@ jobs:
         cd app
         pyinstaller --name crossword-creator-${{ matrix.os }} --windowed --onefile --add-data "static:static" serve_with_gui.py
 
-    # Upload artifacts
-    - name: Upload Executable
-      uses: actions/upload-artifact@v2
-      with:
-        name: crossword-creator-${{ matrix.os }}
-        path: app/dist/crossword-creator-${{ matrix.os }}*
-
   release:
     needs: build
     runs-on: ubuntu-latest
