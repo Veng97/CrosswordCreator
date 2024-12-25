@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened]
+
+env:
+  RELEASE_VERSION: v1.0.0 # Update this with the version number
 
 jobs:
   create_release:
@@ -17,8 +18,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v1.0.${{ github.run_number }}
-        release_name: v1.0.${{ github.run_number }}
+        tag_name: ${{ env.RELEASE_VERSION }}
+        release_name: ${{ env.RELEASE_VERSION }}
         draft: false
         prerelease: false
     outputs:
@@ -28,7 +29,7 @@ jobs:
     needs: create_release
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-22.04, ubuntu-24.04, macos-latest, windows-latest]
         python-version: [3.11]
     
     runs-on: ${{ matrix.os }}
@@ -64,5 +65,5 @@ jobs:
       with:
         upload_url: ${{ needs.create_release.outputs.upload_url }}
         asset_path: "app/dist/crossword-creator${{ runner.os == 'Windows' && '.exe' || '' }}"
-        asset_name: "crossword-creator-${{ runner.os }}${{ runner.os == 'Windows' && '.exe' || '' }}"
+        asset_name: "crossword-creator-${{ matrix.os }}${{ runner.os == 'Windows' && '.exe' || '' }}"
         asset_content_type: application/octet-stream
