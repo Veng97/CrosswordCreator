@@ -4,7 +4,7 @@
         {
             "label": "Build Python Virtual Environment",
             "type": "shell",
-            "command": "python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt",
+            "command": "poetry install",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -26,13 +26,16 @@
         {
             "label": "Start Python HTTP Server",
             "type": "shell",
-            "command": "python3 app/serve_with_gui.py",
+            "command": "../.venv/bin/flask --app serve run",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
+            "options": {
+                "cwd": "${workspaceFolder}/app"
+            },
             "problemMatcher": [],
-            "detail": "Starts a Python HTTP server on port 8000"
+            "detail": "Starts the server in debug mode"
         }
     ]
 }
