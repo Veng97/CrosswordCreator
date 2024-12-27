@@ -23,28 +23,70 @@
       <div id="grid-controls" class="controls">
         <input id="word-search" type="text" placeholder="Search word" />
 
-        <button id="load-grid-file">Load</button>
-        <button id="save-grid-file">Save</button>
+        <button id="load-grid-file">Upload</button>
+        <button id="save-grid-file">Download</button>
         <button id="export">Export</button>
 
         <div class="group">
           <p>Rows:</p>
-          <button id="add-row"><i class="icon">+</i></button>
-          <button id="remove-row"><i class="icon">-</i></button>
+          <button id="add-row">
+            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 0 V24 M0 12 H 24" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button id="remove-row">
+            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 12 H 24" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
         </div>
 
         <div class="group">
           <p>Columns:</p>
-          <button id="add-col"><i class="icon">+</i></button>
-          <button id="remove-col"><i class="icon">-</i></button>
+          <button id="add-col">
+            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 0 V24 M0 12 H 24" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button id="remove-col">
+            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 12 H 24" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
         </div>
 
         <div class="group">
           <p>Move:</p>
-          <button id="shift-up"><i class="icon">&#8593;</i></button>
-          <button id="shift-down"><i class="icon">&#8595;</i></button>
-          <button id="shift-left"><i class="icon">&#8592;</i></button>
-          <button id="shift-right"><i class="icon">&#8594;</i></button>
+          <button id="shift-up">
+            <svg style="transform: rotate(0deg);" width="20" height="20" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button id="shift-down">
+            <svg style="transform: rotate(180deg);" width="20" height="20" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button id="shift-left">
+            <svg style="transform: rotate(270deg);" width="20" height="20" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button id="shift-right">
+            <svg style="transform: rotate(90deg);" width="20" height="20" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -66,7 +108,7 @@
       <ul id="helper-list" class="word-list"></ul>
     </div>
   </div>
-  
+
   <script type="module" src="main.js"></script>
 
 </body>

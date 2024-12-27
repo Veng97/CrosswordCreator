@@ -1,7 +1,7 @@
 :root {
     /* Control styles */
     --control-btn-color: rgba(188, 218, 228, 0.418);
-    --control-btn-color-hover: #6a68c5;
+    --control-btn-color-hover: rgba(199, 199, 199, 0.4);
     /* Grid styles */
     --grid-clr: #000;
     /* Cell styles */
@@ -100,14 +100,6 @@ body {
     background-color: var(--control-btn-color-hover);
 }
 
-.controls button i {
-    font-size: 24px;
-}
-
-.controls button:has(>i) {
-    width: 40px;
-}
-
 /* Styles for grid controls */
 #grid-controls {
     display: flex;
@@ -125,15 +117,10 @@ body {
     flex-shrink: 0;
 }
 
-#grid-controls p {
-    margin: 0;
-}
-
 #grid-controls button,
 #grid-controls input {
     margin: 0;
 }
-
 
 /* Styles for secret */
 #secret-container {
