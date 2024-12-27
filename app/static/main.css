@@ -30,18 +30,14 @@
     padding: 0;
     box-sizing: border-box;
     user-select: none;
+    font-family: Arial, sans-serif;
 }
 
 /* Page layout */
 body {
     height: 100%;
     width: 100%;
-    font-family: Arial, sans-serif;
     text-align: center;
-}
-
-button {
-    font-family: Arial, sans-serif;
 }
 
 .container {
