@@ -24,9 +24,23 @@
             "detail": "Cleans the Python Virtual Environment for the project (.venv)"
         },
         {
-            "label": "Start Python HTTP Server",
+            "label": "Run Server (Release)",
             "type": "shell",
-            "command": "../.venv/bin/flask --app serve run",
+            "command": "${workspaceFolder}/.venv/bin/gunicorn --bind 0.0.0.0:8080 serve:app",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/app"
+            },
+            "problemMatcher": [],
+            "detail": "Starts the server in release mode"
+        },
+        {
+            "label": "Run Server (Debug)",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/bin/flask --app serve run",
             "group": {
                 "kind": "build",
                 "isDefault": true

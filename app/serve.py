@@ -1,10 +1,23 @@
 import os
+import logging
 from flask import Flask, send_file
 import helpers
 
 STATIC_DIR = os.path.join(os.path.dirname(__file__), 'static')
 
 app = Flask(__name__)
+
+# Create a StreamHandler for console output
+handler = logging.StreamHandler()
+handler.setFormatter(logging.Formatter(
+    "[%(asctime)s] %(levelname)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+))
+
+# Replace Flask's default logger handlers
+app.logger.handlers = []  # Clear existing handlers
+app.logger.addHandler(handler)
+app.logger.setLevel(logging.DEBUG)
 
 
 @app.route('/')
