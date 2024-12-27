@@ -1,6 +1,5 @@
 # Crossword Creator
-
-This repository contains the code for the Crossword Creator domain: https://crosswordcreator.fly.dev/
+This repository contains the code for the Crossword Creator web app: https://crosswordcreator.fly.dev/
 
 ## Setup
 The application is shipped in a Docker container with Python 3.11 and is not tested with earlier versions. Although, it is fairly simple and should work with earlier versions of Python 3!
