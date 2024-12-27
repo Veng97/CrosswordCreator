@@ -40,6 +40,10 @@ body {
     text-align: center;
 }
 
+button {
+    font-family: Arial, sans-serif;
+}
+
 .container {
     display: flex;
     height: 100%;
@@ -76,13 +80,19 @@ body {
     margin-bottom: 20px;
 }
 
+.controls p,
+.controls button,
+.controls input,
+.controls select {
+    font-size: 1rem;
+}
+
 .controls input,
 .controls select,
 .controls button {
     min-width: 50px;
     padding: 8px 15px;
     margin: 5px 0px;
-    font-size: 14px;
     cursor: pointer;
     /* Set a consistent height for input, select, and button */
     height: 40px;
