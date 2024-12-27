@@ -46,6 +46,8 @@ document.addEventListener('keydown', (event) => {
 // Controls
 document.getElementById('load-grid-file').addEventListener('click', async () => grid.loadFile());
 document.getElementById('save-grid-file').addEventListener('click', async () => grid.saveFile());
+document.getElementById('export').addEventListener('click', () => grid.exportGridContainer());
+document.getElementById('clear').addEventListener('click', () => grid.reset());
 document.getElementById('add-row').addEventListener('click', () => grid.addRow());
 document.getElementById('add-col').addEventListener('click', () => grid.addColumn());
 document.getElementById('remove-row').addEventListener('click', () => grid.removeRow());
@@ -54,7 +56,6 @@ document.getElementById('shift-up').addEventListener('click', () => grid.shiftUp
 document.getElementById('shift-down').addEventListener('click', () => grid.shiftDown());
 document.getElementById('shift-left').addEventListener('click', () => grid.shiftLeft());
 document.getElementById('shift-right').addEventListener('click', () => grid.shiftRight());
-document.getElementById('export').addEventListener('click', () => grid.exportGridContainer());
 
 // Search for word - in grid
 wordSearch.addEventListener('keypress', (event) => {

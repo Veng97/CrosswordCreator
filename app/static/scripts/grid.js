@@ -5,6 +5,9 @@ const CACHE_KEY = 'CrosswordCreatorGrid';
 // Controls the pixel scale of the exported image (higher values result in higher resolution images)
 const IMAGE_EXPORT_SCALE = 2;
 
+// Default grid size
+const DEFAULT_WIDTH = 10;
+const DEFAULT_HEIGHT = 10;
 
 export class Grid {
     constructor(id, width = 10, height = 10) {
@@ -17,9 +20,7 @@ export class Grid {
             }
         });
 
-        // Initialize grid with default cells
-        this.cells = Array.from({ length: height }, () => Array.from({ length: width }, () => new Cell()));
-        this.draw();
+        this.reset();
     }
 
     width = () => this.cells[0].length;
@@ -320,7 +321,7 @@ export class Grid {
 
     reset() {
         console.log('Resetting grid!');
-        this.cells = Array.from({ length: this.height() }, () => Array.from({ length: this.width() }, () => new Cell()));
+        this.cells = Array.from({ length: DEFAULT_HEIGHT }, () => Array.from({ length: DEFAULT_WIDTH }, () => new Cell()));
         this.draw();
     }
 
