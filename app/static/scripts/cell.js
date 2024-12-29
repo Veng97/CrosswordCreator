@@ -34,21 +34,33 @@ export class Cell {
     // Private fields
     #type = CellType.EMPTY
     #data = '';
-    #callbacks = [];
+    #callback = null;
 
     constructor({ data, type } = { data: '', type: CellType.EMPTY }) {
+        this.create();
+        this.setData(data);
+        this.setType(type);
+    }
+
+    create() {
         // Create the cell element
         this.element = document.createElement('div');
         this.element.classList.add('cell');
         this.element.contentEditable = true;
 
-        // Set the data and type
-        this.setData(data);
-        this.setType(type);
-
         // Add event listeners
         this.element.addEventListener('input', this.onInput.bind(this));
         this.element.addEventListener('keydown', this.onKeydown.bind(this));
+    }
+
+    reset() {
+        // Reset the cell to its initial state to redeclare event listeners and callbacks
+        this.create();
+
+        this.#callback = null;
+
+        this.setData(this.#data);
+        this.setType(this.#type);
     }
 
     onKeydown(event) {
@@ -251,15 +263,12 @@ export class Cell {
         if (typeof callback !== 'function') {
             throw new Error('Callback must be a function');
         }
-        if (!this.#callbacks) this.#callbacks = [];
-        this.#callbacks.push(callback);
+        this.#callback = callback;
     }
 
     notifyChanges() {
-        if (!this.#callbacks) return;
-        for (let i = 0; i < this.#callbacks.length; i++) {
-            this.#callbacks[i]();
-        }
+        if (!this.#callback) return;
+        this.#callback();
     }
 
     // Serialization and Deserialization Methods

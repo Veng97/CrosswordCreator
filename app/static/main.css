@@ -77,10 +77,11 @@ body {
 #grid-tab {
     flex: 4;
     max-width: 66.666%;
+    max-height: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 /* Responsive layout for small screens */

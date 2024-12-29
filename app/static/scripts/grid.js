@@ -39,6 +39,9 @@ export class Grid {
             for (let col = 0; col < this.width(); col++) {
                 const cell = this.cells[row][col];
 
+                // Reset cell before drawing (to clear any previous event listeners)
+                cell.reset();
+
                 // Notify changes when the cell changes
                 cell.onChanges(() => this.notifyChanges());
 
@@ -73,7 +76,6 @@ export class Grid {
 
                 // Arrow key navigation
                 cell.element.addEventListener('keydown', (event) => {
-
                     // Go to the next cell based on the arrow key pressed
                     let nextRow = row;
                     let nextCol = col;
