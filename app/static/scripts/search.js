@@ -7,7 +7,7 @@ export class Search {
 
     highlightWordLocations(word) {
         if (!word) return
-
+        this.grid.clearHighlights();
         const possibleLocations = this.findPossibleLocations(word);
         possibleLocations.forEach(location => this.highlightWord(word, location));
     }
