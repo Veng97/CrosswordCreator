@@ -1,4 +1,6 @@
 :root {
+    /* Spacing */
+    --element-spacing: 10px;
     /* Control styles */
     --control-btn-color: rgba(188, 218, 228, 0.418);
     --control-btn-color-hover: rgba(199, 199, 199, 0.4);
@@ -61,7 +63,7 @@ body {
     max-height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: var(--element-spacing);
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -71,7 +73,7 @@ body {
     max-height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: var(--element-spacing);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -81,8 +83,8 @@ body {
     max-height: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: var(--element-spacing);
+    padding-bottom: var(--element-spacing);
 }
 
 /* Responsive layout for small screens */
@@ -100,6 +102,7 @@ body {
         max-height: 40%;
         max-width: 50%;
         box-shadow: none;
+        padding-top: 0;
     }
 
     #dictionary-tab {
@@ -146,14 +149,15 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 0px 10px;
-    margin-bottom: 20px;
+    gap: 0px var(--element-spacing);
+    margin-left: var(--element-spacing);
+    margin-right: var(--element-spacing);
 }
 
 #grid-controls .group {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: calc(var(--element-spacing) / 2);
     flex-shrink: 0;
 }
 
@@ -164,12 +168,9 @@ body {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    max-width: 60vw;
-    width: 100%;
-    font-size: 2rem;
+    width: calc(100% - 2 * var(--element-spacing));
     text-transform: uppercase;
     padding: 5px;
-    margin-top: 10px;
     border: 1px solid var(--grid-clr);
     cursor: pointer;
 }
@@ -180,16 +181,11 @@ body {
     margin-left: auto;
     margin-right: auto;
     overflow: auto;
-    max-width: 60vw;
-    width: 100%;
+    min-width: 50%;
+    max-width: 100%;
+    margin: var(--element-spacing);
     /* The inner cells share borders with the neighboring cells. The outer cells needs this wrapper to have the same border width */
     border: 1px solid var(--grid-clr);
-}
-
-@media (max-width: 1024px) {
-    #grid-container {
-        max-width: 95%;
-    }
 }
 
 .cell {
