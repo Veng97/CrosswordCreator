@@ -10,7 +10,7 @@ const DEFAULT_WIDTH = 10;
 const DEFAULT_HEIGHT = 10;
 
 export class Grid {
-    constructor(id, width = 10, height = 10) {
+    constructor(id) {
         this.container = document.getElementById(id);
 
         // Clear highlights on any key press (except while selecting with shift and arrow keys)
@@ -390,12 +390,16 @@ export class Grid {
             onclone: (cloneDoc) => {
                 const clonedContainer = cloneDoc.getElementById('grid-container');
 
-                // Style the container to fully display the grid
-                clonedContainer.style.overflow = 'visible';
-                clonedContainer.style.width = 'auto';
-                clonedContainer.style.height = 'auto';
-                clonedContainer.style.maxWidth = 'none';
-                clonedContainer.style.maxHeight = 'none';
+                // Style the container to fully display the grid (recursively)
+                let element = clonedContainer;
+                while (element) {
+                    element.style.overflow = 'visible';
+                    element.style.width = 'auto';
+                    element.style.height = 'auto';
+                    element.style.maxWidth = 'none';
+                    element.style.maxHeight = 'none';
+                    element = element.parentElement;
+                }
 
                 // Post-process the cloned container
                 for (let i = 0; i < clonedContainer.children.length; i++) {

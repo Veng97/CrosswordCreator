@@ -48,7 +48,7 @@ body {
     text-align: center;
 }
 
-.container {
+#content {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
