@@ -56,27 +56,7 @@ body {
     max-height: 100vh;
 }
 
-#dictionary-tab {
-    flex: 1;
-    max-width: 16.666%;
-    max-height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: var(--element-spacing);
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-#helper-tab {
-    flex: 1;
-    max-width: 16.666%;
-    max-height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: var(--element-spacing);
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-#grid-tab {
+#main-tab {
     flex: 4;
     max-width: 66.666%;
     max-height: 100%;
@@ -86,16 +66,34 @@ body {
     padding-bottom: var(--element-spacing);
 }
 
+#left-tab,
+#right-tab {
+    flex: 1;
+    max-width: 16.666%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--element-spacing);
+}
+
+#left-tab {
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#right-tab {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 /* Responsive layout for small screens */
 @media (max-width: 1024px) {
-    #grid-tab {
+    #main-tab {
         flex: 1 1 100%;
         max-height: 60%;
         max-width: 100%;
     }
 
-    #dictionary-tab,
-    #helper-tab {
+    #left-tab,
+    #right-tab {
         flex: 1 1 50%;
         height: 40%;
         max-height: 40%;
@@ -104,11 +102,11 @@ body {
         padding-top: 0;
     }
 
-    #dictionary-tab {
+    #left-tab {
         order: 1;
     }
 
-    #helper-tab {
+    #right-tab {
         order: 2;
     }
 }
@@ -442,4 +440,32 @@ body {
 
 .arrow[direction="arrow-right-up"] {
     transform: rotate(90deg) scaleX(-1) scaleY(-1);
+}
+
+/* Styling for guides */
+.guide {
+    display: block;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 10px 6px;
+    margin-bottom: 8px;
+    text-align: left;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.guide:first-child {
+    margin-top: 8px;
+}
+
+.guide:hover {
+    background-color: var(--control-btn-color);
+    cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    #guide-list {
+        visibility: hidden;
+    }
 }

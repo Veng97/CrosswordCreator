@@ -11,16 +11,21 @@
 
 <body>
   <div id="content">
-    <div id="dictionary-tab">
+    <div id="left-tab">
       <div id="dictionary-controls" class="controls">
         <input id="word-search" style="width:100%" type="text" placeholder="Search word" />
         <input id="word-add" style="width:100%" type="text" placeholder="Add word" />
       </div>
       <span id="dictionary-msg" class="word-list-msg"></span>
       <ul id="dictionary-list" class="word-list"></ul>
+      <div id="guide-list">
+        <span class="guide">Create empty cells with #</span>
+        <span class="guide">Create arrows with 'arrow-left', 'arrow-right', etc.</span>
+        <span class="guide">Mark secret characters with *</span>
+      </div>
     </div>
 
-    <div id="grid-tab">
+    <div id="main-tab">
       <div id="grid-controls" class="controls">
 
         <button id="clear">Clear</button>
@@ -92,7 +97,7 @@
       <div id="secret-container" spellcheck="false"></div>
     </div>
 
-    <div id="helper-tab">
+    <div id="right-tab">
       <div id="helper-controls" class="controls">
         <select id="word-ask-language" style="width:100%">
           <option value="danish">Danish</option>

@@ -62,7 +62,7 @@ export class Dictionary {
 
     prune() {
         // Remove words that are no longer in the data
-        for (let i = this.list.children.length - 1; i > 0; i--) {
+        for (let i = this.list.children.length - 1; i >= 0; i--) {
             const wordOfNth = this.list.children[i].children[1].textContent; // Selects the word span
             if (!this.data.includes(wordOfNth)) {
                 this.list.children[i].remove();
