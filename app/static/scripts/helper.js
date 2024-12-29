@@ -1,6 +1,9 @@
 const HELP_URL = '/help';
 
 export class Helper {
+    // Private fields
+    #cache = new Map(); // To store the cache
+
     constructor(list_id, msg_id, search) {
         this.list = document.getElementById(list_id);
         this.msg = document.getElementById(msg_id);
@@ -9,26 +12,41 @@ export class Helper {
     }
 
     async askWord(language, word) {
+        if (!word) {
+            return
+        }
+
         this.msg.textContent = 'Looking for: ' + word;
+
+        // Check if the data is in the cache
+        const cacheKey = `${language}-${word}`;
+        if (this.#cache.has(cacheKey)) {
+            this.list.innerHTML = this.#cache.get(cacheKey).innerHTML;
+            this.msg.textContent = `${this.list.children.length} words found`;
+            return;
+        }
+
         try {
             const response = await fetch(HELP_URL + '/' + language + '/' + word);
             if (!response.ok) {
                 throw new Error(`HTTP Error! Status: ${response.status}`);
             }
             this.data = await response.json();
-            this.draw();
         } catch (error) {
             console.error('Error:', error);
+            return;
         }
-    }
 
-    draw() {
-        this.msg.textContent = `${this.data.length} words found`;
+        // Clear the list and draw the new entries
         this.list.innerHTML = '';
-        this.data.forEach(word => this.drawEntry(word));
+        this.data.forEach(word => this.addWordToList(word));
+        this.msg.textContent = `${this.list.children.length} words found`;
+
+        // Store the list in the cache
+        this.#cache.set(cacheKey, this.list.cloneNode(true));
     }
 
-    drawEntry(word) {
+    addWordToList(word) {
         const li = document.createElement('li');
 
         // Create the span to display the location count
@@ -49,5 +67,4 @@ export class Helper {
 
         this.list.appendChild(li);
     }
-
 };
