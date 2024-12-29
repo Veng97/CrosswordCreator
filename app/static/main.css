@@ -338,6 +338,7 @@ body {
     text-align: left;
     flex-grow: 1;
     max-width: calc(100% - 40px);
+    word-wrap: break-word;
 }
 
 .word-list li .word.exists {
