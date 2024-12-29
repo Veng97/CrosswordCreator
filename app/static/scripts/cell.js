@@ -284,3 +284,26 @@ export class Cell {
         this.#data = struct.data;
     }
 }
+
+
+// Handle focus in contenteditable cells - move the cursor to the end of the content
+document.addEventListener('focusin', (event) => {
+    // Skip if the focused element is not a cell
+    if (!event.target.classList.contains('cell') && !event.target.parentElement.classList.contains('cell')) {
+        return;
+    }
+
+    // Check if the focused element should be handled (e.g., contenteditable)
+    if (event.target.isContentEditable) {
+        const range = document.createRange(); // Create a range object
+        const selection = window.getSelection(); // Get the selection object
+
+        // Move the range to the end of the content
+        range.selectNodeContents(event.target);
+        range.collapse(false); // Collapse to the end of the range
+
+        // Clear any existing selection and add the new range
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+});
