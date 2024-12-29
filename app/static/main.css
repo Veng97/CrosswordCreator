@@ -7,16 +7,16 @@
     /* Grid styles */
     --grid-clr: #000;
     /* Cell styles */
-    --cell-font-size: 2rem;
+    --cell-font-size: 1.5rem;
     --cell-selected-clr: rgba(188, 218, 228, 0.418);
     --cell-blocked-clr: rgb(13, 27, 58);
     --cell-highlight-vertical-clr: rgba(218, 165, 32, 0.3);
     --cell-highlight-horizontal-clr: rgba(138, 43, 226, 0.3);
     --cell-highlight-secret-clr: rgb(241, 197, 241, 0.4);
     /* Hint styles */
-    --hint-font-size: 1rem;
+    --hint-font-size: 0.9rem;
     /* Star styles */
-    --star-font-size: 2rem;
+    --star-font-size: 1.8rem;
     --star-clr: rgb(13, 27, 58);
     /* Arrow styles */
     --arrow-clr: rgb(13, 27, 58);
@@ -26,7 +26,6 @@
     --arrow-headlength: 15px;
 }
 
-/* Reset default styles */
 * {
     margin: 0;
     padding: 0;
@@ -178,11 +177,7 @@ body {
 /* Styles for grid and cells */
 #grid-container {
     display: grid;
-    margin-left: auto;
-    margin-right: auto;
     overflow: auto;
-    min-width: 50%;
-    max-width: 100%;
     margin: var(--element-spacing);
     /* The inner cells share borders with the neighboring cells. The outer cells needs this wrapper to have the same border width */
     border: 1px solid var(--grid-clr);
@@ -288,7 +283,7 @@ body {
 }
 
 .cell.hint,
-.cell.arrow {
+.cell.hint div {
     /* Shrink text to fit and allow breaking lines */
     font-size: var(--hint-font-size);
     /* Make hints italic */
