@@ -108,7 +108,6 @@ export class Grid {
 
                         // Check if we should move within the split cells 
                         if (event.key === 'ArrowUp' && activeChild === cell.element.lastChild) {
-                            console.log('ArrowUp');
                             cell.element.firstChild.focus();
                             return;
                         }

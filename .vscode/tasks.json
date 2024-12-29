@@ -40,7 +40,7 @@
         {
             "label": "Run Server (Debug)",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/bin/flask --app serve run",
+            "command": "${workspaceFolder}/.venv/bin/flask --app serve run --debug",
             "group": {
                 "kind": "build",
                 "isDefault": true
