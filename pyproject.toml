@@ -14,8 +14,11 @@ requests = "^2.32.3"
 gunicorn = "^23.0.0"
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^7.1.1"
-pytest = "^8.3.4"
+flake8-pyproject = "^1.2.3"
+
+[tool.flake8]
+max-line-length = 200
+exclude = [".venv", "__pycache__"]
 
 [build-system]
 requires = ["poetry-core"]

@@ -19,7 +19,7 @@ export class Dictionary {
 
     removeWord(word) {
         this.data = this.data.filter(value => value !== word);
-        this.draw();
+        this.prune();
         this.saveFile();
     }
 
@@ -33,8 +33,8 @@ export class Dictionary {
         const li = document.createElement('li');
 
         // Create the remove button and position it to the left
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'X';
+        const removeButton = document.createElement('img');
+        removeButton.src = 'assets/remove-btn.svg';
         removeButton.addEventListener('click', (event) => {
             event.stopPropagation(); // Prevent the parent click event from being triggered
             this.removeWord(word);
@@ -58,6 +58,16 @@ export class Dictionary {
         li.appendChild(locationCount);
 
         this.list.appendChild(li);
+    }
+
+    prune() {
+        // Remove words that are no longer in the data
+        for (let i = this.list.children.length - 1; i > 0; i--) {
+            const wordOfNth = this.list.children[i].children[1].textContent; // Selects the word span
+            if (!this.data.includes(wordOfNth)) {
+                this.list.children[i].remove();
+            }
+        }
     }
 
     update() {
