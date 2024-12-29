@@ -7,7 +7,7 @@
     /* Grid styles */
     --grid-clr: #000;
     /* Cell styles */
-    --cell-font-size: 1.5rem;
+    --cell-font-size: 1.8rem;
     --cell-selected-clr: rgba(188, 218, 228, 0.418);
     --cell-blocked-clr: rgb(13, 27, 58);
     --cell-highlight-vertical-clr: rgba(218, 165, 32, 0.3);
@@ -32,7 +32,7 @@
     box-sizing: border-box;
     user-select: none;
     font-family: Arial, sans-serif;
-    font-size: 1.0rem;
+    font-size: 1.1rem;
 }
 
 @media (max-width: 1024px) {
@@ -451,7 +451,7 @@ body {
     padding: 10px 6px;
     margin-bottom: 8px;
     text-align: left;
-    font-size: 0.9rem;
+    font-size: 1.0rem;
     transition: background-color 0.2s ease-in-out;
 }
 
