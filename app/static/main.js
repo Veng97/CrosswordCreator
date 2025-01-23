@@ -57,6 +57,15 @@ document.getElementById('shift-down').addEventListener('click', () => grid.shift
 document.getElementById('shift-left').addEventListener('click', () => grid.shiftLeft());
 document.getElementById('shift-right').addEventListener('click', () => grid.shiftRight());
 
+// Handle dark mode
+const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+if (prefersDarkMode) {
+    document.body.classList.add('dark-mode');
+}
+document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
+
 // Search for word - in grid
 wordSearch.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {

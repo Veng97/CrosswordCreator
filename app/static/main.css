@@ -1,406 +1,428 @@
 :root {
-    /* Spacing */
-    --element-spacing: 10px;
-    /* Control styles */
-    --control-btn-color: rgba(188, 218, 228, 0.418);
-    --control-btn-color-hover: rgba(199, 199, 199, 0.4);
-    /* Grid styles */
-    --grid-clr: #000;
-    /* Cell styles */
-    --cell-font-size: 1.8rem;
-    --cell-selected-clr: rgba(188, 218, 228, 0.418);
-    --cell-blocked-clr: rgb(13, 27, 58);
-    --cell-highlight-vertical-clr: rgba(218, 165, 32, 0.3);
-    --cell-highlight-horizontal-clr: rgba(138, 43, 226, 0.3);
-    --cell-highlight-secret-clr: rgb(241, 197, 241, 0.4);
-    /* Hint styles */
-    --hint-font-size: 0.9rem;
-    /* Star styles */
-    --star-font-size: 1.8rem;
-    --star-clr: rgb(13, 27, 58);
-    /* Arrow styles */
-    --arrow-clr: rgb(13, 27, 58);
-    --arrow-margin: 15%;
-    --arrow-thickness: 10px;
-    --arrow-headwidth: 10px;
-    --arrow-headlength: 15px;
+  /* Colors */
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --color-inverted: 0;
+  /* Spacing */
+  --element-spacing: 10px;
+  /* Control styles */
+  --control-btn-color: rgba(247, 247, 247, 0.418);
+  --control-btn-color-hover: rgba(199, 199, 199, 0.4);
+  /* Grid styles */
+  --grid-clr: #000;
+  /* Cell styles */
+  --cell-font-size: 1.8rem;
+  --cell-selected-clr: rgba(188, 218, 228, 0.418);
+  --cell-blocked-clr: rgb(13, 27, 58);
+  --cell-highlight-vertical-clr: rgba(218, 165, 32, 0.3);
+  --cell-highlight-horizontal-clr: rgba(138, 43, 226, 0.3);
+  --cell-highlight-secret-clr: rgb(241, 197, 241, 0.4);
+  /* Hint styles */
+  --hint-font-size: 0.9rem;
+  /* Star styles */
+  --star-font-size: 1.8rem;
+  --star-clr: rgb(13, 27, 58);
+  /* Arrow styles */
+  --arrow-clr: rgb(13, 27, 58);
+  --arrow-margin: 15%;
+  --arrow-thickness: 10px;
+  --arrow-headwidth: 10px;
+  --arrow-headlength: 15px;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+body.dark-mode {
+  --background-color: #0c0a0a;
+  --text-color: #ffffff;
+  --color-inverted: 1;
+  --control-btn-color: rgba(39, 39, 39, 0.8);
+  --control-btn-color-hover: rgba(161, 161, 161, 0.8);
+  --grid-clr: #b2b2b8;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    user-select: none;
-    font-family: Arial, sans-serif;
-    font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  font-family: Arial, sans-serif;
+  font-size: 1.1rem;
 }
 
 @media (max-width: 1024px) {
-    * {
-        font-size: 0.9rem;
-    }
+  * {
+    font-size: 0.9rem;
+  }
 }
 
 /* Page layout */
 body {
-    height: 100%;
-    width: 100%;
-    text-align: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
 }
 
 #content {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 100vh;
-    max-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
 }
 
 #main-tab {
-    flex: 4;
-    max-width: 66.666%;
-    max-height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: var(--element-spacing);
-    padding-bottom: var(--element-spacing);
+  flex: 4;
+  max-width: 66.666%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--element-spacing);
+  padding-bottom: var(--element-spacing);
 }
 
 #left-tab,
 #right-tab {
-    flex: 1;
-    max-width: 16.666%;
-    max-height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: var(--element-spacing);
+  flex: 1;
+  max-width: 16.666%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--element-spacing);
 }
 
 #left-tab {
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 #right-tab {
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive layout for small screens */
 @media (max-width: 1024px) {
-    #main-tab {
-        flex: 1 1 100%;
-        max-height: 60%;
-        max-width: 100%;
-    }
+  #main-tab {
+    flex: 1 1 100%;
+    max-height: 60%;
+    max-width: 100%;
+  }
 
-    #left-tab,
-    #right-tab {
-        flex: 1 1 50%;
-        height: 40%;
-        max-height: 40%;
-        max-width: 50%;
-        box-shadow: none;
-        padding-top: 0;
-    }
+  #left-tab,
+  #right-tab {
+    flex: 1 1 50%;
+    height: 40%;
+    max-height: 40%;
+    max-width: 50%;
+    box-shadow: none;
+    padding-top: 0;
+  }
 
-    #left-tab {
-        order: 1;
-    }
+  #left-tab {
+    order: 1;
+  }
 
-    #right-tab {
-        order: 2;
-    }
+  #right-tab {
+    order: 2;
+  }
 }
 
 /* Styles for controls */
 .controls input,
 .controls select,
 .controls button {
-    margin: 2px 0px;
-    padding: 0px 5px;
-    cursor: pointer;
-    line-height: 100%;
-    height: 4vw;
-    max-height: 40px;
-    min-height: 20px;
-}
-
-.controls button {
-    background-color: var(--control-btn-color);
-    transition: background-color 0.3s ease;
+  background-color: var(--control-btn-color);
+  color: var(--text-color);
+  margin: 2px 0px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  line-height: 100%;
+  height: 4vw;
+  max-height: 40px;
+  min-height: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .controls button svg {
-    display: block;
-    width: 2vw;
-    max-width: 20px;
-    min-width: 10px;
+  display: block;
+  width: 2vw;
+  max-width: 20px;
+  min-width: 10px;
+}
+
+.controls button svg path {
+  stroke: var(--text-color);
 }
 
 .controls button:hover {
-    background-color: var(--control-btn-color-hover);
+  background-color: var(--control-btn-color-hover);
 }
 
 /* Styles for grid controls */
 #grid-controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0px var(--element-spacing);
-    margin-left: var(--element-spacing);
-    margin-right: var(--element-spacing);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0px var(--element-spacing);
+  margin-left: var(--element-spacing);
+  margin-right: var(--element-spacing);
 }
 
 #grid-controls .group {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--element-spacing) / 2);
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--element-spacing) / 2);
+  flex-shrink: 0;
 }
 
 /* Styles for secret */
 #secret-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: calc(100% - 2 * var(--element-spacing));
-    text-transform: uppercase;
-    padding: 5px;
-    border: 1px solid var(--grid-clr);
-    cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100% - 2 * var(--element-spacing));
+  text-transform: uppercase;
+  padding: 5px;
+  border: 1px solid var(--grid-clr);
+  cursor: pointer;
 }
 
 /* Styles for grid and cells */
 #grid-container {
-    display: grid;
-    overflow: auto;
-    margin: var(--element-spacing);
-    /* The inner cells share borders with the neighboring cells. The outer cells needs this wrapper to have the same border width */
-    border: 1px solid var(--grid-clr);
+  display: grid;
+  overflow: auto;
+  margin: var(--element-spacing);
+  /* The inner cells share borders with the neighboring cells. The outer cells needs this wrapper to have the same border width */
+  border: 1px solid var(--grid-clr);
 }
 
 .cell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--cell-font-size);
-    text-align: center;
-    text-transform: uppercase;
-    /* Fill available space, but restrict to square cells */
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1 / 1;
-    /* Adds spacing around inner text */
-    padding-left: 4px;
-    padding-right: 4px;
-    /* Highlight grid lines */
-    outline: none;
-    border: 1px solid var(--grid-clr);
-    /* Required for pseudo-elements (highlights) */
-    position: relative;
-    /* Indicate that the cells are selectable */
-    cursor: pointer;
-    /* Break word */
-    word-wrap: break-word;
-    white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--cell-font-size);
+  text-align: center;
+  text-transform: uppercase;
+  /* Fill available space, but restrict to square cells */
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  /* Adds spacing around inner text */
+  padding-left: 4px;
+  padding-right: 4px;
+  /* Highlight grid lines */
+  outline: none;
+  border: 1px solid var(--grid-clr);
+  /* Required for pseudo-elements (highlights) */
+  position: relative;
+  /* Indicate that the cells are selectable */
+  cursor: pointer;
+  /* Break word */
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
-.cell>div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Each sub-cell takes space as needed */
-    flex: 1;
-    width: 100%;
-    /* Adds spacing around inner text */
-    padding-left: 4px;
-    padding-right: 4px;
-    /* Break word */
-    word-wrap: break-word;
-    white-space: pre-wrap;
+.cell > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Each sub-cell takes space as needed */
+  flex: 1;
+  width: 100%;
+  /* Adds spacing around inner text */
+  padding-left: 4px;
+  padding-right: 4px;
+  /* Break word */
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
-.cell>div:first-child {
-    border-bottom: 1px solid var(--grid-clr);
+.cell > div:first-child {
+  border-bottom: 1px solid var(--grid-clr);
 }
 
-.cell>div:last-child {
-    border-top: 1px solid var(--grid-clr);
+.cell > div:last-child {
+  border-top: 1px solid var(--grid-clr);
 }
-
 
 .cell:has(> div) {
-    /* Remove padding for cells with sub-cells */
-    padding: 0;
+  /* Remove padding for cells with sub-cells */
+  padding: 0;
 }
 
 .cell.highlight-selected,
 .cell[contenteditable="true"]:focus,
-.cell>div[contenteditable="true"]:focus {
-    background-color: var(--cell-selected-clr);
+.cell > div[contenteditable="true"]:focus {
+  background-color: var(--cell-selected-clr);
 }
 
 .cell.highlight-vertical::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 4px;
-    background-color: var(--cell-highlight-vertical-clr);
-    transform: translateX(-50%);
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background-color: var(--cell-highlight-vertical-clr);
+  transform: translateX(-50%);
 }
 
 .cell.highlight-horizontal::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    height: 4px;
-    background-color: var(--cell-highlight-horizontal-clr);
-    transform: translateY(-50%);
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  background-color: var(--cell-highlight-horizontal-clr);
+  transform: translateY(-50%);
 }
 
 .cell.highlight-secret {
-    background-color: var(--cell-highlight-secret-clr);
+  background-color: var(--cell-highlight-secret-clr);
 }
 
 .cell:empty,
 .cell div:empty {
-    /* Hide the caret/cursor for empty cells. Otherwise it displays in the top of the div */
-    caret-color: transparent;
+  /* Hide the caret/cursor for empty cells. Otherwise it displays in the top of the div */
+  caret-color: transparent;
 }
 
 .cell::selection {
-    /* Disable default selection background */
-    background: none;
+  /* Disable default selection background */
+  background: none;
 }
 
 .cell.hint,
 .cell.hint div {
-    /* Shrink text to fit and allow breaking lines */
-    font-size: var(--hint-font-size);
-    /* Make hints italic */
-    font-style: italic;
+  /* Shrink text to fit and allow breaking lines */
+  font-size: var(--hint-font-size);
+  /* Make hints italic */
+  font-style: italic;
 }
 
 .cell.blocked {
-    color: var(--cell-blocked-clr);
-    background-color: var(--cell-blocked-clr);
+  color: var(--cell-blocked-clr);
+  background-color: var(--cell-blocked-clr);
 }
 
 .cell.hidden {
-    color: transparent;
+  color: transparent;
 }
 
 .cell.star::before {
-    content: '*';
-    position: absolute;
-    top: 0;
-    /* It seems to align nicely by scaling this by 15% */
-    left: calc(var(--star-font-size) * 0.15);
-    font-size: calc(var(--star-font-size));
-    color: var(--star-clr);
+  content: "*";
+  position: absolute;
+  top: 0;
+  /* It seems to align nicely by scaling this by 15% */
+  left: calc(var(--star-font-size) * 0.15);
+  font-size: calc(var(--star-font-size));
+  color: var(--star-clr);
 }
-
 
 /* Styles for word lists in the sidebars */
 .word-list {
-    flex: 1;
-    overflow-y: auto;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .word-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-transform: uppercase;
-    padding: 0.3rem;
-    border-bottom: 1px solid #ccc;
-    position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  padding: 0.3rem;
+  border-bottom: 1px solid #ccc;
+  position: relative;
 }
 
 .word-list li img {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 .word-list li .word {
-    cursor: pointer;
-    text-align: left;
-    flex-grow: 1;
-    max-width: calc(100% - 40px);
-    word-wrap: break-word;
+  cursor: pointer;
+  text-align: left;
+  flex-grow: 1;
+  max-width: calc(100% - 40px);
+  word-wrap: break-word;
 }
 
 .word-list li .word.exists {
-    color: gray;
-    text-decoration: line-through;
+  color: gray;
+  text-decoration: line-through;
 }
 
 .word-list li .count {
-    min-width: 40px;
-    font-size: 0.8rem;
-    color: gray;
+  min-width: 40px;
+  font-size: 0.8rem;
+  color: gray;
 }
 
 .word-list-msg {
-    color: gray;
-    font-style: italic;
+  color: gray;
+  font-style: italic;
 }
 
-
 .word-list li .count::before {
-    content: '[';
-    position: relative;
+  content: "[";
+  position: relative;
 }
 
 .word-list li .count::after {
-    content: ']';
-    position: relative;
+  content: "]";
+  position: relative;
 }
 
 /* Arrow styles */
 .arrow {
-    position: relative;
-    color: transparent;
-    width: 100%;
-    height: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
+  position: relative;
+  color: transparent;
+  width: 100%;
+  height: 100%;
+  font-size: var(--hint-font-size);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(0) invert(var(--color-inverted));
+  -webkit-filter: brightness(0) invert(var(--color-inverted));
 }
 
 .arrow:focus {
-    color: black;
-    background-image: none !important;
-    transform: none !important;
+  background-image: none !important;
+  transform: none !important;
+  filter: none;
+  color: var(--text-color);
 }
-
 
 .arrow[direction="arrow-down"],
 .arrow[direction="arrow-up"],
 .arrow[direction="arrow-left"],
 .arrow[direction="arrow-right"] {
-    background-image: url('./assets/arrow-down.svg');
+  background-image: url("./assets/arrow-down.svg");
 }
 
 .arrow[direction="arrow-up"] {
-    transform: scaleY(-1);
+  transform: scaleY(-1);
 }
 
 .arrow[direction="arrow-left"] {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .arrow[direction="arrow-right"] {
-    transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 
 .arrow[direction="arrow-down-right"],
@@ -411,61 +433,56 @@ body {
 .arrow[direction="arrow-left-up"],
 .arrow[direction="arrow-right-down"],
 .arrow[direction="arrow-right-up"] {
-    background-image: url('./assets/arrow-down-right.svg');
+  background-image: url("./assets/arrow-down-right.svg");
 }
 
 .arrow[direction="arrow-down-left"] {
-    transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .arrow[direction="arrow-up-right"] {
-    transform: scaleY(-1);
+  transform: scaleY(-1);
 }
 
 .arrow[direction="arrow-up-left"] {
-    transform: scaleX(-1) scaleY(-1);
+  transform: scaleX(-1) scaleY(-1);
 }
 
 .arrow[direction="arrow-left-down"] {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .arrow[direction="arrow-left-up"] {
-    transform: rotate(90deg) scaleX(-1);
+  transform: rotate(90deg) scaleX(-1);
 }
 
 .arrow[direction="arrow-right-down"] {
-    transform: rotate(90deg) scaleY(-1);
+  transform: rotate(90deg) scaleY(-1);
 }
 
 .arrow[direction="arrow-right-up"] {
-    transform: rotate(90deg) scaleX(-1) scaleY(-1);
+  transform: rotate(90deg) scaleX(-1) scaleY(-1);
 }
 
 /* Styling for guides */
 .guide {
-    display: block;
-    background-color: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    padding: 10px 6px;
-    margin-bottom: 8px;
-    text-align: left;
-    font-size: 1.0rem;
-    transition: background-color 0.2s ease-in-out;
+  display: block;
+  background-color: var(--control-btn-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 6px;
+  margin-bottom: 8px;
+  text-align: left;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .guide:first-child {
-    margin-top: 8px;
-}
-
-.guide:hover {
-    background-color: var(--control-btn-color);
-    cursor: pointer;
+  margin-top: 8px;
 }
 
 @media (max-width: 1024px) {
-    #guide-list {
-        visibility: hidden;
-    }
+  #guide-list {
+    visibility: hidden;
+  }
 }

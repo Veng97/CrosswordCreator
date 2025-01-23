@@ -1,119 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crossword Creator</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="main.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crossword Creator</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="main.css">
-</head>
-
-<body>
-  <div id="content">
-    <div id="left-tab">
-      <div id="dictionary-controls" class="controls">
-        <input id="word-search" style="width:100%" type="text" placeholder="Search word" />
-        <input id="word-add" style="width:100%" type="text" placeholder="Add word" />
-      </div>
-      <span id="dictionary-msg" class="word-list-msg"></span>
-      <ul id="dictionary-list" class="word-list"></ul>
-      <div id="guide-list">
-        <span class="guide">Create empty cells with #</span>
-        <span class="guide">Create arrows with 'arrow-left', 'arrow-right', etc.</span>
-        <span class="guide">Mark secret characters with *</span>
-      </div>
-    </div>
-
-    <div id="main-tab">
-      <div id="grid-controls" class="controls">
-
-        <button id="clear">Clear</button>
-        <button id="load-grid-file">Upload</button>
-        <button id="save-grid-file">Download</button>
-        <button id="export">Export</button>
-
-        <div class="group">
-          <p>Rows:</p>
-          <button id="add-row">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 0 V24 M0 12 H 24" stroke="black" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button id="remove-row">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 12 H 24" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
+  <body>
+    <div id="content">
+      <div id="left-tab">
+        <div id="dictionary-controls" class="controls">
+          <input
+            id="word-search"
+            style="width: 100%"
+            type="text"
+            placeholder="Search word"
+          />
+          <input
+            id="word-add"
+            style="width: 100%"
+            type="text"
+            placeholder="Add word"
+          />
         </div>
-
-        <div class="group">
-          <p>Columns:</p>
-          <button id="add-col">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 0 V24 M0 12 H 24" stroke="black" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button id="remove-col">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 12 H 24" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-        </div>
-
-        <div class="group">
-          <p>Move:</p>
-          <button id="shift-up">
-            <svg style="transform: rotate(0deg);" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="black" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button id="shift-down">
-            <svg style="transform: rotate(180deg);" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="black" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button id="shift-left">
-            <svg style="transform: rotate(270deg);" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="black" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button id="shift-right">
-            <svg style="transform: rotate(90deg);" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="black" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
+        <span id="dictionary-msg" class="word-list-msg"></span>
+        <ul id="dictionary-list" class="word-list"></ul>
+        <div id="guide-list">
+          <span class="guide">Split cells into upper/lower parts with |</span>
+          <span class="guide">Create empty cells with #</span>
+          <span class="guide"
+            >Create arrows with 'arrow-left', 'arrow-right', etc.</span
+          >
+          <span class="guide">Mark secret characters with *</span>
         </div>
       </div>
 
-      <div id="grid-container" spellcheck="false"></div>
+      <div id="main-tab">
+        <div id="grid-controls" class="controls">
+          <button id="clear">Clear</button>
+          <button id="load-grid-file">Upload</button>
+          <button id="save-grid-file">Download</button>
+          <button id="export">Export</button>
+          <button id="dark-mode-toggle">🌙</button>
 
-      <div id="secret-container" spellcheck="false"></div>
-    </div>
+          <div class="group">
+            <p>Rows:</p>
+            <button id="add-row">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 0 V24 M0 12 H 24"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button id="remove-row">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0 12 H 24"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
 
-    <div id="right-tab">
-      <div id="helper-controls" class="controls">
-        <select id="word-ask-language" style="width:100%">
-          <option value="danish">Danish</option>
-          <option value="english">English</option>
-          <!-- Add more languages as needed -->
-        </select>
-        <input id="word-ask" style="width:100%" type="text" placeholder="Ask word" />
+          <div class="group">
+            <p>Columns:</p>
+            <button id="add-col">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 0 V24 M0 12 H 24"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button id="remove-col">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0 12 H 24"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="group">
+            <p>Move:</p>
+            <button id="shift-up">
+              <svg
+                style="transform: rotate(0deg)"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 2L12 22M12 2L6 8M12 2L18 8"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button id="shift-down">
+              <svg
+                style="transform: rotate(180deg)"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 2L12 22M12 2L6 8M12 2L18 8"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button id="shift-left">
+              <svg
+                style="transform: rotate(270deg)"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 2L12 22M12 2L6 8M12 2L18 8"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button id="shift-right">
+              <svg
+                style="transform: rotate(90deg)"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 2L12 22M12 2L6 8M12 2L18 8"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="grid-container" spellcheck="false"></div>
+
+        <div id="secret-container" spellcheck="false"></div>
       </div>
-      <span id="helper-msg" class="word-list-msg"></span>
-      <ul id="helper-list" class="word-list"></ul>
+
+      <div id="right-tab">
+        <div id="helper-controls" class="controls">
+          <select id="word-ask-language" style="width: 100%">
+            <option value="danish">Danish</option>
+            <option value="english">English</option>
+            <!-- Add more languages as needed -->
+          </select>
+          <input
+            id="word-ask"
+            style="width: 100%"
+            type="text"
+            placeholder="Ask word"
+          />
+        </div>
+        <span id="helper-msg" class="word-list-msg"></span>
+        <ul id="helper-list" class="word-list"></ul>
+      </div>
     </div>
-  </div>
 
-  <script type="module" src="main.js"></script>
-
-</body>
-
-
+    <script type="module" src="main.js"></script>
+  </body>
 </html>

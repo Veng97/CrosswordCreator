@@ -388,9 +388,11 @@ export class Grid {
         html2canvas(this.container, {
             scale: IMAGE_EXPORT_SCALE,
             onclone: (cloneDoc) => {
-                const clonedContainer = cloneDoc.getElementById('grid-container');
+                // Remove dark mode styling from the cloned document. Noone likes printing a black A4 paper.
+                cloneDoc.body.classList.remove('dark-mode');
 
                 // Style the container to fully display the grid (recursively)
+                const clonedContainer = cloneDoc.getElementById('grid-container');
                 let element = clonedContainer;
                 while (element) {
                     element.style.overflow = 'visible';
