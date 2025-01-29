@@ -201,6 +201,8 @@ body {
   margin: var(--element-spacing);
   /* The inner cells share borders with the neighboring cells. The outer cells needs this wrapper to have the same border width */
   border: 1px solid var(--grid-clr);
+  /* Hide scrollbar - might not work in all browsers, but that's okay. Its only for aesthetic purposes */
+  scrollbar-width: none;
 }
 
 .cell {
